@@ -4,15 +4,83 @@
   <meta charset="utf-8">
   
   
-  <title>evilzeta note</title>
+  <title>linux零基础入门 | evilzeta note</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="evilzeta note">
-<meta property="og:url" content="https://digitblog.us.kg/index.html">
+  <meta name="description" content="【2025版】最新Linux入门教程（非常详细）从零基础入门到精通转自CSDN程序员_大白 文章目录 一、为什么要学linux 二、目录介绍 三、vi &#x2F; vim编辑器 四、网络配置  4.1、修改 IP 地址 4.2、配置主机名  4.2.1、修改主机名称 4.2.2、修改 hosts 映射文件     五、系统配置  5.1、service 服务管理 5.2、systemctl 5.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux零基础入门">
+<meta property="og:url" content="https://digitblog.us.kg/2025/02/21/linux%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/index.html">
 <meta property="og:site_name" content="evilzeta note">
+<meta property="og:description" content="【2025版】最新Linux入门教程（非常详细）从零基础入门到精通转自CSDN程序员_大白 文章目录 一、为什么要学linux 二、目录介绍 三、vi &#x2F; vim编辑器 四、网络配置  4.1、修改 IP 地址 4.2、配置主机名  4.2.1、修改主机名称 4.2.2、修改 hosts 映射文件     五、系统配置  5.1、service 服务管理 5.2、systemctl 5.">
 <meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/e8c9e42cc30eb2f6a898a6a2ebacb469.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/c5c3439429a9f082419e177b79bbd56a.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/39153fbe5377623ca6e8866c8e0af050.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/f0e96a1aa714766eab63f3f95ba55ed2.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/5b169fe1ec2803c16ff8e2c9514b0349.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/c5efe5a5c288c08bdffb5697a16e568c.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/555315586df2631f533f3969026c3800.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/3275a687790a0b26d43cc9982d5d95a9.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/f888e834855b3f2d1f36f831d05cf686.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/41ee3b51ab0ca268466b0a20ff916519.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/633d9adcc53d794488b325127fe05fc5.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/1d895410d02affc4446eae72cb6e5dd8.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/34da75b4ac4d5e4bb20fe6d6fb1d7e77.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/93028611e359408d5d626ac2e34aee14.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/7a38272d4b23554962c38c04f1dfa8d4.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/380d2653feeac764b26cc15f04991fa2.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/88c08b78db8f79e603a719bfb8dd4b4a.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/2ff942c70e5da8be03751962e512ae0e.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/40cc5fba4c069376c3633074adc7942f.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/25c682a6fcc44ca6acd9d5bae09a2b5b.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/a71b8c85177d5d7bf2eaf777b1efb2cd.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/bb863bdb55e371da4a69fb6d5a4ff05c.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/8765e74e3352873e01b38d75342a0081.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/2801c346f77be44cd93fe437b94c3aed.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/97175c25e4ffba9ebc12bf01d4e0aa66.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/dc8f2ac95d6eb82906902ae018463a15.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/45b8855bf81d8b7cf8dafebd29ba8b59.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/f70cb545a0a445d05f0f7eaf38b6e552.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/f44a86c4ac239e6810e178a9f6dce278.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/18d9404b161218f7008e88ec695e7252.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/1e8d705983de01062c15213b70b675a3.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/248e246c05e7caf08d9aa5522cff546e.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/13f851cce58f62eccc02ea7373875902.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/911b17aedb7d8b6cf81f09fa7b148840.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/7c41249e41293eeae9986f9cb6c61646.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/def754594109127cd25ad42f2b3ffb18.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/55915de15d13a99a553b541b805f544e.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/78432eef5bb626bf2016f15d0700d222.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/6471c5989ca5a2e8c4331c9aaee82a3d.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/447d12a2cf0d4e2aec16692b24530e12.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/1f2c79374ad1ca58894f0a754736ffbb.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/cd23e5a3ee9ffcf68d9ce28eb1f3ad7f.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/40394430e6841cccf9dc520912ba1866.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/fc5585d39c0c76259b100ad5965d32f0.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/db809347ab7a4e2d77c24a09a9dad43c.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/767de96a3d101b41f068255e11f06e44.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/1e94bb68bd98f29af8236fb27553a5d4.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/b6ec7d90570055222c3485ff54cc9ab8.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/8301b4b1aa45b8e0c7d07ee071a790bd.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/0a9c337a2a9a1ef4b614d58fe529abb8.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/800767ffb814da69b70d0e1d70e83ec5.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/319dd9cf6aece4dc34b0f79a912d49d6.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/363ea6d6c623e5f2230e0a295aac74fb.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/8da247320f55e332b09d22c4b4032b35.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/7526fbf855df2c1b3b2c2a9120e264ae.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/921bcda9e3fa048e65f0ca929e561e2d.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/1a09c1db16e8e2f42303f7d184ff9c5e.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/d88401e61cdc447d4fe6f0aed631606d.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/9ea6743905a70647476e117280d1f676.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/b90d834586d35ddecfd8b8084c2ddd37.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/452d7d854861deff08a64a745689968f.png#pic_center">
+<meta property="og:image" content="https://i-blog.csdnimg.cn/blog_migrate/98f4f28abc8d8675b39683603ced1dd7.png#pic_center">
+<meta property="article:published_time" content="2025-02-21T07:17:30.000Z">
+<meta property="article:modified_time" content="2025-02-21T07:33:39.684Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="linux">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://i-blog.csdnimg.cn/blog_migrate/e8c9e42cc30eb2f6a898a6a2ebacb469.png#pic_center">
   
     <link rel="alternate" href="/atom.xml" title="evilzeta note" type="application/atom+xml">
   
@@ -69,9 +137,7 @@
 </header>
 
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-linux零基础入门" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-linux零基础入门" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/02/21/linux%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/" class="article-date">
   <time class="dt-published" datetime="2025-02-21T07:17:30.000Z" itemprop="datePublished">2025-02-21</time>
@@ -84,8 +150,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/02/21/linux%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/">linux零基础入门</a>
+    <h1 class="p-name article-title" itemprop="headline name">
+      linux零基础入门
     </h1>
   
 
@@ -711,630 +777,19 @@
     </footer>
   </div>
   
-</article>
-
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-linux入门" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/02/21/linux%E5%85%A5%E9%97%A8/" class="article-date">
-  <time class="dt-published" datetime="2025-02-21T04:45:27.000Z" itemprop="datePublished">2025-02-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/02/21/linux%E5%85%A5%E9%97%A8/">linux入门</a>
-    </h1>
+    <a href="/2025/02/21/linux%E5%85%A5%E9%97%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">linux入门</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>以下是为零基础学习者设计的Linux系统入门到精通的教程大纲，包含实用案例和渐进式学习路径：</p>
-<hr>
-<h3 id="第一阶段：Linux基础入门（1-2周）"><a href="#第一阶段：Linux基础入门（1-2周）" class="headerlink" title="第一阶段：Linux基础入门（1-2周）"></a><strong>第一阶段：Linux基础入门（1-2周）</strong></h3><h4 id="1-Linux系统概述"><a href="#1-Linux系统概述" class="headerlink" title="1. Linux系统概述"></a>1. Linux系统概述</h4><ul>
-<li>什么是Linux？与Windows&#x2F;Mac的区别</li>
-<li>主流发行版介绍（Ubuntu&#x2F;CentOS&#x2F;Debian）</li>
-<li>实验：通过VirtualBox安装Ubuntu虚拟机</li>
-</ul>
-<h4 id="2-终端基础操作"><a href="#2-终端基础操作" class="headerlink" title="2. 终端基础操作"></a>2. 终端基础操作</h4><ul>
-<li><p>终端打开方式与基本结构</p>
-</li>
-<li><p><strong>20个必学命令</strong>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">pwd</span>          <span class="comment"># 显示当前路径</span></span><br><span class="line"><span class="built_in">ls</span> -l        <span class="comment"># 详细文件列表</span></span><br><span class="line"><span class="built_in">cd</span> ~/Documents  <span class="comment"># 切换目录</span></span><br><span class="line"><span class="built_in">mkdir</span> project  <span class="comment"># 创建目录</span></span><br><span class="line"><span class="built_in">touch</span> file.txt  <span class="comment"># 创建空文件</span></span><br><span class="line"><span class="built_in">cp</span> file.txt backup/  <span class="comment"># 复制文件</span></span><br><span class="line"><span class="built_in">rm</span> -r old_dir  <span class="comment"># 删除目录</span></span><br><span class="line"><span class="built_in">cat</span> file.txt   <span class="comment"># 查看文件内容</span></span><br><span class="line">grep <span class="string">&quot;error&quot;</span> log.txt  <span class="comment"># 文本搜索</span></span><br><span class="line"><span class="built_in">sudo</span> apt update  <span class="comment"># 更新软件列表</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>实例：创建<code>/home/user/project</code>目录，在其中创建3个测试文件并备份</p>
-</li>
-</ul>
-<h4 id="3-文件权限管理"><a href="#3-文件权限管理" class="headerlink" title="3. 文件权限管理"></a>3. 文件权限管理</h4><ul>
-<li>理解rwx权限</li>
-<li><code>chmod 755 script.sh</code>（设置可执行权限）</li>
-<li><code>chown user:group file</code>（修改所有者）</li>
-<li>案例：创建共享目录，设置组用户可读写权限</li>
-</ul>
-<hr>
-<h3 id="第二阶段：系统管理实战（2-3周）"><a href="#第二阶段：系统管理实战（2-3周）" class="headerlink" title="第二阶段：系统管理实战（2-3周）"></a><strong>第二阶段：系统管理实战（2-3周）</strong></h3><h4 id="1-用户与组管理"><a href="#1-用户与组管理" class="headerlink" title="1. 用户与组管理"></a>1. 用户与组管理</h4><ul>
-<li>创建用户并设置密码：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> adduser alice</span><br><span class="line"><span class="built_in">sudo</span> passwd alice</span><br></pre></td></tr></table></figure></li>
-<li>用户组管理：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> groupadd developers</span><br><span class="line"><span class="built_in">sudo</span> usermod -aG developers alice</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="2-软件包管理"><a href="#2-软件包管理" class="headerlink" title="2. 软件包管理"></a>2. 软件包管理</h4><ul>
-<li>APT&#x2F;DNF实战：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install nginx      <span class="comment"># 安装Web服务器</span></span><br><span class="line"><span class="built_in">sudo</span> apt remove --purge nano  <span class="comment"># 完全卸载</span></span><br><span class="line"><span class="built_in">sudo</span> apt search python3    <span class="comment"># 搜索软件包</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="3-进程与系统监控"><a href="#3-进程与系统监控" class="headerlink" title="3. 进程与系统监控"></a>3. 进程与系统监控</h4><ul>
-<li>查看进程树：<code>pstree</code></li>
-<li>终止进程：<code>kill -9 1234</code></li>
-<li>系统监控命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">top                <span class="comment"># 动态监控</span></span><br><span class="line">free -h            <span class="comment"># 内存使用</span></span><br><span class="line"><span class="built_in">df</span> -Th             <span class="comment"># 磁盘空间</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="4-定时任务（Cron）"><a href="#4-定时任务（Cron）" class="headerlink" title="4. 定时任务（Cron）"></a>4. 定时任务（Cron）</h4><ul>
-<li>编辑crontab：<code>crontab -e</code></li>
-<li>示例：每天凌晨备份<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 3 * * * tar -czf /backup/home_$(date +\%F).tar.gz /home</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h3 id="第三阶段：Shell脚本编程（2周）"><a href="#第三阶段：Shell脚本编程（2周）" class="headerlink" title="第三阶段：Shell脚本编程（2周）"></a><strong>第三阶段：Shell脚本编程（2周）</strong></h3><h4 id="1-基础脚本开发"><a href="#1-基础脚本开发" class="headerlink" title="1. 基础脚本开发"></a>1. 基础脚本开发</h4><ul>
-<li>第一个脚本<code>hello.sh</code>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Hello, <span class="variable">$USER</span>! Today is <span class="subst">$(date)</span>&quot;</span></span><br></pre></td></tr></table></figure></li>
-<li>执行：<code>chmod +x hello.sh &amp;&amp; ./hello.sh</code></li>
-</ul>
-<h4 id="2-条件与循环"><a href="#2-条件与循环" class="headerlink" title="2. 条件与循环"></a>2. 条件与循环</h4><ul>
-<li>文件存在检查：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ -f <span class="string">&quot;lockfile&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;系统正在维护中...&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;系统正常运行&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure></li>
-<li>批量重命名脚本：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> file <span class="keyword">in</span> *.<span class="built_in">log</span>; <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">mv</span> <span class="string">&quot;<span class="variable">$file</span>&quot;</span> <span class="string">&quot;archive/<span class="subst">$(date +%Y%m%d)</span>_<span class="variable">$file</span>&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="3-实用脚本案例"><a href="#3-实用脚本案例" class="headerlink" title="3. 实用脚本案例"></a>3. 实用脚本案例</h4><ul>
-<li>自动备份脚本：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">BACKUP_DIR=<span class="string">&quot;/backup&quot;</span></span><br><span class="line">SOURCE_DIR=<span class="string">&quot;/var/www&quot;</span></span><br><span class="line">FILENAME=<span class="string">&quot;backup_<span class="subst">$(date +%Y%m%d)</span>.tar.gz&quot;</span></span><br><span class="line"></span><br><span class="line">tar -czf <span class="variable">$BACKUP_DIR</span>/<span class="variable">$FILENAME</span> <span class="variable">$SOURCE_DIR</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;备份完成于 <span class="subst">$(date)</span>&quot;</span> &gt;&gt; <span class="variable">$BACKUP_DIR</span>/backup.log</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h3 id="第四阶段：网络与安全管理（1周）"><a href="#第四阶段：网络与安全管理（1周）" class="headerlink" title="第四阶段：网络与安全管理（1周）"></a><strong>第四阶段：网络与安全管理（1周）</strong></h3><h4 id="1-网络配置"><a href="#1-网络配置" class="headerlink" title="1. 网络配置"></a>1. 网络配置</h4><ul>
-<li>查看IP：<code>ip addr show</code></li>
-<li>设置静态IP（Ubuntu示例）：<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /etc/netplan/01-netcfg.yaml</span></span><br><span class="line"><span class="attr">network:</span></span><br><span class="line">  <span class="attr">version:</span> <span class="number">2</span></span><br><span class="line">  <span class="attr">ethernets:</span></span><br><span class="line">    <span class="attr">eth0:</span></span><br><span class="line">      <span class="attr">dhcp4:</span> <span class="literal">no</span></span><br><span class="line">      <span class="attr">addresses:</span> [<span class="number">192.168</span><span class="number">.1</span><span class="number">.100</span><span class="string">/24</span>]</span><br><span class="line">      <span class="attr">gateway4:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line">      <span class="attr">nameservers:</span></span><br><span class="line">        <span class="attr">addresses:</span> [<span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span>, <span class="number">8.8</span><span class="number">.4</span><span class="number">.4</span>]</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="2-防火墙管理"><a href="#2-防火墙管理" class="headerlink" title="2. 防火墙管理"></a>2. 防火墙管理</h4><ul>
-<li>开放SSH端口：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw allow 22/tcp</span><br><span class="line"><span class="built_in">sudo</span> ufw <span class="built_in">enable</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="3-SSH远程管理"><a href="#3-SSH远程管理" class="headerlink" title="3. SSH远程管理"></a>3. SSH远程管理</h4><ul>
-<li>密钥认证配置：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br><span class="line">ssh-copy-id user@remote-server</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h3 id="第五阶段：开发环境搭建（1周）"><a href="#第五阶段：开发环境搭建（1周）" class="headerlink" title="第五阶段：开发环境搭建（1周）"></a><strong>第五阶段：开发环境搭建（1周）</strong></h3><h4 id="1-Python环境配置"><a href="#1-Python环境配置" class="headerlink" title="1. Python环境配置"></a>1. Python环境配置</h4><ul>
-<li>安装Python虚拟环境：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install python3-venv</span><br><span class="line">python3 -m venv myenv</span><br><span class="line"><span class="built_in">source</span> myenv/bin/activate</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="2-Git版本控制"><a href="#2-Git版本控制" class="headerlink" title="2. Git版本控制"></a>2. Git版本控制</h4><ul>
-<li>基础工作流：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/user/repo.git</span><br><span class="line">git checkout -b feature-branch</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;添加新功能&quot;</span></span><br><span class="line">git push origin feature-branch</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h3 id="第六阶段：高级实战（持续学习）"><a href="#第六阶段：高级实战（持续学习）" class="headerlink" title="第六阶段：高级实战（持续学习）"></a><strong>第六阶段：高级实战（持续学习）</strong></h3><h4 id="1-容器技术入门"><a href="#1-容器技术入门" class="headerlink" title="1. 容器技术入门"></a>1. 容器技术入门</h4><ul>
-<li>Docker快速部署Nginx：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 80:80 --name webserver nginx</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="2-脚本调试技巧"><a href="#2-脚本调试技巧" class="headerlink" title="2. 脚本调试技巧"></a>2. 脚本调试技巧</h4><ul>
-<li>调试模式运行：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -x script.sh</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h3 id="学习资源推荐"><a href="#学习资源推荐" class="headerlink" title="学习资源推荐"></a><strong>学习资源推荐</strong></h3><ul>
-<li>在线练习：<a target="_blank" rel="noopener" href="https://overthewire.org/wargames/bandit/">https://overthewire.org/wargames/bandit/</a></li>
-<li>交互教程：<a target="_blank" rel="noopener" href="https://linuxjourney.com/">https://linuxjourney.com/</a></li>
-<li>经典书籍：《鸟哥的Linux私房菜》《Linux命令行与Shell脚本编程大全》</li>
-<li>社区支持：Stack Overflow、Linux中国论坛</li>
-</ul>
-<hr>
-<p>通过这个系统化的学习路径，配合每天1-2小时的实践操作，零基础学习者可在2-3个月内掌握Linux系统的基础运维和自动化脚本编写能力。关键是多在真实环境中操作，遇到问题善用<code>man</code>手册和网络搜索。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://digitblog.us.kg/2025/02/21/linux%E5%85%A5%E9%97%A8/" data-id="cm7eaqv8000000gv513pk3bbk" data-title="linux入门" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-
-  
-    <article id="post-Linux-shell编程从入门到提高" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/02/20/Linux-shell%E7%BC%96%E7%A8%8B%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%8F%90%E9%AB%98/" class="article-date">
-  <time class="dt-published" datetime="2025-02-20T01:39:28.000Z" itemprop="datePublished">2025-02-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/02/20/Linux-shell%E7%BC%96%E7%A8%8B%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%8F%90%E9%AB%98/">Linux-shell编程从入门到提高</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <h3 id="Linux-Shell-编程：从入门到提高"><a href="#Linux-Shell-编程：从入门到提高" class="headerlink" title="Linux Shell 编程：从入门到提高"></a>Linux Shell 编程：从入门到提高</h3><hr>
-<h4 id="一、Shell-编程基础"><a href="#一、Shell-编程基础" class="headerlink" title="一、Shell 编程基础"></a><strong>一、Shell 编程基础</strong></h4><ol>
-<li><p><strong>什么是 Shell？</strong></p>
-<ul>
-<li>Shell 是用户与 Linux 内核交互的命令行解释器。</li>
-<li>常见的 Shell：<code>Bash</code>（默认）、<code>Zsh</code>、<code>Fish</code>等。</li>
-<li>Shell 脚本：以 <code>.sh</code> 结尾的文本文件，包含一系列命令。</li>
-</ul>
-</li>
-<li><p><strong>第一个 Shell 脚本</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Hello, World!&quot;</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><code>#!/bin/bash</code>（Shebang）：指定脚本解释器。</li>
-<li><code>echo</code>：输出内容到终端。</li>
-</ul>
-</li>
-<li><p><strong>变量与输入输出</strong></p>
-<ul>
-<li><strong>变量定义</strong>：<code>变量名=值</code>（注意等号两边不能有空格）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">name=<span class="string">&quot;Alice&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$name</span>  <span class="comment"># 使用变量需加$</span></span><br></pre></td></tr></table></figure></li>
-<li><strong>输入命令</strong>：<code>read</code><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Enter your name:&quot;</span></span><br><span class="line"><span class="built_in">read</span> name</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Hello, <span class="variable">$name</span>!&quot;</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><strong>条件判断（<code>if</code>语句）</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ 条件 ]; <span class="keyword">then</span></span><br><span class="line">  命令</span><br><span class="line"><span class="keyword">elif</span> [ 其他条件 ]; <span class="keyword">then</span></span><br><span class="line">  命令</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  命令</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-<ul>
-<li><strong>示例</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">num=10</span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$num</span> -gt 5 ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$num</span> 大于 5&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><strong>循环</strong></p>
-<ul>
-<li><strong><code>for</code>循环</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> 1 2 3; <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;数字: <span class="variable">$i</span>&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure></li>
-<li><strong><code>while</code>循环</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">count=0</span><br><span class="line"><span class="keyword">while</span> [ <span class="variable">$count</span> -lt 3 ]; <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;计数: <span class="variable">$count</span>&quot;</span></span><br><span class="line">  ((count++))</span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ol>
-<hr>
-<h4 id="二、Shell-提高技巧"><a href="#二、Shell-提高技巧" class="headerlink" title="二、Shell 提高技巧"></a><strong>二、Shell 提高技巧</strong></h4><ol>
-<li><p><strong>函数定义与调用</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="function"><span class="title">greet</span></span>() &#123;</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;Hello, <span class="variable">$1</span>!&quot;</span>  <span class="comment"># $1 表示第一个参数</span></span><br><span class="line">&#125;</span><br><span class="line">greet <span class="string">&quot;Bob&quot;</span>  <span class="comment"># 输出 &quot;Hello, Bob!&quot;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>参数处理</strong></p>
-<ul>
-<li><code>$0</code>：脚本名称。</li>
-<li><code>$1, $2...</code>：第1、2个参数。</li>
-<li><code>$#</code>：参数总数。</li>
-<li><code>$@</code>：所有参数列表。</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;脚本名称: <span class="variable">$0</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;第一个参数: <span class="variable">$1</span>&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;参数总数: <span class="variable">$#</span>&quot;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>字符串操作</strong></p>
-<ul>
-<li><strong>拼接</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">str1=<span class="string">&quot;Hello&quot;</span></span><br><span class="line">str2=<span class="string">&quot;World&quot;</span></span><br><span class="line">result=<span class="string">&quot;<span class="variable">$str1</span> <span class="variable">$str2</span>&quot;</span></span><br></pre></td></tr></table></figure></li>
-<li><strong>截取</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">str=<span class="string">&quot;abcdef&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;str:0:3&#125;</span>  <span class="comment"># 输出 &quot;abc&quot;</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><strong>数组</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">arr=(<span class="string">&quot;apple&quot;</span> <span class="string">&quot;banana&quot;</span> <span class="string">&quot;cherry&quot;</span>)</span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;arr[1]&#125;</span>    <span class="comment"># 输出 &quot;banana&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;arr[@]&#125;</span>    <span class="comment"># 输出所有元素</span></span><br><span class="line"><span class="built_in">echo</span> <span class="variable">$&#123;#arr[@]&#125;</span>   <span class="comment"># 输出数组长度</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>文件操作</strong></p>
-<ul>
-<li><strong>检查文件是否存在</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ -f <span class="string">&quot;file.txt&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;文件存在&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure></li>
-<li><strong>逐行读取文件</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">while</span> <span class="built_in">read</span> line; <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;行内容: <span class="variable">$line</span>&quot;</span></span><br><span class="line"><span class="keyword">done</span> &lt; file.txt</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-<li><p><strong>正则表达式（<code>grep</code>&#x2F;<code>sed</code>）</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 grep 匹配文本</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;abc123&quot;</span> | grep -E <span class="string">&quot;[a-z]+[0-9]+&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用 sed 替换文本</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;hello world&quot;</span> | sed <span class="string">&#x27;s/world/Linux/&#x27;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>调试脚本</strong></p>
-<ul>
-<li><code>-x</code> 参数：显示执行过程。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -x script.sh</span><br></pre></td></tr></table></figure></li>
-</ul>
-</li>
-</ol>
-<hr>
-<h4 id="三、实例演练"><a href="#三、实例演练" class="headerlink" title="三、实例演练"></a><strong>三、实例演练</strong></h4><ol>
-<li><p><strong>备份文件</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">backup_dir=<span class="string">&quot;/backup&quot;</span></span><br><span class="line">source_dir=<span class="string">&quot;/home/user/docs&quot;</span></span><br><span class="line">timestamp=$(<span class="built_in">date</span> +%Y%m%d)</span><br><span class="line">tar -czf <span class="variable">$backup_dir</span>/backup_<span class="variable">$timestamp</span>.tar.gz <span class="variable">$source_dir</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>监控 CPU 使用率</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">cpu_threshold=80</span><br><span class="line">current_cpu=$(top -bn1 | grep <span class="string">&quot;Cpu(s)&quot;</span> | awk <span class="string">&#x27;&#123;print $2&#125;&#x27;</span>)</span><br><span class="line"><span class="keyword">if</span> (( $(echo &quot;<span class="variable">$current_cpu</span> &gt; <span class="variable">$cpu_threshold</span>&quot; | bc -l) )); <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;CPU 使用率过高: <span class="variable">$current_cpu</span>%&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>批量重命名文件</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">for</span> file <span class="keyword">in</span> *.txt; <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">mv</span> <span class="string">&quot;<span class="variable">$file</span>&quot;</span> <span class="string">&quot;new_<span class="variable">$&#123;file&#125;</span>&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>自动安装软件</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">if</span> ! <span class="built_in">command</span> -v nginx &amp;&gt; /dev/null; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">sudo</span> apt-get update</span><br><span class="line">  <span class="built_in">sudo</span> apt-get install -y nginx</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;Nginx 已安装&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>日志分析（提取错误日志）</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">grep -i <span class="string">&quot;error&quot;</span> /var/log/syslog &gt; errors.log</span><br></pre></td></tr></table></figure></li>
-</ol>
-<hr>
-<h4 id="四、常见问题"><a href="#四、常见问题" class="headerlink" title="四、常见问题"></a><strong>四、常见问题</strong></h4><ol>
-<li><p><strong>权限问题</strong>：脚本需有执行权限。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x script.sh</span><br><span class="line">./script.sh</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>变量作用域</strong>：默认全局，函数内使用 <code>local</code> 定义局部变量。</p>
-</li>
-<li><p><strong>语法错误</strong>：注意空格（如 <code>[ $a -eq $b ]</code> 方括号内必须有空格）。</p>
-</li>
-</ol>
-<hr>
-<h4 id="五、学习资源"><a href="#五、学习资源" class="headerlink" title="五、学习资源"></a><strong>五、学习资源</strong></h4><ul>
-<li><strong>书籍</strong>：<ul>
-<li>《Linux命令行与Shell脚本编程大全》</li>
-<li>《Bash Cookbook》</li>
-</ul>
-</li>
-<li><strong>在线文档</strong>：<ul>
-<li><a target="_blank" rel="noopener" href="https://www.gnu.org/software/bash/manual/">Bash 参考手册</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.runoob.com/linux/linux-shell.html">Shell 脚本教程</a></li>
-</ul>
-</li>
-</ul>
-<hr>
-<p>通过以上内容，你可以逐步掌握 Shell 编程的核心功能。<strong>多实践</strong>是提高的关键！</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://digitblog.us.kg/2025/02/20/Linux-shell%E7%BC%96%E7%A8%8B%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%8F%90%E9%AB%98/" data-id="cm7cof5v60000cwv5eceqgy48" data-title="Linux-shell编程从入门到提高" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-debian自动备份脚本及恢复测试方案" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/02/19/debian%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC%E5%8F%8A%E6%81%A2%E5%A4%8D%E6%B5%8B%E8%AF%95%E6%96%B9%E6%A1%88/" class="article-date">
-  <time class="dt-published" datetime="2025-02-19T09:44:29.000Z" itemprop="datePublished">2025-02-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/02/19/debian%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC%E5%8F%8A%E6%81%A2%E5%A4%8D%E6%B5%8B%E8%AF%95%E6%96%B9%E6%A1%88/">debian自动备份脚本及恢复测试方案</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>以下是一个用于Debian系统的自动备份脚本及恢复测试的详细方案，包含脚本说明和操作指南：</p>
-<hr>
-<h3 id="一、自动备份脚本-backup-script-sh"><a href="#一、自动备份脚本-backup-script-sh" class="headerlink" title="一、自动备份脚本 backup_script.sh"></a>一、自动备份脚本 <code>backup_script.sh</code></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置部分</span></span><br><span class="line">BACKUP_DIRS=<span class="string">&quot;/etc /home&quot;</span>    <span class="comment"># 需要备份的目录</span></span><br><span class="line">DEST_DIR=<span class="string">&quot;/backups&quot;</span>         <span class="comment"># 备份文件存储目录</span></span><br><span class="line">RETENTION_DAYS=7            <span class="comment"># 备份保留天数</span></span><br><span class="line">LOG_FILE=<span class="string">&quot;/var/log/backup.log&quot;</span> <span class="comment"># 日志文件路径</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建备份目录和日志文件</span></span><br><span class="line"><span class="built_in">mkdir</span> -p <span class="string">&quot;<span class="variable">$DEST_DIR</span>&quot;</span></span><br><span class="line"><span class="built_in">touch</span> <span class="string">&quot;<span class="variable">$LOG_FILE</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成备份文件名</span></span><br><span class="line">TIMESTAMP=$(<span class="built_in">date</span> +%Y%m%d-%H%M%S)</span><br><span class="line">BACKUP_FILE=<span class="string">&quot;<span class="variable">$DEST_DIR</span>/backup-<span class="variable">$TIMESTAMP</span>.tar.gz&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行备份</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;[<span class="subst">$(date +%Y-%m-%d\ %H:%M:%S)</span>] 开始备份...&quot;</span> | <span class="built_in">tee</span> -a <span class="string">&quot;<span class="variable">$LOG_FILE</span>&quot;</span></span><br><span class="line">tar -czf <span class="string">&quot;<span class="variable">$BACKUP_FILE</span>&quot;</span> <span class="variable">$BACKUP_DIRS</span> 2&gt;&gt; <span class="string">&quot;<span class="variable">$LOG_FILE</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查备份结果</span></span><br><span class="line"><span class="keyword">if</span> [ $? -eq 0 ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;[<span class="subst">$(date +%Y-%m-%d\ %H:%M:%S)</span>] 备份成功：<span class="variable">$BACKUP_FILE</span>&quot;</span> | <span class="built_in">tee</span> -a <span class="string">&quot;<span class="variable">$LOG_FILE</span>&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;[<span class="subst">$(date +%Y-%m-%d\ %H:%M:%S)</span>] 备份失败！请检查日志！&quot;</span> | <span class="built_in">tee</span> -a <span class="string">&quot;<span class="variable">$LOG_FILE</span>&quot;</span></span><br><span class="line">  <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 清理旧备份</span></span><br><span class="line">find <span class="string">&quot;<span class="variable">$DEST_DIR</span>&quot;</span> -name <span class="string">&quot;backup-*.tar.gz&quot;</span> -<span class="built_in">type</span> f -mtime +<span class="variable">$RETENTION_DAYS</span> -delete</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;[<span class="subst">$(date +%Y-%m-%d\ %H:%M:%S)</span>] 已清理超过<span class="variable">$&#123;RETENTION_DAYS&#125;</span>天的旧备份&quot;</span> | <span class="built_in">tee</span> -a <span class="string">&quot;<span class="variable">$LOG_FILE</span>&quot;</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="二、恢复脚本-restore-script-sh"><a href="#二、恢复脚本-restore-script-sh" class="headerlink" title="二、恢复脚本 restore_script.sh"></a>二、恢复脚本 <code>restore_script.sh</code></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置部分</span></span><br><span class="line">DEST_DIR=<span class="string">&quot;/backups&quot;</span>        <span class="comment"># 备份文件存储目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出可用备份</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;可用的备份文件：&quot;</span></span><br><span class="line"><span class="built_in">ls</span> -lh <span class="variable">$DEST_DIR</span>/backup-*.tar.gz | awk <span class="string">&#x27;&#123;print NR &quot;) &quot; $NF&#125;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择备份文件</span></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">&quot;请输入要恢复的备份编号: &quot;</span> NUM</span><br><span class="line">BACKUP_FILES=(<span class="variable">$DEST_DIR</span>/backup-*.tar.gz)</span><br><span class="line">SELECTED_FILE=<span class="variable">$&#123;BACKUP_FILES[$((NUM-1))]&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 确认恢复</span></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">&quot;即将恢复 <span class="variable">$SELECTED_FILE</span> 到原始位置，确认吗？[y/N] &quot;</span> CONFIRM</span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$CONFIRM</span> =~ [yY] ]]; <span class="keyword">then</span></span><br><span class="line">  tar -xzf <span class="string">&quot;<span class="variable">$SELECTED_FILE</span>&quot;</span> -C /</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;[<span class="subst">$(date +%Y-%m-%d\ %H:%M:%S)</span>] 恢复完成：<span class="variable">$SELECTED_FILE</span>&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;操作已取消&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="三、部署与使用说明"><a href="#三、部署与使用说明" class="headerlink" title="三、部署与使用说明"></a>三、部署与使用说明</h3><h4 id="1-安装脚本"><a href="#1-安装脚本" class="headerlink" title="1. 安装脚本"></a>1. 安装脚本</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建脚本文件</span></span><br><span class="line"><span class="built_in">sudo</span> nano /usr/local/bin/backup_script.sh</span><br><span class="line"><span class="built_in">sudo</span> nano /usr/local/bin/restore_script.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 赋予执行权限</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x /usr/local/bin/backup_script.sh</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x /usr/local/bin/restore_script.sh</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-配置定时任务（每日凌晨2点执行）"><a href="#2-配置定时任务（每日凌晨2点执行）" class="headerlink" title="2. 配置定时任务（每日凌晨2点执行）"></a>2. 配置定时任务（每日凌晨2点执行）</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> crontab -e</span><br><span class="line"><span class="comment"># 添加以下内容：</span></span><br><span class="line">0 2 * * * /usr/local/bin/backup_script.sh</span><br></pre></td></tr></table></figure>
-
-<h4 id="3-测试备份"><a href="#3-测试备份" class="headerlink" title="3. 测试备份"></a>3. 测试备份</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> /usr/local/bin/backup_script.sh</span><br><span class="line"><span class="comment"># 检查备份文件</span></span><br><span class="line"><span class="built_in">ls</span> -lh /backups/</span><br><span class="line"><span class="comment"># 查看日志</span></span><br><span class="line"><span class="built_in">tail</span> -f /var/log/backup.log</span><br></pre></td></tr></table></figure>
-
-<h4 id="4-恢复测试"><a href="#4-恢复测试" class="headerlink" title="4. 恢复测试"></a>4. 恢复测试</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 创建测试文件</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">touch</span> /etc/test-file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 执行备份</span></span><br><span class="line"><span class="built_in">sudo</span> backup_script.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 删除测试文件</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> /etc/test-file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 执行恢复</span></span><br><span class="line"><span class="built_in">sudo</span> restore_script.sh</span><br><span class="line"><span class="comment"># 按提示选择备份编号并确认</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 验证恢复结果</span></span><br><span class="line"><span class="built_in">ls</span> -l /etc/test-file.txt</span><br></pre></td></tr></table></figure>
-
-<hr>
-<h3 id="四、关键功能说明"><a href="#四、关键功能说明" class="headerlink" title="四、关键功能说明"></a>四、关键功能说明</h3><ol>
-<li><p><strong>备份策略</strong></p>
-<ul>
-<li>使用<code>tar</code>进行压缩打包</li>
-<li>自动清理旧备份（默认保留7天）</li>
-<li>详细日志记录在<code>/var/log/backup.log</code></li>
-</ul>
-</li>
-<li><p><strong>恢复机制</strong></p>
-<ul>
-<li>交互式选择备份文件</li>
-<li>恢复前二次确认</li>
-<li>直接覆盖原始路径设计</li>
-</ul>
-</li>
-<li><p><strong>安全建议</strong></p>
-<ul>
-<li>建议将<code>DEST_DIR</code>设置为独立分区</li>
-<li>如需远程备份，可挂载NFS或使用rsync</li>
-<li>敏感数据建议加密备份（可添加<code>-j</code>选项使用bzip2压缩）</li>
-</ul>
-</li>
-<li><p><strong>错误排查</strong></p>
-<ul>
-<li>检查<code>/var/log/backup.log</code>错误信息</li>
-<li>确认脚本有执行权限</li>
-<li>确保存储目录有足够空间</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h3 id="五、扩展建议"><a href="#五、扩展建议" class="headerlink" title="五、扩展建议"></a>五、扩展建议</h3><ol>
-<li><p><strong>邮件通知</strong><br>可在脚本中添加<code>mail</code>命令，在失败时发送报警邮件</p>
-</li>
-<li><p><strong>远程备份</strong><br>添加以下命令到备份脚本末尾：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -avz <span class="variable">$DEST_DIR</span>/backup-*.tar.gz user@remote:/remote/backup/</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>完整性检查</strong><br>在恢复前添加验证步骤：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -tzf <span class="variable">$SELECTED_FILE</span> &gt; /dev/null &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;备份文件有效&quot;</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<p>这个方案提供了从备份到验证的完整闭环，建议首次部署后通过模拟故障恢复进行全流程测试。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://digitblog.us.kg/2025/02/19/debian%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC%E5%8F%8A%E6%81%A2%E5%A4%8D%E6%B5%8B%E8%AF%95%E6%96%B9%E6%A1%88/" data-id="cm7bqlnrx0000g4v58ro730t0" data-title="debian自动备份脚本及恢复测试方案" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-Kylin-Linux-Advanced-Server备份与恢复" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/02/19/Kylin-Linux-Advanced-Server%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" class="article-date">
-  <time class="dt-published" datetime="2025-02-19T03:05:00.000Z" itemprop="datePublished">2025-02-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/02/19/Kylin-Linux-Advanced-Server%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/">Kylin-Linux-Advanced-Server备份与恢复</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>在Kylin Linux Advanced Server V10上，可以通过以下步骤实现按月自动备份关键文件到本机指定位置，并测试数据恢复。我们将使用<code>cron</code>来调度备份任务，并使用<code>tar</code>命令进行文件打包和压缩。</p>
-<h3 id="1-备份原理"><a href="#1-备份原理" class="headerlink" title="1. 备份原理"></a>1. 备份原理</h3><ul>
-<li><strong>备份</strong>：使用<code>tar</code>命令将关键文件打包并压缩，保存到指定目录。</li>
-<li><strong>自动化</strong>：使用<code>cron</code>设置每月定时任务，自动执行备份脚本。</li>
-<li><strong>恢复测试</strong>：从备份文件中解压数据，验证文件完整性和可恢复性。</li>
-</ul>
-<h3 id="2-具体步骤"><a href="#2-具体步骤" class="headerlink" title="2. 具体步骤"></a>2. 具体步骤</h3><h4 id="2-1-创建备份脚本"><a href="#2-1-创建备份脚本" class="headerlink" title="2.1 创建备份脚本"></a>2.1 创建备份脚本</h4><p>创建一个备份脚本，例如<code>backup.sh</code>，并将其放在<code>/usr/local/bin/</code>目录下。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义备份目录和文件名</span></span><br><span class="line">BACKUP_DIR=<span class="string">&quot;/backup&quot;</span></span><br><span class="line">BACKUP_NAME=<span class="string">&quot;backup_<span class="subst">$(date +%Y%m)</span>.tar.gz&quot;</span></span><br><span class="line">SOURCE_DIRS=(<span class="string">&quot;/etc&quot;</span> <span class="string">&quot;/home&quot;</span> <span class="string">&quot;/var/www&quot;</span>)  <span class="comment"># 需要备份的目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建备份目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p <span class="variable">$BACKUP_DIR</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 打包并压缩文件</span></span><br><span class="line">tar -czf <span class="variable">$BACKUP_DIR</span>/<span class="variable">$BACKUP_NAME</span> <span class="variable">$&#123;SOURCE_DIRS[@]&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查备份是否成功</span></span><br><span class="line"><span class="keyword">if</span> [ $? -eq 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;备份成功: <span class="variable">$BACKUP_DIR</span>/<span class="variable">$BACKUP_NAME</span>&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;备份失败&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="2-2-设置脚本权限"><a href="#2-2-设置脚本权限" class="headerlink" title="2.2 设置脚本权限"></a>2.2 设置脚本权限</h4><p>确保脚本具有可执行权限：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x /usr/local/bin/backup.sh</span><br></pre></td></tr></table></figure>
-
-<h4 id="2-3-配置Cron任务"><a href="#2-3-配置Cron任务" class="headerlink" title="2.3 配置Cron任务"></a>2.3 配置Cron任务</h4><p>使用<code>crontab -e</code>编辑当前用户的cron任务，添加每月执行备份脚本的任务。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 0 1 * * /usr/local/bin/backup.sh</span><br></pre></td></tr></table></figure>
-
-<p>解释：</p>
-<ul>
-<li><code>0 0 1 * *</code>：表示每月1日的午夜0点执行。</li>
-<li><code>/usr/local/bin/backup.sh</code>：要执行的备份脚本。</li>
-</ul>
-<h4 id="2-4-测试数据恢复"><a href="#2-4-测试数据恢复" class="headerlink" title="2.4 测试数据恢复"></a>2.4 测试数据恢复</h4><p>为了测试数据恢复，可以从备份文件中解压数据到临时目录，并验证文件完整性。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建临时目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p /tmp/restore_test</span><br><span class="line"></span><br><span class="line"><span class="comment"># 解压备份文件</span></span><br><span class="line">tar -xzf /backup/backup_202310.tar.gz -C /tmp/restore_test</span><br><span class="line"></span><br><span class="line"><span class="comment"># 验证文件</span></span><br><span class="line"><span class="built_in">ls</span> -l /tmp/restore_test</span><br></pre></td></tr></table></figure>
-
-<h3 id="3-完整脚本示例"><a href="#3-完整脚本示例" class="headerlink" title="3. 完整脚本示例"></a>3. 完整脚本示例</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 定义备份目录和文件名</span></span><br><span class="line">BACKUP_DIR=<span class="string">&quot;/backup&quot;</span></span><br><span class="line">BACKUP_NAME=<span class="string">&quot;backup_<span class="subst">$(date +%Y%m)</span>.tar.gz&quot;</span></span><br><span class="line">SOURCE_DIRS=(<span class="string">&quot;/etc&quot;</span> <span class="string">&quot;/home&quot;</span> <span class="string">&quot;/var/www&quot;</span>)  <span class="comment"># 需要备份的目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建备份目录</span></span><br><span class="line"><span class="built_in">mkdir</span> -p <span class="variable">$BACKUP_DIR</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 打包并压缩文件</span></span><br><span class="line">tar -czf <span class="variable">$BACKUP_DIR</span>/<span class="variable">$BACKUP_NAME</span> <span class="variable">$&#123;SOURCE_DIRS[@]&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查备份是否成功</span></span><br><span class="line"><span class="keyword">if</span> [ $? -eq 0 ]; <span class="keyword">then</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;备份成功: <span class="variable">$BACKUP_DIR</span>/<span class="variable">$BACKUP_NAME</span>&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">    <span class="built_in">echo</span> <span class="string">&quot;备份失败&quot;</span></span><br><span class="line">    <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="4-总结"><a href="#4-总结" class="headerlink" title="4. 总结"></a>4. 总结</h3><ul>
-<li><strong>备份</strong>：通过<code>tar</code>命令打包和压缩关键文件，并保存到指定目录。</li>
-<li><strong>自动化</strong>：使用<code>cron</code>设置每月定时任务，自动执行备份脚本。</li>
-<li><strong>恢复测试</strong>：从备份文件中解压数据，验证文件完整性和可恢复性。</li>
-</ul>
-<p>通过以上步骤，你可以实现按月自动备份关键文件，并确保数据可恢复。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://digitblog.us.kg/2025/02/19/Kylin-Linux-Advanced-Server%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" data-id="cm7bc5iax0000fkv5atlp158s" data-title="Kylin-Linux-Advanced-Server备份与恢复" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hexo搭建" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/02/19/hexo%E6%90%AD%E5%BB%BA/" class="article-date">
-  <time class="dt-published" datetime="2025-02-19T02:42:21.000Z" itemprop="datePublished">2025-02-19</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/02/19/hexo%E6%90%AD%E5%BB%BA/">hexo搭建</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p> 以下是使用 GitHub Pages 搭建 Hexo 博客的详细步骤：</p>
-<hr>
-<h3 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1. 准备工作"></a><strong>1. 准备工作</strong></h3><ol>
-<li><p><strong>安装 Node.js</strong><br>访问 <a target="_blank" rel="noopener" href="https://nodejs.org/">Node.js 官网</a> 下载并安装最新 LTS 版本。</p>
-</li>
-<li><p><strong>安装 Git</strong><br>访问 <a target="_blank" rel="noopener" href="https://git-scm.com/">Git 官网</a> 下载并安装 Git。</p>
-</li>
-<li><p><strong>注册 GitHub 账号</strong><br>如果没有账号，请先注册 <a target="_blank" rel="noopener" href="https://github.com/">GitHub</a>。</p>
-</li>
-</ol>
-<hr>
-<h3 id="2-安装-Hexo"><a href="#2-安装-Hexo" class="headerlink" title="2. 安装 Hexo"></a><strong>2. 安装 Hexo</strong></h3><ol>
-<li><p>打开终端（或命令行工具），执行以下命令安装 Hexo CLI：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>初始化 Hexo 项目：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init my-blog  <span class="comment"># 创建名为 &quot;my-blog&quot; 的文件夹</span></span><br><span class="line"><span class="built_in">cd</span> my-blog         <span class="comment"># 进入项目目录</span></span><br><span class="line">npm install         <span class="comment"># 安装依赖</span></span><br></pre></td></tr></table></figure></li>
-</ol>
-<hr>
-<h3 id="3-本地预览博客"><a href="#3-本地预览博客" class="headerlink" title="3. 本地预览博客"></a><strong>3. 本地预览博客</strong></h3><ol>
-<li><p>生成静态文件并启动本地服务器：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate  <span class="comment"># 或简写 hexo g</span></span><br><span class="line">hexo server    <span class="comment"># 或简写 hexo s</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>浏览器访问 <code>http://localhost:4000</code>，即可预览博客。</p>
-</li>
-</ol>
-<hr>
-<h3 id="4-配置-GitHub-Pages"><a href="#4-配置-GitHub-Pages" class="headerlink" title="4. 配置 GitHub Pages"></a><strong>4. 配置 GitHub Pages</strong></h3><ol>
-<li><p><strong>创建 GitHub 仓库</strong><br>登录 GitHub，新建一个仓库，仓库名必须为 <code>&lt;你的用户名&gt;.github.io</code>（例如 <code>john.github.io</code>）。</p>
-</li>
-<li><p><strong>配置 Hexo 部署设置</strong><br>在 Hexo 项目根目录中，编辑 <code>_config.yml</code> 文件，找到 <code>deploy</code> 部分，修改为：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/你的用户名/你的用户名.github.io.git</span>  <span class="comment"># 替换为你的仓库地址</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span>  <span class="comment"># GitHub 默认分支为 main</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p><strong>安装部署插件</strong><br>在终端中执行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></li>
-</ol>
-<hr>
-<h3 id="5-部署到-GitHub-Pages"><a href="#5-部署到-GitHub-Pages" class="headerlink" title="5. 部署到 GitHub Pages"></a><strong>5. 部署到 GitHub Pages</strong></h3><ol>
-<li><p>生成静态文件并部署：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean     <span class="comment"># 清除缓存</span></span><br><span class="line">hexo generate  <span class="comment"># 生成静态文件</span></span><br><span class="line">hexo deploy    <span class="comment"># 或简写 hexo d</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>访问 <code>https://你的用户名.github.io</code>，即可看到你的博客。</p>
-</li>
-</ol>
-<hr>
-<h3 id="6-更新博客内容"><a href="#6-更新博客内容" class="headerlink" title="6. 更新博客内容"></a><strong>6. 更新博客内容</strong></h3><ol>
-<li><p><strong>新建文章</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&quot;文章标题&quot;</span></span><br></pre></td></tr></table></figure>
-<p>文章 Markdown 文件会生成在 <code>source/_posts</code> 目录下，编辑后重新部署即可。</p>
-</li>
-<li><p><strong>更换主题</strong>  </p>
-<ul>
-<li>在 <a target="_blank" rel="noopener" href="https://hexo.io/themes/">Hexo 主题库</a> 选择主题，按主题文档安装。</li>
-<li>修改 <code>_config.yml</code> 中的 <code>theme</code> 字段为所选主题名。</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a><strong>常见问题</strong></h3><ol>
-<li><p><strong>页面无法加载（404）</strong>  </p>
-<ul>
-<li>确认仓库名是否为 <code>&lt;用户名&gt;.github.io</code>。</li>
-<li>检查 GitHub Pages 设置：仓库 → Settings → Pages → 分支是否设为 <code>main</code>&#x2F;<code>master</code>。</li>
-</ul>
-</li>
-<li><p><strong>部署后无变化</strong>  </p>
-<ul>
-<li>执行 <code>hexo clean</code> 清除缓存再重新部署。</li>
-</ul>
-</li>
-<li><p><strong>自定义域名</strong>  </p>
-<ul>
-<li>在博客根目录的 <code>source</code> 文件夹下新建 <code>CNAME</code> 文件，写入你的域名（如 <code>example.com</code>）。</li>
-<li>在域名服务商处添加 DNS 解析到 GitHub Pages。</li>
-</ul>
-</li>
-</ol>
-<hr>
-<p>按照以上步骤操作，即可快速搭建并部署 Hexo 博客到 GitHub Pages。遇到问题可参考 <a target="_blank" rel="noopener" href="https://hexo.io/docs/">Hexo 文档</a> 或 GitHub 社区讨论。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://digitblog.us.kg/2025/02/19/hexo%E6%90%AD%E5%BB%BA/" data-id="cm7bb9of800006kv5fzxxdv6a" data-title="hexo搭建" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
-    <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/02/18/hello-world/" class="article-date">
-  <time class="dt-published" datetime="2025-02-18T08:46:08.821Z" itemprop="datePublished">2025-02-18</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/02/18/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://digitblog.us.kg/2025/02/18/hello-world/" data-id="cm7a8rxyi0000dcv54hp1gmei" data-title="Hello World" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
 </section>
