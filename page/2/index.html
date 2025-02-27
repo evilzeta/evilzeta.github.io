@@ -71,6 +71,125 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-hexo搭建" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/19/hexo%E6%90%AD%E5%BB%BA/" class="article-date">
+  <time class="dt-published" datetime="2025-02-19T02:42:21.000Z" itemprop="datePublished">2025-02-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/02/19/hexo%E6%90%AD%E5%BB%BA/">hexo搭建</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p> 以下是使用 GitHub Pages 搭建 Hexo 博客的详细步骤：</p>
+<hr>
+<h3 id="1-准备工作"><a href="#1-准备工作" class="headerlink" title="1. 准备工作"></a><strong>1. 准备工作</strong></h3><ol>
+<li><p><strong>安装 Node.js</strong><br>访问 <a target="_blank" rel="noopener" href="https://nodejs.org/">Node.js 官网</a> 下载并安装最新 LTS 版本。</p>
+</li>
+<li><p><strong>安装 Git</strong><br>访问 <a target="_blank" rel="noopener" href="https://git-scm.com/">Git 官网</a> 下载并安装 Git。</p>
+</li>
+<li><p><strong>注册 GitHub 账号</strong><br>如果没有账号，请先注册 <a target="_blank" rel="noopener" href="https://github.com/">GitHub</a>。</p>
+</li>
+</ol>
+<hr>
+<h3 id="2-安装-Hexo"><a href="#2-安装-Hexo" class="headerlink" title="2. 安装 Hexo"></a><strong>2. 安装 Hexo</strong></h3><ol>
+<li><p>打开终端（或命令行工具），执行以下命令安装 Hexo CLI：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>初始化 Hexo 项目：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo init my-blog  <span class="comment"># 创建名为 &quot;my-blog&quot; 的文件夹</span></span><br><span class="line"><span class="built_in">cd</span> my-blog         <span class="comment"># 进入项目目录</span></span><br><span class="line">npm install         <span class="comment"># 安装依赖</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h3 id="3-本地预览博客"><a href="#3-本地预览博客" class="headerlink" title="3. 本地预览博客"></a><strong>3. 本地预览博客</strong></h3><ol>
+<li><p>生成静态文件并启动本地服务器：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo generate  <span class="comment"># 或简写 hexo g</span></span><br><span class="line">hexo server    <span class="comment"># 或简写 hexo s</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>浏览器访问 <code>http://localhost:4000</code>，即可预览博客。</p>
+</li>
+</ol>
+<hr>
+<h3 id="4-配置-GitHub-Pages"><a href="#4-配置-GitHub-Pages" class="headerlink" title="4. 配置 GitHub Pages"></a><strong>4. 配置 GitHub Pages</strong></h3><ol>
+<li><p><strong>创建 GitHub 仓库</strong><br>登录 GitHub，新建一个仓库，仓库名必须为 <code>&lt;你的用户名&gt;.github.io</code>（例如 <code>john.github.io</code>）。</p>
+</li>
+<li><p><strong>配置 Hexo 部署设置</strong><br>在 Hexo 项目根目录中，编辑 <code>_config.yml</code> 文件，找到 <code>deploy</code> 部分，修改为：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">deploy:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">git</span></span><br><span class="line">  <span class="attr">repo:</span> <span class="string">https://github.com/你的用户名/你的用户名.github.io.git</span>  <span class="comment"># 替换为你的仓库地址</span></span><br><span class="line">  <span class="attr">branch:</span> <span class="string">main</span>  <span class="comment"># GitHub 默认分支为 main</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>安装部署插件</strong><br>在终端中执行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure></li>
+</ol>
+<hr>
+<h3 id="5-部署到-GitHub-Pages"><a href="#5-部署到-GitHub-Pages" class="headerlink" title="5. 部署到 GitHub Pages"></a><strong>5. 部署到 GitHub Pages</strong></h3><ol>
+<li><p>生成静态文件并部署：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean     <span class="comment"># 清除缓存</span></span><br><span class="line">hexo generate  <span class="comment"># 生成静态文件</span></span><br><span class="line">hexo deploy    <span class="comment"># 或简写 hexo d</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>访问 <code>https://你的用户名.github.io</code>，即可看到你的博客。</p>
+</li>
+</ol>
+<hr>
+<h3 id="6-更新博客内容"><a href="#6-更新博客内容" class="headerlink" title="6. 更新博客内容"></a><strong>6. 更新博客内容</strong></h3><ol>
+<li><p><strong>新建文章</strong>  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new <span class="string">&quot;文章标题&quot;</span></span><br></pre></td></tr></table></figure>
+<p>文章 Markdown 文件会生成在 <code>source/_posts</code> 目录下，编辑后重新部署即可。</p>
+</li>
+<li><p><strong>更换主题</strong>  </p>
+<ul>
+<li>在 <a target="_blank" rel="noopener" href="https://hexo.io/themes/">Hexo 主题库</a> 选择主题，按主题文档安装。</li>
+<li>修改 <code>_config.yml</code> 中的 <code>theme</code> 字段为所选主题名。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a><strong>常见问题</strong></h3><ol>
+<li><p><strong>页面无法加载（404）</strong>  </p>
+<ul>
+<li>确认仓库名是否为 <code>&lt;用户名&gt;.github.io</code>。</li>
+<li>检查 GitHub Pages 设置：仓库 → Settings → Pages → 分支是否设为 <code>main</code>&#x2F;<code>master</code>。</li>
+</ul>
+</li>
+<li><p><strong>部署后无变化</strong>  </p>
+<ul>
+<li>执行 <code>hexo clean</code> 清除缓存再重新部署。</li>
+</ul>
+</li>
+<li><p><strong>自定义域名</strong>  </p>
+<ul>
+<li>在博客根目录的 <code>source</code> 文件夹下新建 <code>CNAME</code> 文件，写入你的域名（如 <code>example.com</code>）。</li>
+<li>在域名服务商处添加 DNS 解析到 GitHub Pages。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>按照以上步骤操作，即可快速搭建并部署 Hexo 博客到 GitHub Pages。遇到问题可参考 <a target="_blank" rel="noopener" href="https://hexo.io/docs/">Hexo 文档</a> 或 GitHub 社区讨论。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://digitblog.us.kg/2025/02/19/hexo%E6%90%AD%E5%BB%BA/" data-id="cm7ehlg6r0005tcv5gx8x7qg6" data-title="hexo搭建" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/github/" rel="tag">github</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-hello-world" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/02/18/hello-world/" class="article-date">
@@ -172,6 +291,10 @@
       <ul>
         
           <li>
+            <a href="/2025/02/27/linux%E4%B8%AD%E7%9B%B8%E4%BC%BC%E5%91%BD%E4%BB%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E7%94%A8%E6%B3%95%E8%A7%A3%E9%87%8A/">linux中常见相似命令的区别和用法解释</a>
+          </li>
+        
+          <li>
             <a href="/2025/02/27/linux%E4%B8%AD%E4%B8%8D%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/">linux中不常见命令用法详解</a>
           </li>
         
@@ -185,10 +308,6 @@
         
           <li>
             <a href="/2025/02/24/linux%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%AF%A6%E7%BB%86%E8%AF%B4%E6%98%8E/">linux定时任务详细说明</a>
-          </li>
-        
-          <li>
-            <a href="/2025/02/21/linux%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/">linux零基础入门</a>
           </li>
         
       </ul>
