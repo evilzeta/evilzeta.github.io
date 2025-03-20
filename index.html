@@ -71,6 +71,143 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-linux分区与lvm操作" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E4%B8%8Elvm%E6%93%8D%E4%BD%9C/" class="article-date">
+  <time class="dt-published" datetime="2025-03-20T09:38:32.000Z" itemprop="datePublished">2025-03-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E4%B8%8Elvm%E6%93%8D%E4%BD%9C/">linux分区与lvm操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>以下是 Linux 分区、物理卷（PV）、卷组（VG）、逻辑卷（LV）的 <strong>详细实操指南</strong>，涵盖 <strong>初始化、扩容、文件系统调整</strong> 等操作。以 LVM 为核心，结合具体案例逐步演示。</p>
+<hr>
+<h2 id="一、环境准备"><a href="#一、环境准备" class="headerlink" title="一、环境准备"></a><strong>一、环境准备</strong></h2><h3 id="案例场景"><a href="#案例场景" class="headerlink" title="案例场景"></a><strong>案例场景</strong></h3><ul>
+<li><strong>物理磁盘</strong>：假设新增一块磁盘 <code>/dev/sdb</code>，容量为 <strong>20GB</strong>。</li>
+<li><strong>目标</strong>：将此磁盘初始化为 LVM 结构，创建逻辑卷并挂载到 <code>/data</code> 目录，后续演示扩容操作。</li>
+</ul>
+<hr>
+<h2 id="二、LVM-初始化操作"><a href="#二、LVM-初始化操作" class="headerlink" title="二、LVM 初始化操作"></a><strong>二、LVM 初始化操作</strong></h2><h3 id="1-分区或直接使用整块磁盘"><a href="#1-分区或直接使用整块磁盘" class="headerlink" title="1. 分区或直接使用整块磁盘"></a><strong>1. 分区或直接使用整块磁盘</strong></h3><ul>
+<li><strong>方式1：直接使用整块磁盘（不分区）</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pvcreate /dev/sdb   <span class="comment"># 将整个磁盘初始化为物理卷</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>方式2：创建分区后使用（推荐）</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> parted /dev/sdb</span><br><span class="line">(parted) mklabel gpt           <span class="comment"># 创建 GPT 分区表</span></span><br><span class="line">(parted) mkpart primary 0% 100% <span class="comment"># 创建一个占满磁盘的分区</span></span><br><span class="line">(parted) <span class="built_in">set</span> 1 lvm on          <span class="comment"># 标记分区为 LVM 类型</span></span><br><span class="line">(parted) quit</span><br><span class="line"><span class="built_in">sudo</span> pvcreate /dev/sdb1        <span class="comment"># 初始化分区为物理卷</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-创建卷组（VG）"><a href="#2-创建卷组（VG）" class="headerlink" title="2. 创建卷组（VG）"></a><strong>2. 创建卷组（VG）</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> vgcreate vg_data /dev/sdb1  <span class="comment"># 创建名为 vg_data 的卷组</span></span><br><span class="line">vgdisplay                        <span class="comment"># 查看卷组信息</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-创建逻辑卷（LV）"><a href="#3-创建逻辑卷（LV）" class="headerlink" title="3. 创建逻辑卷（LV）"></a><strong>3. 创建逻辑卷（LV）</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> lvcreate -n lv_data -L 10G vg_data  <span class="comment"># 创建名为 lv_data 的 10G 逻辑卷</span></span><br><span class="line">lvdisplay                                <span class="comment"># 查看逻辑卷信息</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-格式化并挂载"><a href="#4-格式化并挂载" class="headerlink" title="4. 格式化并挂载"></a><strong>4. 格式化并挂载</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> mkfs.xfs /dev/vg_data/lv_data       <span class="comment"># 格式化为 XFS 文件系统（也可用 ext4）</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> /data</span><br><span class="line"><span class="built_in">sudo</span> mount /dev/vg_data/lv_data /data    <span class="comment"># 临时挂载</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;/dev/vg_data/lv_data /data xfs defaults 0 0&quot;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> -a /etc/fstab  <span class="comment"># 永久挂载</span></span><br><span class="line"><span class="built_in">df</span> -h | grep /data                       <span class="comment"># 验证挂载结果</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="三、LVM-扩容操作"><a href="#三、LVM-扩容操作" class="headerlink" title="三、LVM 扩容操作"></a><strong>三、LVM 扩容操作</strong></h2><h3 id="案例1：向卷组（VG）添加新物理卷（PV）"><a href="#案例1：向卷组（VG）添加新物理卷（PV）" class="headerlink" title="案例1：向卷组（VG）添加新物理卷（PV）"></a><strong>案例1：向卷组（VG）添加新物理卷（PV）</strong></h3><p><strong>场景</strong>：<code>vg_data</code> 空间不足，新增一块磁盘 <code>/dev/sdc</code>。</p>
+<h4 id="1-初始化新磁盘为物理卷"><a href="#1-初始化新磁盘为物理卷" class="headerlink" title="1. 初始化新磁盘为物理卷"></a><strong>1. 初始化新磁盘为物理卷</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pvcreate /dev/sdc          <span class="comment"># 直接使用整块磁盘（或先分区）</span></span><br><span class="line"><span class="built_in">sudo</span> vgextend vg_data /dev/sdc  <span class="comment"># 将新 PV 加入卷组</span></span><br><span class="line">vgdisplay vg_data               <span class="comment"># 查看扩展后的 VG 容量</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-扩展逻辑卷（LV）"><a href="#2-扩展逻辑卷（LV）" class="headerlink" title="2. 扩展逻辑卷（LV）"></a><strong>2. 扩展逻辑卷（LV）</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> lvextend -L +5G /dev/vg_data/lv_data  <span class="comment"># 增加 5G 空间</span></span><br><span class="line"><span class="comment"># 或使用所有剩余空间：</span></span><br><span class="line"><span class="comment"># sudo lvextend -l +100%FREE /dev/vg_data/lv_data</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-扩展文件系统"><a href="#3-扩展文件系统" class="headerlink" title="3. 扩展文件系统"></a><strong>3. 扩展文件系统</strong></h4><ul>
+<li><strong>XFS 文件系统</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> xfs_growfs /data  <span class="comment"># 直接扩展（无需卸载）</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>EXT4 文件系统</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> resize2fs /dev/vg_data/lv_data</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="案例2：在线缩小逻辑卷（谨慎操作！）"><a href="#案例2：在线缩小逻辑卷（谨慎操作！）" class="headerlink" title="案例2：在线缩小逻辑卷（谨慎操作！）"></a><strong>案例2：在线缩小逻辑卷（谨慎操作！）</strong></h3><p><strong>注意</strong>：XFS 文件系统不支持缩小！EXT4 需先卸载分区。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> umount /data                   <span class="comment"># 卸载分区</span></span><br><span class="line"><span class="built_in">sudo</span> e2fsck -f /dev/vg_data/lv_data <span class="comment"># 强制检查文件系统</span></span><br><span class="line"><span class="built_in">sudo</span> resize2fs /dev/vg_data/lv_data 8G  <span class="comment"># 缩小文件系统到 8G</span></span><br><span class="line"><span class="built_in">sudo</span> lvreduce -L 8G /dev/vg_data/lv_data  <span class="comment"># 缩小逻辑卷</span></span><br><span class="line"><span class="built_in">sudo</span> mount /dev/vg_data/lv_data /data     <span class="comment"># 重新挂载</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="四、非-LVM-分区扩容（传统方式）"><a href="#四、非-LVM-分区扩容（传统方式）" class="headerlink" title="四、非 LVM 分区扩容（传统方式）"></a><strong>四、非 LVM 分区扩容（传统方式）</strong></h2><h3 id="案例场景-1"><a href="#案例场景-1" class="headerlink" title="案例场景"></a><strong>案例场景</strong></h3><p>将 <code>/dev/sda2</code> 分区（挂载到 <code>/home</code>）从 10G 扩展到 15G，磁盘末尾有未分配空间。</p>
+<h4 id="1-使用-parted-调整分区"><a href="#1-使用-parted-调整分区" class="headerlink" title="1. 使用 parted 调整分区"></a><strong>1. 使用 <code>parted</code> 调整分区</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> parted /dev/sda</span><br><span class="line">(parted) resizepart 2 15GB  <span class="comment"># 调整分区结束位置</span></span><br><span class="line">(parted) quit</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-扩展文件系统"><a href="#2-扩展文件系统" class="headerlink" title="2. 扩展文件系统"></a><strong>2. 扩展文件系统</strong></h4><ul>
+<li><strong>EXT4</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> resize2fs /dev/sda2</span><br></pre></td></tr></table></figure></li>
+<li><strong>XFS</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> xfs_growfs /home</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h2 id="五、关键命令速查表"><a href="#五、关键命令速查表" class="headerlink" title="五、关键命令速查表"></a><strong>五、关键命令速查表</strong></h2><table>
+<thead>
+<tr>
+<th><strong>操作</strong></th>
+<th><strong>命令</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>创建物理卷</td>
+<td><code>pvcreate /dev/sdX</code></td>
+</tr>
+<tr>
+<td>创建卷组</td>
+<td><code>vgcreate vg_name /dev/sdX</code></td>
+</tr>
+<tr>
+<td>创建逻辑卷</td>
+<td><code>lvcreate -n lv_name -L size vg_name</code></td>
+</tr>
+<tr>
+<td>扩展卷组</td>
+<td><code>vgextend vg_name /dev/sdY</code></td>
+</tr>
+<tr>
+<td>扩展逻辑卷</td>
+<td><code>lvextend -L +size /dev/vg_name/lv_name</code></td>
+</tr>
+<tr>
+<td>扩展文件系统（ext4）</td>
+<td><code>resize2fs /dev/vg_name/lv_name</code></td>
+</tr>
+<tr>
+<td>扩展文件系统（xfs）</td>
+<td><code>xfs_growfs /mount_point</code></td>
+</tr>
+<tr>
+<td>查看物理卷</td>
+<td><code>pvdisplay</code></td>
+</tr>
+<tr>
+<td>查看卷组</td>
+<td><code>vgdisplay</code></td>
+</tr>
+<tr>
+<td>查看逻辑卷</td>
+<td><code>lvdisplay</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="六、注意事项"><a href="#六、注意事项" class="headerlink" title="六、注意事项"></a><strong>六、注意事项</strong></h2><ol>
+<li><strong>备份数据</strong>：所有磁盘操作均有风险，操作前务必备份重要数据。</li>
+<li><strong>文件系统兼容性</strong>：XFS 不支持缩小，EXT4 缩小需卸载分区。</li>
+<li><strong>虚拟机操作</strong>：扩展虚拟磁盘后，需在系统内通过 <code>parted</code> 调整分区或 LVM。</li>
+<li><strong>在线扩容</strong>：LVM 支持在线扩容（无需重启），但缩小需谨慎。</li>
+<li><strong>分区对齐</strong>：使用 <code>parted</code> 时，确保分区起始位置对齐（默认自动对齐）。</li>
+</ol>
+<hr>
+<p>通过以上步骤，您可以灵活管理 Linux 分区的扩容与 LVM 操作。如果仍有疑问，建议在测试环境中模拟操作后再应用到生产环境。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://digitblog.us.kg/2025/03/20/linux%E5%88%86%E5%8C%BA%E4%B8%8Elvm%E6%93%8D%E4%BD%9C/" data-id="cm8h5v0ob0000qov537k2dfnj" data-title="linux分区与lvm操作" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-linux中防火墙的相关指令" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/03/05/linux%E4%B8%AD%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4/" class="article-date">
@@ -1749,131 +1886,6 @@
 
 
   
-    <article id="post-linux入门" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/02/21/linux%E5%85%A5%E9%97%A8/" class="article-date">
-  <time class="dt-published" datetime="2025-02-21T04:45:27.000Z" itemprop="datePublished">2025-02-21</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/02/21/linux%E5%85%A5%E9%97%A8/">linux入门</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>以下是为零基础学习者设计的Linux系统入门到精通的教程大纲，包含实用案例和渐进式学习路径：</p>
-<hr>
-<h3 id="第一阶段：Linux基础入门（1-2周）"><a href="#第一阶段：Linux基础入门（1-2周）" class="headerlink" title="第一阶段：Linux基础入门（1-2周）"></a><strong>第一阶段：Linux基础入门（1-2周）</strong></h3><h4 id="1-Linux系统概述"><a href="#1-Linux系统概述" class="headerlink" title="1. Linux系统概述"></a>1. Linux系统概述</h4><ul>
-<li>什么是Linux？与Windows&#x2F;Mac的区别</li>
-<li>主流发行版介绍（Ubuntu&#x2F;CentOS&#x2F;Debian）</li>
-<li>实验：通过VirtualBox安装Ubuntu虚拟机</li>
-</ul>
-<h4 id="2-终端基础操作"><a href="#2-终端基础操作" class="headerlink" title="2. 终端基础操作"></a>2. 终端基础操作</h4><ul>
-<li><p>终端打开方式与基本结构</p>
-</li>
-<li><p><strong>20个必学命令</strong>：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">pwd</span>          <span class="comment"># 显示当前路径</span></span><br><span class="line"><span class="built_in">ls</span> -l        <span class="comment"># 详细文件列表</span></span><br><span class="line"><span class="built_in">cd</span> ~/Documents  <span class="comment"># 切换目录</span></span><br><span class="line"><span class="built_in">mkdir</span> project  <span class="comment"># 创建目录</span></span><br><span class="line"><span class="built_in">touch</span> file.txt  <span class="comment"># 创建空文件</span></span><br><span class="line"><span class="built_in">cp</span> file.txt backup/  <span class="comment"># 复制文件</span></span><br><span class="line"><span class="built_in">rm</span> -r old_dir  <span class="comment"># 删除目录</span></span><br><span class="line"><span class="built_in">cat</span> file.txt   <span class="comment"># 查看文件内容</span></span><br><span class="line">grep <span class="string">&quot;error&quot;</span> log.txt  <span class="comment"># 文本搜索</span></span><br><span class="line"><span class="built_in">sudo</span> apt update  <span class="comment"># 更新软件列表</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>实例：创建<code>/home/user/project</code>目录，在其中创建3个测试文件并备份</p>
-</li>
-</ul>
-<h4 id="3-文件权限管理"><a href="#3-文件权限管理" class="headerlink" title="3. 文件权限管理"></a>3. 文件权限管理</h4><ul>
-<li>理解rwx权限</li>
-<li><code>chmod 755 script.sh</code>（设置可执行权限）</li>
-<li><code>chown user:group file</code>（修改所有者）</li>
-<li>案例：创建共享目录，设置组用户可读写权限</li>
-</ul>
-<hr>
-<h3 id="第二阶段：系统管理实战（2-3周）"><a href="#第二阶段：系统管理实战（2-3周）" class="headerlink" title="第二阶段：系统管理实战（2-3周）"></a><strong>第二阶段：系统管理实战（2-3周）</strong></h3><h4 id="1-用户与组管理"><a href="#1-用户与组管理" class="headerlink" title="1. 用户与组管理"></a>1. 用户与组管理</h4><ul>
-<li>创建用户并设置密码：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> adduser alice</span><br><span class="line"><span class="built_in">sudo</span> passwd alice</span><br></pre></td></tr></table></figure></li>
-<li>用户组管理：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> groupadd developers</span><br><span class="line"><span class="built_in">sudo</span> usermod -aG developers alice</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="2-软件包管理"><a href="#2-软件包管理" class="headerlink" title="2. 软件包管理"></a>2. 软件包管理</h4><ul>
-<li>APT&#x2F;DNF实战：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install nginx      <span class="comment"># 安装Web服务器</span></span><br><span class="line"><span class="built_in">sudo</span> apt remove --purge nano  <span class="comment"># 完全卸载</span></span><br><span class="line"><span class="built_in">sudo</span> apt search python3    <span class="comment"># 搜索软件包</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="3-进程与系统监控"><a href="#3-进程与系统监控" class="headerlink" title="3. 进程与系统监控"></a>3. 进程与系统监控</h4><ul>
-<li>查看进程树：<code>pstree</code></li>
-<li>终止进程：<code>kill -9 1234</code></li>
-<li>系统监控命令：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">top                <span class="comment"># 动态监控</span></span><br><span class="line">free -h            <span class="comment"># 内存使用</span></span><br><span class="line"><span class="built_in">df</span> -Th             <span class="comment"># 磁盘空间</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="4-定时任务（Cron）"><a href="#4-定时任务（Cron）" class="headerlink" title="4. 定时任务（Cron）"></a>4. 定时任务（Cron）</h4><ul>
-<li>编辑crontab：<code>crontab -e</code></li>
-<li>示例：每天凌晨备份<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">0 3 * * * tar -czf /backup/home_$(date +\%F).tar.gz /home</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h3 id="第三阶段：Shell脚本编程（2周）"><a href="#第三阶段：Shell脚本编程（2周）" class="headerlink" title="第三阶段：Shell脚本编程（2周）"></a><strong>第三阶段：Shell脚本编程（2周）</strong></h3><h4 id="1-基础脚本开发"><a href="#1-基础脚本开发" class="headerlink" title="1. 基础脚本开发"></a>1. 基础脚本开发</h4><ul>
-<li>第一个脚本<code>hello.sh</code>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Hello, <span class="variable">$USER</span>! Today is <span class="subst">$(date)</span>&quot;</span></span><br></pre></td></tr></table></figure></li>
-<li>执行：<code>chmod +x hello.sh &amp;&amp; ./hello.sh</code></li>
-</ul>
-<h4 id="2-条件与循环"><a href="#2-条件与循环" class="headerlink" title="2. 条件与循环"></a>2. 条件与循环</h4><ul>
-<li>文件存在检查：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> [ -f <span class="string">&quot;lockfile&quot;</span> ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;系统正在维护中...&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;系统正常运行&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure></li>
-<li>批量重命名脚本：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> file <span class="keyword">in</span> *.<span class="built_in">log</span>; <span class="keyword">do</span></span><br><span class="line">  <span class="built_in">mv</span> <span class="string">&quot;<span class="variable">$file</span>&quot;</span> <span class="string">&quot;archive/<span class="subst">$(date +%Y%m%d)</span>_<span class="variable">$file</span>&quot;</span></span><br><span class="line"><span class="keyword">done</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="3-实用脚本案例"><a href="#3-实用脚本案例" class="headerlink" title="3. 实用脚本案例"></a>3. 实用脚本案例</h4><ul>
-<li>自动备份脚本：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">BACKUP_DIR=<span class="string">&quot;/backup&quot;</span></span><br><span class="line">SOURCE_DIR=<span class="string">&quot;/var/www&quot;</span></span><br><span class="line">FILENAME=<span class="string">&quot;backup_<span class="subst">$(date +%Y%m%d)</span>.tar.gz&quot;</span></span><br><span class="line"></span><br><span class="line">tar -czf <span class="variable">$BACKUP_DIR</span>/<span class="variable">$FILENAME</span> <span class="variable">$SOURCE_DIR</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;备份完成于 <span class="subst">$(date)</span>&quot;</span> &gt;&gt; <span class="variable">$BACKUP_DIR</span>/backup.log</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h3 id="第四阶段：网络与安全管理（1周）"><a href="#第四阶段：网络与安全管理（1周）" class="headerlink" title="第四阶段：网络与安全管理（1周）"></a><strong>第四阶段：网络与安全管理（1周）</strong></h3><h4 id="1-网络配置"><a href="#1-网络配置" class="headerlink" title="1. 网络配置"></a>1. 网络配置</h4><ul>
-<li>查看IP：<code>ip addr show</code></li>
-<li>设置静态IP（Ubuntu示例）：<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># /etc/netplan/01-netcfg.yaml</span></span><br><span class="line"><span class="attr">network:</span></span><br><span class="line">  <span class="attr">version:</span> <span class="number">2</span></span><br><span class="line">  <span class="attr">ethernets:</span></span><br><span class="line">    <span class="attr">eth0:</span></span><br><span class="line">      <span class="attr">dhcp4:</span> <span class="literal">no</span></span><br><span class="line">      <span class="attr">addresses:</span> [<span class="number">192.168</span><span class="number">.1</span><span class="number">.100</span><span class="string">/24</span>]</span><br><span class="line">      <span class="attr">gateway4:</span> <span class="number">192.168</span><span class="number">.1</span><span class="number">.1</span></span><br><span class="line">      <span class="attr">nameservers:</span></span><br><span class="line">        <span class="attr">addresses:</span> [<span class="number">8.8</span><span class="number">.8</span><span class="number">.8</span>, <span class="number">8.8</span><span class="number">.4</span><span class="number">.4</span>]</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="2-防火墙管理"><a href="#2-防火墙管理" class="headerlink" title="2. 防火墙管理"></a>2. 防火墙管理</h4><ul>
-<li>开放SSH端口：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> ufw allow 22/tcp</span><br><span class="line"><span class="built_in">sudo</span> ufw <span class="built_in">enable</span></span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="3-SSH远程管理"><a href="#3-SSH远程管理" class="headerlink" title="3. SSH远程管理"></a>3. SSH远程管理</h4><ul>
-<li>密钥认证配置：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa</span><br><span class="line">ssh-copy-id user@remote-server</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h3 id="第五阶段：开发环境搭建（1周）"><a href="#第五阶段：开发环境搭建（1周）" class="headerlink" title="第五阶段：开发环境搭建（1周）"></a><strong>第五阶段：开发环境搭建（1周）</strong></h3><h4 id="1-Python环境配置"><a href="#1-Python环境配置" class="headerlink" title="1. Python环境配置"></a>1. Python环境配置</h4><ul>
-<li>安装Python虚拟环境：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install python3-venv</span><br><span class="line">python3 -m venv myenv</span><br><span class="line"><span class="built_in">source</span> myenv/bin/activate</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="2-Git版本控制"><a href="#2-Git版本控制" class="headerlink" title="2. Git版本控制"></a>2. Git版本控制</h4><ul>
-<li>基础工作流：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/user/repo.git</span><br><span class="line">git checkout -b feature-branch</span><br><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;添加新功能&quot;</span></span><br><span class="line">git push origin feature-branch</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h3 id="第六阶段：高级实战（持续学习）"><a href="#第六阶段：高级实战（持续学习）" class="headerlink" title="第六阶段：高级实战（持续学习）"></a><strong>第六阶段：高级实战（持续学习）</strong></h3><h4 id="1-容器技术入门"><a href="#1-容器技术入门" class="headerlink" title="1. 容器技术入门"></a>1. 容器技术入门</h4><ul>
-<li>Docker快速部署Nginx：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 80:80 --name webserver nginx</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h4 id="2-脚本调试技巧"><a href="#2-脚本调试技巧" class="headerlink" title="2. 脚本调试技巧"></a>2. 脚本调试技巧</h4><ul>
-<li>调试模式运行：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bash -x script.sh</span><br></pre></td></tr></table></figure></li>
-</ul>
-<hr>
-<h3 id="学习资源推荐"><a href="#学习资源推荐" class="headerlink" title="学习资源推荐"></a><strong>学习资源推荐</strong></h3><ul>
-<li>在线练习：<a target="_blank" rel="noopener" href="https://overthewire.org/wargames/bandit/">https://overthewire.org/wargames/bandit/</a></li>
-<li>交互教程：<a target="_blank" rel="noopener" href="https://linuxjourney.com/">https://linuxjourney.com/</a></li>
-<li>经典书籍：《鸟哥的Linux私房菜》《Linux命令行与Shell脚本编程大全》</li>
-<li>社区支持：Stack Overflow、Linux中国论坛</li>
-</ul>
-<hr>
-<p>通过这个系统化的学习路径，配合每天1-2小时的实践操作，零基础学习者可在2-3个月内掌握Linux系统的基础运维和自动化脚本编写能力。关键是多在真实环境中操作，遇到问题善用<code>man</code>手册和网络搜索。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://digitblog.us.kg/2025/02/21/linux%E5%85%A5%E9%97%A8/" data-id="cm7ehlg760008tcv5czzk5tud" data-title="linux入门" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1924,6 +1936,10 @@
       <ul>
         
           <li>
+            <a href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E4%B8%8Elvm%E6%93%8D%E4%BD%9C/">linux分区与lvm操作</a>
+          </li>
+        
+          <li>
             <a href="/2025/03/05/linux%E4%B8%AD%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4/">linux中防火墙的相关指令</a>
           </li>
         
@@ -1937,10 +1953,6 @@
         
           <li>
             <a href="/2025/02/27/linux%E4%B8%AD%E7%9B%B8%E4%BC%BC%E5%91%BD%E4%BB%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E7%94%A8%E6%B3%95%E8%A7%A3%E9%87%8A/">linux中常见相似命令的区别和用法解释</a>
-          </li>
-        
-          <li>
-            <a href="/2025/02/27/linux%E4%B8%AD%E4%B8%8D%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/">linux中不常见命令用法详解</a>
           </li>
         
       </ul>
