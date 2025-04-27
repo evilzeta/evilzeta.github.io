@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>linux定时任务详细说明 | evilzeta note</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Linux 系统提供了多种定时任务管理工具，最常用的是 Cron 和 systemd Timer。以下是详细用法指南：  一、Cron：经典定时任务工具Cron 是 Linux 中用于周期性执行任务的守护进程，通过编辑 crontab 文件配置任务。 1. 基本用法 编辑用户级定时任务：1crontab -e  # 编辑当前用户的定时任务 查看任务列表：1crontab -l  # 列出当前用户的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux定时任务详细说明">
+<meta property="og:url" content="https://digitblog.us.kg/2025/02/24/linux%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%AF%A6%E7%BB%86%E8%AF%B4%E6%98%8E/index.html">
+<meta property="og:site_name" content="evilzeta note">
+<meta property="og:description" content="Linux 系统提供了多种定时任务管理工具，最常用的是 Cron 和 systemd Timer。以下是详细用法指南：  一、Cron：经典定时任务工具Cron 是 Linux 中用于周期性执行任务的守护进程，通过编辑 crontab 文件配置任务。 1. 基本用法 编辑用户级定时任务：1crontab -e  # 编辑当前用户的定时任务 查看任务列表：1crontab -l  # 列出当前用户的">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-02-24T09:19:17.000Z">
+<meta property="article:modified_time" content="2025-02-24T09:20:32.225Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="evilzeta note" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">evilzeta note</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://digitblog.us.kg"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-linux定时任务详细说明" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/24/linux%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%AF%A6%E7%BB%86%E8%AF%B4%E6%98%8E/" class="article-date">
+  <time class="dt-published" datetime="2025-02-24T09:19:17.000Z" itemprop="datePublished">2025-02-24</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      linux定时任务详细说明
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>Linux 系统提供了多种定时任务管理工具，最常用的是 <strong>Cron</strong> 和 <strong>systemd Timer</strong>。以下是详细用法指南：</p>
+<hr>
+<h3 id="一、Cron：经典定时任务工具"><a href="#一、Cron：经典定时任务工具" class="headerlink" title="一、Cron：经典定时任务工具"></a>一、Cron：经典定时任务工具</h3><p>Cron 是 Linux 中用于周期性执行任务的守护进程，通过编辑 <code>crontab</code> 文件配置任务。</p>
+<h4 id="1-基本用法"><a href="#1-基本用法" class="headerlink" title="1. 基本用法"></a>1. 基本用法</h4><ul>
+<li><strong>编辑用户级定时任务</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -e  <span class="comment"># 编辑当前用户的定时任务</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>查看任务列表</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -l  <span class="comment"># 列出当前用户的定时任务</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>删除所有任务</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crontab -r</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-Crontab-文件格式"><a href="#2-Crontab-文件格式" class="headerlink" title="2. Crontab 文件格式"></a>2. Crontab 文件格式</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式：分钟 小时 日期 月份 星期 命令</span></span><br><span class="line">* * * * * command-to-execute</span><br></pre></td></tr></table></figure>
+<ul>
+<li><p><strong>字段说明</strong>：</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>取值范围</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>分钟</td>
+<td>0-59</td>
+<td>每小时的第几分钟执行</td>
+</tr>
+<tr>
+<td>小时</td>
+<td>0-23</td>
+<td>每天的第几小时执行</td>
+</tr>
+<tr>
+<td>日期</td>
+<td>1-31</td>
+<td>每月的第几天执行</td>
+</tr>
+<tr>
+<td>月份</td>
+<td>1-12</td>
+<td>每年的第几月执行</td>
+</tr>
+<tr>
+<td>星期</td>
+<td>0-7 (0和7均为周日)</td>
+<td>每周的周几执行</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>特殊符号</strong>：</p>
+<ul>
+<li><code>*</code>：匹配所有值。</li>
+<li><code>,</code>：指定多个值（如 <code>1,3,5</code>）。</li>
+<li><code>-</code>：指定范围（如 <code>1-5</code>）。</li>
+<li><code>/</code>：间隔频率（如 <code>*/5</code> 表示每5分钟）。</li>
+</ul>
+</li>
+</ul>
+<h4 id="3-示例"><a href="#3-示例" class="headerlink" title="3. 示例"></a>3. 示例</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 每天凌晨2点执行脚本</span></span><br><span class="line">0 2 * * * /path/to/script.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 每5分钟执行一次</span></span><br><span class="line">*/5 * * * * /path/to/command</span><br><span class="line"></span><br><span class="line"><span class="comment"># 每周一至周五的上午10:30执行</span></span><br><span class="line">30 10 * * 1-5 /path/to/job</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用环境变量和输出重定向</span></span><br><span class="line">* * * * * PATH=/usr/local/bin:<span class="variable">$PATH</span> &amp;&amp; /path/to/command &gt; /var/log/cron.log 2&gt;&amp;1</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-系统级定时任务"><a href="#4-系统级定时任务" class="headerlink" title="4. 系统级定时任务"></a>4. 系统级定时任务</h4><ul>
+<li><strong>文件位置</strong>：<ul>
+<li><code>/etc/crontab</code>：系统全局任务（需指定用户）。</li>
+<li><code>/etc/cron.d/</code>：存放自定义任务文件。</li>
+<li><code>/etc/cron.hourly/</code>, <code>/etc/cron.daily/</code>, <code>/etc/cron.weekly/</code>, <code>/etc/cron.monthly/</code>：按周期执行的脚本目录。</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-日志与调试"><a href="#5-日志与调试" class="headerlink" title="5. 日志与调试"></a>5. 日志与调试</h4><ul>
+<li><strong>查看 Cron 日志</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grep CRON /var/log/syslog      <span class="comment"># Debian/Ubuntu</span></span><br><span class="line">grep CRON /var/log/cron        <span class="comment"># RedHat/CentOS</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="二、Anacron：适用于非24小时运行的系统"><a href="#二、Anacron：适用于非24小时运行的系统" class="headerlink" title="二、Anacron：适用于非24小时运行的系统"></a>二、Anacron：适用于非24小时运行的系统</h3><p>Anacron 用于在系统未持续运行时执行错过周期的任务（如笔记本电脑）。</p>
+<h4 id="1-配置文件"><a href="#1-配置文件" class="headerlink" title="1. 配置文件"></a>1. 配置文件</h4><ul>
+<li>编辑 <code>/etc/anacrontab</code>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 格式：周期天数 延迟时间 任务名称 命令</span></span><br><span class="line">1       5       daily-job     /path/to/daily-script.sh</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-运行机制"><a href="#2-运行机制" class="headerlink" title="2. 运行机制"></a>2. 运行机制</h4><ul>
+<li>任务记录在 <code>/var/spool/anacron/</code> 目录中。</li>
+<li>适合每日、每周等低频任务。</li>
+</ul>
+<hr>
+<h3 id="三、systemd-Timer：替代-Cron-的现代方案"><a href="#三、systemd-Timer：替代-Cron-的现代方案" class="headerlink" title="三、systemd Timer：替代 Cron 的现代方案"></a>三、systemd Timer：替代 Cron 的现代方案</h3><p>systemd Timer 通过 <code>.timer</code> 和 <code>.service</code> 单元文件管理定时任务，适合复杂调度。</p>
+<h4 id="1-创建-Service-文件"><a href="#1-创建-Service-文件" class="headerlink" title="1. 创建 Service 文件"></a>1. 创建 Service 文件</h4><ul>
+<li>编写服务单元 <code>/etc/systemd/system/my-job.service</code>：<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Unit]</span></span><br><span class="line"><span class="attr">Description</span>=My Custom Job</span><br><span class="line"></span><br><span class="line"><span class="section">[Service]</span></span><br><span class="line"><span class="attr">ExecStart</span>=/path/to/script.sh</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-创建-Timer-文件"><a href="#2-创建-Timer-文件" class="headerlink" title="2. 创建 Timer 文件"></a>2. 创建 Timer 文件</h4><ul>
+<li>编写定时器单元 <code>/etc/systemd/system/my-job.timer</code>：<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="section">[Unit]</span></span><br><span class="line"><span class="attr">Description</span>=Run my job daily</span><br><span class="line"></span><br><span class="line"><span class="section">[Timer]</span></span><br><span class="line"><span class="attr">OnCalendar</span>=*-*-* <span class="number">02</span>:<span class="number">00</span>:<span class="number">00</span>   <span class="comment"># 每天凌晨2点</span></span><br><span class="line"><span class="attr">Persistent</span>=<span class="literal">true</span>             <span class="comment"># 如果错过时间，开机后立即执行</span></span><br><span class="line"></span><br><span class="line"><span class="section">[Install]</span></span><br><span class="line"><span class="attr">WantedBy</span>=timers.target</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="3-启用并启动-Timer"><a href="#3-启用并启动-Timer" class="headerlink" title="3. 启用并启动 Timer"></a>3. 启用并启动 Timer</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">systemctl daemon-reload</span><br><span class="line">systemctl <span class="built_in">enable</span> my-job.timer</span><br><span class="line">systemctl start my-job.timer</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-常用命令"><a href="#4-常用命令" class="headerlink" title="4. 常用命令"></a>4. 常用命令</h4><ul>
+<li>查看 Timer 状态：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">systemctl list-timers</span><br><span class="line">systemctl status my-job.timer</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="5-时间格式（OnCalendar）"><a href="#5-时间格式（OnCalendar）" class="headerlink" title="5. 时间格式（OnCalendar）"></a>5. 时间格式（OnCalendar）</h4><ul>
+<li>使用 <code>OnCalendar</code> 表达式：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">OnCalendar=Mon,Fri *-*-* 10:30:00  <span class="comment"># 每周一和周五10:30</span></span><br><span class="line">OnCalendar=*-*-* 00/3:00:00        <span class="comment"># 每3小时</span></span><br><span class="line">OnCalendar=daily                    <span class="comment"># 每天00:00:00</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="四、Cron-与-systemd-Timer-对比"><a href="#四、Cron-与-systemd-Timer-对比" class="headerlink" title="四、Cron 与 systemd Timer 对比"></a>四、Cron 与 systemd Timer 对比</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>Cron</th>
+<th>systemd Timer</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>依赖服务</td>
+<td>cron 守护进程</td>
+<td>systemd</td>
+</tr>
+<tr>
+<td>配置方式</td>
+<td>文本文件 (<code>crontab</code>)</td>
+<td>单元文件 (<code>.timer</code>, <code>.service</code>)</td>
+</tr>
+<tr>
+<td>灵活性</td>
+<td>简单定时</td>
+<td>支持复杂调度和依赖关系</td>
+</tr>
+<tr>
+<td>日志管理</td>
+<td>需手动处理输出</td>
+<td>集成 Journal 日志</td>
+</tr>
+<tr>
+<td>适用场景</td>
+<td>简单周期性任务</td>
+<td>复杂任务或需系统集成</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="五、常见问题"><a href="#五、常见问题" class="headerlink" title="五、常见问题"></a>五、常见问题</h3><ol>
+<li><p><strong>任务未执行</strong>：</p>
+<ul>
+<li>检查命令路径是否完整（使用绝对路径）。</li>
+<li>检查权限（脚本是否可执行）。</li>
+<li>查看日志：<code>journalctl -u my-job.service</code>（systemd）或 <code>/var/log/cron</code>（Cron）。</li>
+</ul>
+</li>
+<li><p><strong>环境变量问题</strong>：</p>
+<ul>
+<li>Cron 默认环境与用户环境不同，建议在脚本中设置 <code>PATH</code> 或使用完整路径。</li>
+</ul>
+</li>
+<li><p><strong>输出处理</strong>：</p>
+<ul>
+<li>重定向输出到文件：<code>*/5 * * * * /path/to/command &gt;&gt; /var/log/command.log 2&gt;&amp;1</code></li>
+<li>禁用邮件通知：<code>MAILTO=&quot;&quot;</code>。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>通过上述方法，您可以灵活管理 Linux 系统中的定时任务。对于简单任务推荐使用 Cron，复杂或需系统集成的任务可选用 systemd Timer。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://digitblog.us.kg/2025/02/24/linux%E5%AE%9A%E6%97%B6%E4%BB%BB%E5%8A%A1%E8%AF%A6%E7%BB%86%E8%AF%B4%E6%98%8E/" data-id="cm9z1x7qk000sl4v5fdotgf8m" data-title="linux定时任务详细说明" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/02/24/linux%E4%B8%AD%E8%AF%BB%E5%8F%96%E5%A4%96%E9%83%A8%E6%96%87%E4%BB%B6%E5%88%97%E8%A1%A8%E5%A4%87%E4%BB%BD%E6%96%87%E4%BB%B6%E5%B9%B6%E8%AE%B0%E5%85%A5%E6%97%A5%E5%BF%97/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          linux中读取外部文件列表备份文件/目录并记入日志
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/02/21/linux%E9%9B%B6%E5%9F%BA%E7%A1%80%E5%85%A5%E9%97%A8/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">linux零基础入门</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/" rel="tag">python爬虫学习例之一</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/" style="font-size: 10px;">python爬虫学习例之一</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">April 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/04/27/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/">python爬虫学习例之一</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/20/linux%E7%9A%84%E6%8C%82%E8%BD%BD/">linux的挂载</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9%E6%96%B9%E6%B3%95/">linux分区扩容方法</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E4%B8%8Elvm%E6%93%8D%E4%BD%9C/">linux分区与lvm操作</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/05/linux%E4%B8%AD%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4/">linux中防火墙的相关指令</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

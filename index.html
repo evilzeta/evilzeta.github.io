@@ -1,0 +1,1416 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>evilzeta note</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta property="og:type" content="website">
+<meta property="og:title" content="evilzeta note">
+<meta property="og:url" content="https://digitblog.us.kg/index.html">
+<meta property="og:site_name" content="evilzeta note">
+<meta property="og:locale" content="en_US">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="evilzeta note" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">evilzeta note</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://digitblog.us.kg"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-python爬虫学习例之一" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/04/27/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/" class="article-date">
+  <time class="dt-published" datetime="2025-04-27T02:03:52.000Z" itemprop="datePublished">2025-04-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/04/27/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/">python爬虫学习例之一</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>以下是一个增强版的Python爬虫脚本，包含登录验证、异常处理、重试机制和模块化设计，附带详细注释说明：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">网站数据抓取与汇总工具（含登录验证版）</span></span><br><span class="line"><span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> re</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"><span class="keyword">import</span> requests</span><br><span class="line"><span class="keyword">from</span> bs4 <span class="keyword">import</span> BeautifulSoup</span><br><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">from</span> typing <span class="keyword">import</span> <span class="type">List</span>, <span class="type">Dict</span>, <span class="type">Optional</span></span><br><span class="line"><span class="keyword">from</span> urllib.parse <span class="keyword">import</span> urljoin</span><br><span class="line"><span class="keyword">from</span> requests.adapters <span class="keyword">import</span> HTTPAdapter</span><br><span class="line"><span class="keyword">from</span> requests.exceptions <span class="keyword">import</span> RequestException</span><br><span class="line"></span><br><span class="line"><span class="comment"># --------------------------</span></span><br><span class="line"><span class="comment"># 配置模块</span></span><br><span class="line"><span class="comment"># --------------------------</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Config</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;爬虫配置参数&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self</span>):</span><br><span class="line">        <span class="comment"># 网站配置</span></span><br><span class="line">        <span class="variable language_">self</span>.base_url = <span class="string">&quot;https://example.com&quot;</span>            <span class="comment"># 网站根URL</span></span><br><span class="line">        <span class="variable language_">self</span>.login_url = <span class="string">&quot;https://example.com/login&quot;</span>    <span class="comment"># 登录页面URL</span></span><br><span class="line">        <span class="variable language_">self</span>.list_url_template = <span class="string">&quot;/news?page=&#123;page&#125;&quot;</span>     <span class="comment"># 列表页URL模板</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 分页配置</span></span><br><span class="line">        <span class="variable language_">self</span>.start_page = <span class="number">1</span>              <span class="comment"># 起始页码</span></span><br><span class="line">        <span class="variable language_">self</span>.end_page = <span class="number">3</span>               <span class="comment"># 结束页码</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 认证信息（建议通过环境变量获取敏感信息）</span></span><br><span class="line">        <span class="variable language_">self</span>.username = <span class="string">&quot;your_username&quot;</span>  </span><br><span class="line">        <span class="variable language_">self</span>.password = <span class="string">&quot;your_password&quot;</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 请求配置</span></span><br><span class="line">        <span class="variable language_">self</span>.headers = &#123;</span><br><span class="line">            <span class="string">&#x27;User-Agent&#x27;</span>: <span class="string">&#x27;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36&#x27;</span>,</span><br><span class="line">            <span class="string">&#x27;Referer&#x27;</span>: <span class="string">&#x27;https://example.com/&#x27;</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="variable language_">self</span>.timeout = <span class="number">10</span>                <span class="comment"># 请求超时时间</span></span><br><span class="line">        <span class="variable language_">self</span>.retries = <span class="number">3</span>                <span class="comment"># 请求重试次数</span></span><br><span class="line">        <span class="variable language_">self</span>.retry_delay = <span class="number">5</span>            <span class="comment"># 重试延迟(秒)</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 输出配置</span></span><br><span class="line">        <span class="variable language_">self</span>.output_dir = <span class="string">&quot;scraped_data&quot;</span>  <span class="comment"># 文本文件保存目录</span></span><br><span class="line">        <span class="variable language_">self</span>.excel_file = <span class="string">&quot;summary.xlsx&quot;</span>  <span class="comment"># Excel汇总文件名</span></span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 创建输出目录</span></span><br><span class="line">        os.makedirs(<span class="variable language_">self</span>.output_dir, exist_ok=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># --------------------------</span></span><br><span class="line"><span class="comment"># 爬虫核心模块</span></span><br><span class="line"><span class="comment"># --------------------------</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">WebScraper</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;网站爬取处理器&quot;&quot;&quot;</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, config: Config</span>):</span><br><span class="line">        <span class="variable language_">self</span>.config = config</span><br><span class="line">        <span class="variable language_">self</span>.session = requests.Session()</span><br><span class="line">        <span class="comment"># 配置请求重试</span></span><br><span class="line">        <span class="variable language_">self</span>.session.mount(<span class="string">&#x27;https://&#x27;</span>, HTTPAdapter(max_retries=config.retries))</span><br><span class="line">        </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">login</span>(<span class="params">self</span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;执行登录操作&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment"># 首次获取登录页以获取CSRF令牌</span></span><br><span class="line">            login_page = <span class="variable language_">self</span>._safe_request(</span><br><span class="line">                <span class="string">&#x27;GET&#x27;</span>, </span><br><span class="line">                <span class="variable language_">self</span>.config.login_url,</span><br><span class="line">                allow_redirects=<span class="literal">False</span></span><br><span class="line">            )</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 提取CSRF令牌（根据实际网站结构调整）</span></span><br><span class="line">            soup = BeautifulSoup(login_page.text, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line">            csrf_token = soup.find(<span class="string">&#x27;input&#x27;</span>, &#123;<span class="string">&#x27;name&#x27;</span>: <span class="string">&#x27;csrf_token&#x27;</span>&#125;)[<span class="string">&#x27;value&#x27;</span>]</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 构造登录数据</span></span><br><span class="line">            login_data = &#123;</span><br><span class="line">                <span class="string">&#x27;username&#x27;</span>: <span class="variable language_">self</span>.config.username,</span><br><span class="line">                <span class="string">&#x27;password&#x27;</span>: <span class="variable language_">self</span>.config.password,</span><br><span class="line">                <span class="string">&#x27;csrf_token&#x27;</span>: csrf_token</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 提交登录请求</span></span><br><span class="line">            response = <span class="variable language_">self</span>._safe_request(</span><br><span class="line">                <span class="string">&#x27;POST&#x27;</span>,</span><br><span class="line">                <span class="variable language_">self</span>.config.login_url,</span><br><span class="line">                data=login_data,</span><br><span class="line">                allow_redirects=<span class="literal">False</span></span><br><span class="line">            )</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 验证登录是否成功（根据实际网站调整验证逻辑）</span></span><br><span class="line">            <span class="keyword">if</span> response.status_code == <span class="number">302</span> <span class="keyword">and</span> <span class="string">&#x27;sessionid&#x27;</span> <span class="keyword">in</span> response.cookies:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">&quot;登录成功&quot;</span>)</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">            <span class="built_in">print</span>(<span class="string">&quot;登录失败&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">            </span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;登录过程发生异常: <span class="subst">&#123;<span class="built_in">str</span>(e)&#125;</span>&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">fetch_pages</span>(<span class="params">self</span>) -&gt; <span class="type">List</span>[<span class="type">Dict</span>]:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;抓取所有页面数据&quot;&quot;&quot;</span></span><br><span class="line">        all_data = []</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">for</span> page <span class="keyword">in</span> <span class="built_in">range</span>(<span class="variable language_">self</span>.config.start_page, <span class="variable language_">self</span>.config.end_page + <span class="number">1</span>):</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;正在处理第 <span class="subst">&#123;page&#125;</span> 页...&quot;</span>)</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 获取列表页内容</span></span><br><span class="line">            list_url = urljoin(</span><br><span class="line">                <span class="variable language_">self</span>.config.base_url,</span><br><span class="line">                <span class="variable language_">self</span>.config.list_url_template.<span class="built_in">format</span>(page=page)</span><br><span class="line">            )</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                <span class="comment"># 获取列表页</span></span><br><span class="line">                list_response = <span class="variable language_">self</span>._safe_request(<span class="string">&#x27;GET&#x27;</span>, list_url)</span><br><span class="line">                article_links = <span class="variable language_">self</span>._parse_list_page(list_response.text)</span><br><span class="line">                </span><br><span class="line">                <span class="comment"># 处理每篇文章</span></span><br><span class="line">                <span class="keyword">for</span> i, link <span class="keyword">in</span> <span class="built_in">enumerate</span>(article_links, <span class="number">1</span>):</span><br><span class="line">                    article_url = urljoin(<span class="variable language_">self</span>.config.base_url, link)</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">f&quot;  正在处理文章 <span class="subst">&#123;i&#125;</span>/<span class="subst">&#123;<span class="built_in">len</span>(article_links)&#125;</span>: <span class="subst">&#123;article_url&#125;</span>&quot;</span>)</span><br><span class="line">                    </span><br><span class="line">                    <span class="comment"># 获取文章内容</span></span><br><span class="line">                    article_data = <span class="variable language_">self</span>._fetch_article(article_url)</span><br><span class="line">                    <span class="keyword">if</span> article_data:</span><br><span class="line">                        all_data.append(article_data)</span><br><span class="line">                        time.sleep(<span class="number">1</span>)  <span class="comment"># 请求间隔</span></span><br><span class="line">                        </span><br><span class="line">            <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">                <span class="built_in">print</span>(<span class="string">f&quot;第 <span class="subst">&#123;page&#125;</span> 页处理失败: <span class="subst">&#123;<span class="built_in">str</span>(e)&#125;</span>&quot;</span>)</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">                </span><br><span class="line">        <span class="keyword">return</span> all_data</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_fetch_article</span>(<span class="params">self, url: <span class="built_in">str</span></span>) -&gt; <span class="type">Optional</span>[<span class="type">Dict</span>]:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;抓取单篇文章内容&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            response = <span class="variable language_">self</span>._safe_request(<span class="string">&#x27;GET&#x27;</span>, url)</span><br><span class="line">            <span class="keyword">return</span> <span class="variable language_">self</span>._parse_article_page(response.text, url)</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;文章抓取失败: <span class="subst">&#123;url&#125;</span> - <span class="subst">&#123;<span class="built_in">str</span>(e)&#125;</span>&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">None</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_parse_list_page</span>(<span class="params">self, html: <span class="built_in">str</span></span>) -&gt; <span class="type">List</span>[<span class="built_in">str</span>]:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;解析列表页获取文章链接&quot;&quot;&quot;</span></span><br><span class="line">        soup = BeautifulSoup(html, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line">        links = []</span><br><span class="line">        <span class="comment"># 根据实际结构调整选择器</span></span><br><span class="line">        <span class="keyword">for</span> item <span class="keyword">in</span> soup.select(<span class="string">&#x27;.article-list .title a&#x27;</span>):</span><br><span class="line">            <span class="keyword">if</span> href := item.get(<span class="string">&#x27;href&#x27;</span>):</span><br><span class="line">                links.append(href)</span><br><span class="line">        <span class="keyword">return</span> links</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_parse_article_page</span>(<span class="params">self, html: <span class="built_in">str</span>, url: <span class="built_in">str</span></span>) -&gt; <span class="type">Dict</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;解析文章详情页&quot;&quot;&quot;</span></span><br><span class="line">        soup = BeautifulSoup(html, <span class="string">&#x27;html.parser&#x27;</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 使用防御性解析</span></span><br><span class="line">        <span class="keyword">def</span> <span class="title function_">safe_extract</span>(<span class="params">selector: <span class="built_in">str</span>, default: <span class="built_in">str</span> = <span class="string">&quot;&quot;</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">            element = soup.select_one(selector)</span><br><span class="line">            <span class="keyword">return</span> element.text.strip() <span class="keyword">if</span> element <span class="keyword">else</span> default</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="string">&#x27;title&#x27;</span>: safe_extract(<span class="string">&#x27;h1.article-title&#x27;</span>),</span><br><span class="line">            <span class="string">&#x27;author&#x27;</span>: safe_extract(<span class="string">&#x27;.author-name&#x27;</span>),</span><br><span class="line">            <span class="string">&#x27;publish_date&#x27;</span>: safe_extract(<span class="string">&#x27;.publish-time&#x27;</span>),</span><br><span class="line">            <span class="string">&#x27;content&#x27;</span>: safe_extract(<span class="string">&#x27;.article-content&#x27;</span>),</span><br><span class="line">            <span class="string">&#x27;url&#x27;</span>: url</span><br><span class="line">        &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">_safe_request</span>(<span class="params">self, method: <span class="built_in">str</span>, url: <span class="built_in">str</span>, **kwargs</span>) -&gt; requests.Response:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;带异常处理和重试机制的请求方法&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">for</span> attempt <span class="keyword">in</span> <span class="built_in">range</span>(<span class="variable language_">self</span>.config.retries + <span class="number">1</span>):</span><br><span class="line">            <span class="keyword">try</span>:</span><br><span class="line">                response = <span class="variable language_">self</span>.session.request(</span><br><span class="line">                    method=method,</span><br><span class="line">                    url=url,</span><br><span class="line">                    headers=<span class="variable language_">self</span>.config.headers,</span><br><span class="line">                    timeout=<span class="variable language_">self</span>.config.timeout,</span><br><span class="line">                    **kwargs</span><br><span class="line">                )</span><br><span class="line">                response.raise_for_status()</span><br><span class="line">                <span class="keyword">return</span> response</span><br><span class="line">            <span class="keyword">except</span> RequestException <span class="keyword">as</span> e:</span><br><span class="line">                <span class="keyword">if</span> attempt &lt; <span class="variable language_">self</span>.config.retries:</span><br><span class="line">                    <span class="built_in">print</span>(<span class="string">f&quot;请求失败，第 <span class="subst">&#123;attempt+<span class="number">1</span>&#125;</span> 次重试: <span class="subst">&#123;<span class="built_in">str</span>(e)&#125;</span>&quot;</span>)</span><br><span class="line">                    time.sleep(<span class="variable language_">self</span>.config.retry_delay)</span><br><span class="line">                <span class="keyword">else</span>:</span><br><span class="line">                    <span class="keyword">raise</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># --------------------------</span></span><br><span class="line"><span class="comment"># 数据存储模块</span></span><br><span class="line"><span class="comment"># --------------------------</span></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">DataHandler</span>:</span><br><span class="line">    <span class="string">&quot;&quot;&quot;数据处理与存储&quot;&quot;&quot;</span></span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">save_text</span>(<span class="params">data: <span class="type">Dict</span>, output_dir: <span class="built_in">str</span></span>) -&gt; <span class="built_in">str</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;保存为文本文件&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment"># 生成安全文件名</span></span><br><span class="line">            filename = re.sub(<span class="string">r&#x27;[^\w\-_\. ]&#x27;</span>, <span class="string">&#x27;_&#x27;</span>, data.get(<span class="string">&#x27;title&#x27;</span>, <span class="string">&#x27;untitled&#x27;</span>))[:<span class="number">50</span>]</span><br><span class="line">            filename = <span class="string">f&quot;<span class="subst">&#123;filename&#125;</span>.txt&quot;</span></span><br><span class="line">            filepath = os.path.join(output_dir, filename)</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">with</span> <span class="built_in">open</span>(filepath, <span class="string">&#x27;w&#x27;</span>, encoding=<span class="string">&#x27;utf-8&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">                <span class="keyword">for</span> key, value <span class="keyword">in</span> data.items():</span><br><span class="line">                    f.write(<span class="string">f&quot;=== <span class="subst">&#123;key.upper()&#125;</span> ===\n<span class="subst">&#123;value&#125;</span>\n\n&quot;</span>)</span><br><span class="line">                    </span><br><span class="line">            <span class="keyword">return</span> filepath</span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;文件保存失败: <span class="subst">&#123;<span class="built_in">str</span>(e)&#125;</span>&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="string">&quot;&quot;</span></span><br><span class="line">    </span><br><span class="line"><span class="meta">    @staticmethod</span></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">save_excel</span>(<span class="params">data: <span class="type">List</span>[<span class="type">Dict</span>], filename: <span class="built_in">str</span></span>) -&gt; <span class="built_in">bool</span>:</span><br><span class="line">        <span class="string">&quot;&quot;&quot;保存为Excel文件&quot;&quot;&quot;</span></span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            df = pd.DataFrame(data)</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 数据清洗</span></span><br><span class="line">            df[<span class="string">&#x27;publish_date&#x27;</span>] = pd.to_datetime(df[<span class="string">&#x27;publish_date&#x27;</span>], errors=<span class="string">&#x27;coerce&#x27;</span>)</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 保存文件</span></span><br><span class="line">            df.to_excel(</span><br><span class="line">                filename,</span><br><span class="line">                index=<span class="literal">False</span>,</span><br><span class="line">                engine=<span class="string">&#x27;openpyxl&#x27;</span>,</span><br><span class="line">                encoding=<span class="string">&#x27;utf-8&#x27;</span></span><br><span class="line">            )</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">True</span></span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;Excel保存失败: <span class="subst">&#123;<span class="built_in">str</span>(e)&#125;</span>&quot;</span>)</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">False</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># --------------------------</span></span><br><span class="line"><span class="comment"># 主程序</span></span><br><span class="line"><span class="comment"># --------------------------</span></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">main</span>():</span><br><span class="line">    <span class="comment"># 初始化配置</span></span><br><span class="line">    config = Config()</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 初始化爬虫</span></span><br><span class="line">    scraper = WebScraper(config)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 执行登录</span></span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> scraper.login():</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">&quot;登录失败，程序终止&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 抓取数据</span></span><br><span class="line">    <span class="keyword">try</span>:</span><br><span class="line">        articles = scraper.fetch_pages()</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;共抓取到 <span class="subst">&#123;<span class="built_in">len</span>(articles)&#125;</span> 篇文章&quot;</span>)</span><br><span class="line">    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;抓取过程发生严重错误: <span class="subst">&#123;<span class="built_in">str</span>(e)&#125;</span>&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 保存文本文件</span></span><br><span class="line">    saved_files = []</span><br><span class="line">    <span class="keyword">for</span> article <span class="keyword">in</span> articles:</span><br><span class="line">        <span class="keyword">if</span> path := DataHandler.save_text(article, config.output_dir):</span><br><span class="line">            saved_files.append(path)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 保存Excel汇总</span></span><br><span class="line">    <span class="keyword">if</span> DataHandler.save_excel(articles, config.excel_file):</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;数据已汇总保存至 <span class="subst">&#123;config.excel_file&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    main()</span><br></pre></td></tr></table></figure>
+
+<h3 id="主要功能说明"><a href="#主要功能说明" class="headerlink" title="主要功能说明"></a>主要功能说明</h3><ol>
+<li><p><strong>登录验证系统</strong>：</p>
+<ul>
+<li>自动处理CSRF令牌</li>
+<li>使用Session保持登录状态</li>
+<li>支持多因素身份验证（需根据实际情况修改）</li>
+</ul>
+</li>
+<li><p><strong>异常处理机制</strong>：</p>
+<ul>
+<li>网络请求自动重试（可配置重试次数）</li>
+<li>防御性数据解析（元素不存在时返回默认值）</li>
+<li>分级错误处理（区分可恢复错误和致命错误）</li>
+</ul>
+</li>
+<li><p><strong>增强特性</strong>：</p>
+<ul>
+<li>文件名安全处理（防止特殊字符问题）</li>
+<li>数据类型自动转换（如日期格式转换）</li>
+<li>请求限速机制（防止被封禁）</li>
+</ul>
+</li>
+</ol>
+<h3 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h3><ol>
+<li><p><strong>配置修改</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Config</span>:</span><br><span class="line">    <span class="comment"># 修改以下参数</span></span><br><span class="line">    base_url = <span class="string">&quot;https://your-target-site.com&quot;</span></span><br><span class="line">    login_url = <span class="string">&quot;https://your-target-site.com/login&quot;</span></span><br><span class="line">    list_url_template = <span class="string">&quot;/articles?page=&#123;page&#125;&quot;</span></span><br><span class="line">    username = <span class="string">&quot;your_username&quot;</span></span><br><span class="line">    password = <span class="string">&quot;your_password&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>页面解析调整</strong>：</p>
+<ul>
+<li>修改<code>_parse_list_page</code>中的CSS选择器</li>
+<li>调整<code>_parse_article_page</code>中的字段解析逻辑</li>
+</ul>
+</li>
+<li><p><strong>运行脚本</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">pip install requests beautifulsoup4 pandas openpyxl</span><br><span class="line">python scraper.py</span><br></pre></td></tr></table></figure></li>
+</ol>
+<h3 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h3><ol>
+<li><p><strong>合法性检查</strong>：</p>
+<ul>
+<li>遵守目标网站的robots.txt规则</li>
+<li>尊重版权和隐私条款</li>
+</ul>
+</li>
+<li><p><strong>性能优化</strong>：</p>
+<ul>
+<li>适当调整<code>retry_delay</code>参数</li>
+<li>考虑使用代理池应对IP封锁</li>
+</ul>
+</li>
+<li><p><strong>安全建议</strong>：</p>
+<ul>
+<li>不要将凭证硬编码在代码中（建议使用环境变量）</li>
+<li>定期检查网站结构变化</li>
+</ul>
+</li>
+<li><p><strong>扩展性</strong>：</p>
+<ul>
+<li>可添加日志记录模块</li>
+<li>支持分布式爬取</li>
+<li>集成验证码识别服务</li>
+</ul>
+</li>
+</ol>
+<p>该脚本实现了从登录认证到数据存储的完整流程，包含多重错误处理机制，建议根据目标网站的具体结构调整CSS选择器和登录验证逻辑。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://digitblog.us.kg/2025/04/27/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/" data-id="cm9z1x7qo000yl4v54rcab1pa" data-title="python爬虫学习例之一" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/" rel="tag">python爬虫学习例之一</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-linux的挂载" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/03/20/linux%E7%9A%84%E6%8C%82%E8%BD%BD/" class="article-date">
+  <time class="dt-published" datetime="2025-03-20T09:49:02.000Z" itemprop="datePublished">2025-03-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/03/20/linux%E7%9A%84%E6%8C%82%E8%BD%BD/">linux的挂载</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 Linux 中，<strong>挂载（Mount）</strong> 是将存储设备（如硬盘分区、USB 驱动器、ISO 镜像等）连接到文件系统目录树的过程，使得用户可以访问设备中的数据。以下是挂载操作的详细指南，包含基础命令、自动挂载、常见问题和操作实例。</p>
+<hr>
+<h2 id="一、挂载的基本操作"><a href="#一、挂载的基本操作" class="headerlink" title="一、挂载的基本操作"></a><strong>一、挂载的基本操作</strong></h2><h3 id="1-查看当前已挂载的设备"><a href="#1-查看当前已挂载的设备" class="headerlink" title="1. 查看当前已挂载的设备"></a><strong>1. 查看当前已挂载的设备</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">mount         <span class="comment"># 显示所有已挂载的设备</span></span><br><span class="line">lsblk         <span class="comment"># 查看块设备及其挂载点</span></span><br><span class="line"><span class="built_in">df</span> -h         <span class="comment"># 显示磁盘空间使用情况（包含挂载点）</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-手动挂载设备"><a href="#2-手动挂载设备" class="headerlink" title="2. 手动挂载设备"></a><strong>2. 手动挂载设备</strong></h3><p><strong>语法</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> mount -t &lt;文件系统类型&gt; &lt;设备路径&gt; &lt;挂载点目录&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong>：将 <code>/dev/sdb1</code> 分区（ext4 文件系统）挂载到 <code>/mnt/data</code>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> /mnt/data            <span class="comment"># 创建挂载点目录（必须存在）</span></span><br><span class="line"><span class="built_in">sudo</span> mount -t ext4 /dev/sdb1 /mnt/data</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-卸载设备"><a href="#3-卸载设备" class="headerlink" title="3. 卸载设备"></a><strong>3. 卸载设备</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> umount &lt;挂载点或设备路径&gt;</span><br><span class="line"><span class="comment"># 示例：</span></span><br><span class="line"><span class="built_in">sudo</span> umount /mnt/data    <span class="comment"># 通过挂载点卸载</span></span><br><span class="line"><span class="built_in">sudo</span> umount /dev/sdb1    <span class="comment"># 通过设备路径卸载</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="二、自动挂载（持久化挂载）"><a href="#二、自动挂载（持久化挂载）" class="headerlink" title="二、自动挂载（持久化挂载）"></a><strong>二、自动挂载（持久化挂载）</strong></h2><p>通过修改 <code>/etc/fstab</code> 文件，实现开机自动挂载设备。</p>
+<h3 id="1-编辑-etc-fstab-文件"><a href="#1-编辑-etc-fstab-文件" class="headerlink" title="1. 编辑 /etc/fstab 文件"></a><strong>1. 编辑 <code>/etc/fstab</code> 文件</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> nano /etc/fstab</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-添加挂载配置"><a href="#2-添加挂载配置" class="headerlink" title="2. 添加挂载配置"></a><strong>2. 添加挂载配置</strong></h3><p>每行格式为：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;设备标识&gt; &lt;挂载点&gt; &lt;文件系统类型&gt; &lt;挂载选项&gt; &lt;dump标志&gt; &lt;fsck顺序&gt;</span><br></pre></td></tr></table></figure>
+<p><strong>示例</strong>：将 <code>/dev/sdb1</code> 挂载到 <code>/mnt/data</code>（ext4 文件系统，默认选项）：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/dev/sdb1 /mnt/data ext4 defaults 0 0</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-使用-UUID-代替设备路径（推荐）"><a href="#3-使用-UUID-代替设备路径（推荐）" class="headerlink" title="3. 使用 UUID 代替设备路径（推荐）"></a><strong>3. 使用 UUID 代替设备路径（推荐）</strong></h3><p>设备路径（如 <code>/dev/sdb1</code>）可能因硬件变动而改变，使用 UUID 更稳定。</p>
+<ul>
+<li>查看设备的 UUID：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> blkid</span><br></pre></td></tr></table></figure></li>
+<li>在 <code>/etc/fstab</code> 中使用 UUID：<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UUID=1234-5678-90AB /mnt/data ext4 defaults 0 0</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="4-验证并应用配置"><a href="#4-验证并应用配置" class="headerlink" title="4. 验证并应用配置"></a><strong>4. 验证并应用配置</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> mount -a  <span class="comment"># 挂载所有在 /etc/fstab 中定义但未挂载的设备</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="三、常见挂载场景"><a href="#三、常见挂载场景" class="headerlink" title="三、常见挂载场景"></a><strong>三、常见挂载场景</strong></h2><h3 id="1-挂载-USB-驱动器"><a href="#1-挂载-USB-驱动器" class="headerlink" title="1. 挂载 USB 驱动器"></a><strong>1. 挂载 USB 驱动器</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> /mnt/usb</span><br><span class="line"><span class="built_in">sudo</span> mount -t vfat /dev/sdc1 /mnt/usb   <span class="comment"># FAT32 文件系统</span></span><br><span class="line"><span class="built_in">sudo</span> mount -t ntfs /dev/sdc1 /mnt/usb   <span class="comment"># NTFS 文件系统（需安装 ntfs-3g）</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="2-挂载-ISO-镜像文件"><a href="#2-挂载-ISO-镜像文件" class="headerlink" title="2. 挂载 ISO 镜像文件"></a><strong>2. 挂载 ISO 镜像文件</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> /mnt/iso</span><br><span class="line"><span class="built_in">sudo</span> mount -o loop ubuntu.iso /mnt/iso  <span class="comment"># 使用 loop 设备挂载</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-挂载网络存储（NFS）"><a href="#3-挂载网络存储（NFS）" class="headerlink" title="3. 挂载网络存储（NFS）"></a><strong>3. 挂载网络存储（NFS）</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> /mnt/nfs</span><br><span class="line"><span class="built_in">sudo</span> mount -t nfs 192.168.1.100:/shared /mnt/nfs</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="四、挂载选项（常用参数）"><a href="#四、挂载选项（常用参数）" class="headerlink" title="四、挂载选项（常用参数）"></a><strong>四、挂载选项（常用参数）</strong></h2><p>通过 <code>-o</code> 指定挂载选项，多个选项用逗号分隔：</p>
+<table>
+<thead>
+<tr>
+<th><strong>选项</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>rw</code></td>
+<td>读写模式（默认）</td>
+</tr>
+<tr>
+<td><code>ro</code></td>
+<td>只读模式</td>
+</tr>
+<tr>
+<td><code>noexec</code></td>
+<td>禁止执行该分区中的程序</td>
+</tr>
+<tr>
+<td><code>nosuid</code></td>
+<td>禁用 SUID&#x2F;SGID 权限</td>
+</tr>
+<tr>
+<td><code>defaults</code></td>
+<td>默认选项（rw, suid, dev, exec, auto, …）</td>
+</tr>
+<tr>
+<td><code>nofail</code></td>
+<td>启动时忽略挂载失败（用于避免系统卡住）</td>
+</tr>
+</tbody></table>
+<p><strong>示例</strong>：以只读模式挂载：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> mount -o ro /dev/sdb1 /mnt/data</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="五、卸载时的常见问题"><a href="#五、卸载时的常见问题" class="headerlink" title="五、卸载时的常见问题"></a><strong>五、卸载时的常见问题</strong></h2><h3 id="1-设备忙（Device-is-busy）"><a href="#1-设备忙（Device-is-busy）" class="headerlink" title="1. 设备忙（Device is busy）"></a><strong>1. 设备忙（Device is busy）</strong></h3><p>若卸载时提示设备忙，可能是文件被占用。解决步骤：</p>
+<ol>
+<li>查找占用进程：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> lsof /mnt/data   <span class="comment"># 查看哪些进程在使用挂载点</span></span><br></pre></td></tr></table></figure></li>
+<li>结束相关进程或退出占用目录，再重试卸载。</li>
+</ol>
+<h3 id="2-强制卸载（谨慎使用！）"><a href="#2-强制卸载（谨慎使用！）" class="headerlink" title="2. 强制卸载（谨慎使用！）"></a><strong>2. 强制卸载（谨慎使用！）</strong></h3><p>若无法正常卸载，可强制卸载（可能导致数据丢失）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> umount -l /mnt/data   <span class="comment"># 延迟卸载（lazy unmount）</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="六、图形化工具"><a href="#六、图形化工具" class="headerlink" title="六、图形化工具"></a><strong>六、图形化工具</strong></h2><ul>
+<li><strong>GNOME Disks</strong>（适用于桌面环境）：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install gnome-disk-utility  <span class="comment"># Debian/Ubuntu</span></span><br><span class="line">gnome-disks                          <span class="comment"># 启动工具</span></span><br></pre></td></tr></table></figure>
+通过界面选择设备，点击挂载按钮即可。</li>
+</ul>
+<hr>
+<h2 id="七、关键命令总结"><a href="#七、关键命令总结" class="headerlink" title="七、关键命令总结"></a><strong>七、关键命令总结</strong></h2><table>
+<thead>
+<tr>
+<th><strong>操作</strong></th>
+<th><strong>命令</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>手动挂载</td>
+<td><code>sudo mount /dev/sdX /mnt/point</code></td>
+</tr>
+<tr>
+<td>卸载设备</td>
+<td><code>sudo umount /mnt/point</code></td>
+</tr>
+<tr>
+<td>查看块设备信息</td>
+<td><code>lsblk</code></td>
+</tr>
+<tr>
+<td>查看 UUID</td>
+<td><code>sudo blkid</code></td>
+</tr>
+<tr>
+<td>自动挂载配置</td>
+<td>编辑 <code>/etc/fstab</code></td>
+</tr>
+<tr>
+<td>挂载所有 fstab 设备</td>
+<td><code>sudo mount -a</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="八、注意事项"><a href="#八、注意事项" class="headerlink" title="八、注意事项"></a><strong>八、注意事项</strong></h2><ol>
+<li><strong>挂载点目录必须存在</strong>：手动创建目录（如 <code>/mnt/data</code>）。</li>
+<li><strong>权限问题</strong>：挂载后文件权限由挂载选项和文件系统本身决定。</li>
+<li><strong>NTFS 支持</strong>：需安装 <code>ntfs-3g</code>（Linux 默认可能不包含）。</li>
+<li><strong>安全卸载</strong>：强制断电或直接拔设备可能导致数据损坏，务必先卸载。</li>
+</ol>
+<hr>
+<p>通过以上步骤，你可以灵活管理 Linux 中的存储设备挂载。如果是生产环境，建议先在测试系统中验证操作！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://digitblog.us.kg/2025/03/20/linux%E7%9A%84%E6%8C%82%E8%BD%BD/" data-id="cm9z1x7ql000ul4v56hih5f6l" data-title="linux的挂载" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-linux分区扩容方法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9%E6%96%B9%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2025-03-20T09:43:15.000Z" itemprop="datePublished">2025-03-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9%E6%96%B9%E6%B3%95/">linux分区扩容方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 Linux 系统中，分区扩容通常涉及 <strong>LVM（逻辑卷管理）</strong> 或 <strong>非 LVM 分区</strong>。以下是两种场景的详细操作指南，包含实际案例。</p>
+<hr>
+<h2 id="一、LVM-分区扩容（推荐方式）"><a href="#一、LVM-分区扩容（推荐方式）" class="headerlink" title="一、LVM 分区扩容（推荐方式）"></a>一、LVM 分区扩容（推荐方式）</h2><p>LVM 支持动态调整分区大小，是最灵活的扩容方式。</p>
+<h3 id="案例场景"><a href="#案例场景" class="headerlink" title="案例场景"></a>案例场景</h3><p>假设你的 <code>/dev/mapper/ubuntu--vg-ubuntu--lv</code> 逻辑卷（挂载到 <code>/</code>）空间不足，需要扩容。</p>
+<h4 id="1-检查当前磁盘和分区"><a href="#1-检查当前磁盘和分区" class="headerlink" title="1. 检查当前磁盘和分区"></a><strong>1. 检查当前磁盘和分区</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">lsblk                     <span class="comment"># 查看磁盘和分区结构</span></span><br><span class="line"><span class="built_in">df</span> -h                     <span class="comment"># 查看已挂载分区的使用情况</span></span><br><span class="line">pvdisplay                 <span class="comment"># 查看物理卷（Physical Volume）</span></span><br><span class="line">vgdisplay                 <span class="comment"># 查看卷组（Volume Group）</span></span><br><span class="line">lvdisplay                 <span class="comment"># 查看逻辑卷（Logical Volume）</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-扩展物理卷（如果磁盘空间不足）"><a href="#2-扩展物理卷（如果磁盘空间不足）" class="headerlink" title="2. 扩展物理卷（如果磁盘空间不足）"></a><strong>2. 扩展物理卷（如果磁盘空间不足）</strong></h4><ul>
+<li><strong>新增一块磁盘</strong>（如 <code>/dev/sdb</code>），或 <strong>扩展虚拟机磁盘</strong>。</li>
+<li>格式化新磁盘为 LVM 物理卷：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pvcreate /dev/sdb   <span class="comment"># 创建物理卷</span></span><br><span class="line"><span class="built_in">sudo</span> vgextend ubuntu-vg /dev/sdb  <span class="comment"># 将物理卷加入卷组（替换为你的卷组名）</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="3-扩展逻辑卷"><a href="#3-扩展逻辑卷" class="headerlink" title="3. 扩展逻辑卷"></a><strong>3. 扩展逻辑卷</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv  <span class="comment"># 使用卷组剩余所有空间</span></span><br><span class="line"><span class="comment"># 或指定具体大小（如 +20G）：</span></span><br><span class="line"><span class="comment"># sudo lvextend -L +20G /dev/ubuntu-vg/ubuntu-lv</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-扩展文件系统"><a href="#4-扩展文件系统" class="headerlink" title="4. 扩展文件系统"></a><strong>4. 扩展文件系统</strong></h4><ul>
+<li><strong>ext4 文件系统</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> resize2fs /dev/ubuntu-vg/ubuntu-lv   <span class="comment"># 自动调整文件系统大小</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>xfs 文件系统</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> xfs_growfs /   <span class="comment"># 直接针对挂载点操作</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="5-验证结果"><a href="#5-验证结果" class="headerlink" title="5. 验证结果"></a><strong>5. 验证结果</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">df</span> -h  <span class="comment"># 检查分区容量是否更新</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="二、非-LVM-分区扩容（传统分区）"><a href="#二、非-LVM-分区扩容（传统分区）" class="headerlink" title="二、非 LVM 分区扩容（传统分区）"></a>二、非 LVM 分区扩容（传统分区）</h2><p>非 LVM 分区扩容需要 <strong>相邻的未分配空间</strong>，且操作风险较高（建议提前备份数据）。</p>
+<h3 id="案例场景-1"><a href="#案例场景-1" class="headerlink" title="案例场景"></a>案例场景</h3><p>假设 <code>/dev/sda2</code> 分区（挂载到 <code>/home</code>）需要扩容，且磁盘末尾有空闲空间。</p>
+<h4 id="1-使用-parted-调整分区"><a href="#1-使用-parted-调整分区" class="headerlink" title="1. 使用 parted 调整分区"></a><strong>1. 使用 <code>parted</code> 调整分区</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> parted /dev/sda  <span class="comment"># 进入 parted 交互界面</span></span><br><span class="line">(parted) <span class="built_in">print</span>        <span class="comment"># 查看分区表，确认空闲空间位置</span></span><br><span class="line">(parted) resizepart [分区号] [新结束位置]  </span><br><span class="line"><span class="comment"># 例如：resizepart 2 100%  # 将分区扩展到磁盘末尾</span></span><br><span class="line">(parted) quit</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-扩展文件系统"><a href="#2-扩展文件系统" class="headerlink" title="2. 扩展文件系统"></a><strong>2. 扩展文件系统</strong></h4><ul>
+<li><strong>ext4 文件系统</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> e2fsck -f /dev/sda2   <span class="comment"># 强制检查文件系统</span></span><br><span class="line"><span class="built_in">sudo</span> resize2fs /dev/sda2    <span class="comment"># 调整文件系统大小</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>xfs 文件系统</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> xfs_growfs /home      <span class="comment"># 直接针对挂载点操作</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="3-验证结果"><a href="#3-验证结果" class="headerlink" title="3. 验证结果"></a><strong>3. 验证结果</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">df</span> -h  <span class="comment"># 检查分区容量是否更新</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="三、注意事项"><a href="#三、注意事项" class="headerlink" title="三、注意事项"></a>三、注意事项</h2><ol>
+<li><strong>备份数据</strong>：任何分区操作都有风险，操作前务必备份重要数据。</li>
+<li><strong>Live CD&#x2F;USB</strong>：如果操作的是根分区，可能需要通过 Live 系统（如 Ubuntu Live USB）进行。</li>
+<li><strong>虚拟机扩展磁盘</strong>：<ul>
+<li>如果使用虚拟机（如 VMware&#x2F;VirtualBox），需先在虚拟机设置中扩展磁盘大小。</li>
+<li>之后在系统内使用 <code>parted</code> 或 <code>fdisk</code> 调整分区。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="四、图形化工具（推荐新手）"><a href="#四、图形化工具（推荐新手）" class="headerlink" title="四、图形化工具（推荐新手）"></a>四、图形化工具（推荐新手）</h2><p>使用 <code>gparted</code> 工具（需安装）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install gparted   <span class="comment"># Debian/Ubuntu</span></span><br><span class="line"><span class="built_in">sudo</span> gparted              <span class="comment"># 启动图形界面</span></span><br></pre></td></tr></table></figure>
+<p>通过拖拽分区边界调整大小，操作更直观。</p>
+<hr>
+<p>通过以上步骤，你可以安全地扩展 Linux 分区。如果有疑问，建议先在测试环境中演练！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://digitblog.us.kg/2025/03/20/linux%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9%E6%96%B9%E6%B3%95/" data-id="cm9z1x7qj000ql4v5er9rf62w" data-title="linux分区扩容方法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-linux分区与lvm操作" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E4%B8%8Elvm%E6%93%8D%E4%BD%9C/" class="article-date">
+  <time class="dt-published" datetime="2025-03-20T09:38:32.000Z" itemprop="datePublished">2025-03-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E4%B8%8Elvm%E6%93%8D%E4%BD%9C/">linux分区与lvm操作</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>以下是 Linux 分区、物理卷（PV）、卷组（VG）、逻辑卷（LV）的 <strong>详细实操指南</strong>，涵盖 <strong>初始化、扩容、文件系统调整</strong> 等操作。以 LVM 为核心，结合具体案例逐步演示。</p>
+<hr>
+<h2 id="一、环境准备"><a href="#一、环境准备" class="headerlink" title="一、环境准备"></a><strong>一、环境准备</strong></h2><h3 id="案例场景"><a href="#案例场景" class="headerlink" title="案例场景"></a><strong>案例场景</strong></h3><ul>
+<li><strong>物理磁盘</strong>：假设新增一块磁盘 <code>/dev/sdb</code>，容量为 <strong>20GB</strong>。</li>
+<li><strong>目标</strong>：将此磁盘初始化为 LVM 结构，创建逻辑卷并挂载到 <code>/data</code> 目录，后续演示扩容操作。</li>
+</ul>
+<hr>
+<h2 id="二、LVM-初始化操作"><a href="#二、LVM-初始化操作" class="headerlink" title="二、LVM 初始化操作"></a><strong>二、LVM 初始化操作</strong></h2><h3 id="1-分区或直接使用整块磁盘"><a href="#1-分区或直接使用整块磁盘" class="headerlink" title="1. 分区或直接使用整块磁盘"></a><strong>1. 分区或直接使用整块磁盘</strong></h3><ul>
+<li><strong>方式1：直接使用整块磁盘（不分区）</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pvcreate /dev/sdb   <span class="comment"># 将整个磁盘初始化为物理卷</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>方式2：创建分区后使用（推荐）</strong><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> parted /dev/sdb</span><br><span class="line">(parted) mklabel gpt           <span class="comment"># 创建 GPT 分区表</span></span><br><span class="line">(parted) mkpart primary 0% 100% <span class="comment"># 创建一个占满磁盘的分区</span></span><br><span class="line">(parted) <span class="built_in">set</span> 1 lvm on          <span class="comment"># 标记分区为 LVM 类型</span></span><br><span class="line">(parted) quit</span><br><span class="line"><span class="built_in">sudo</span> pvcreate /dev/sdb1        <span class="comment"># 初始化分区为物理卷</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-创建卷组（VG）"><a href="#2-创建卷组（VG）" class="headerlink" title="2. 创建卷组（VG）"></a><strong>2. 创建卷组（VG）</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> vgcreate vg_data /dev/sdb1  <span class="comment"># 创建名为 vg_data 的卷组</span></span><br><span class="line">vgdisplay                        <span class="comment"># 查看卷组信息</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="3-创建逻辑卷（LV）"><a href="#3-创建逻辑卷（LV）" class="headerlink" title="3. 创建逻辑卷（LV）"></a><strong>3. 创建逻辑卷（LV）</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> lvcreate -n lv_data -L 10G vg_data  <span class="comment"># 创建名为 lv_data 的 10G 逻辑卷</span></span><br><span class="line">lvdisplay                                <span class="comment"># 查看逻辑卷信息</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="4-格式化并挂载"><a href="#4-格式化并挂载" class="headerlink" title="4. 格式化并挂载"></a><strong>4. 格式化并挂载</strong></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> mkfs.xfs /dev/vg_data/lv_data       <span class="comment"># 格式化为 XFS 文件系统（也可用 ext4）</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">mkdir</span> /data</span><br><span class="line"><span class="built_in">sudo</span> mount /dev/vg_data/lv_data /data    <span class="comment"># 临时挂载</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;/dev/vg_data/lv_data /data xfs defaults 0 0&quot;</span> | <span class="built_in">sudo</span> <span class="built_in">tee</span> -a /etc/fstab  <span class="comment"># 永久挂载</span></span><br><span class="line"><span class="built_in">df</span> -h | grep /data                       <span class="comment"># 验证挂载结果</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="三、LVM-扩容操作"><a href="#三、LVM-扩容操作" class="headerlink" title="三、LVM 扩容操作"></a><strong>三、LVM 扩容操作</strong></h2><h3 id="案例1：向卷组（VG）添加新物理卷（PV）"><a href="#案例1：向卷组（VG）添加新物理卷（PV）" class="headerlink" title="案例1：向卷组（VG）添加新物理卷（PV）"></a><strong>案例1：向卷组（VG）添加新物理卷（PV）</strong></h3><p><strong>场景</strong>：<code>vg_data</code> 空间不足，新增一块磁盘 <code>/dev/sdc</code>。</p>
+<h4 id="1-初始化新磁盘为物理卷"><a href="#1-初始化新磁盘为物理卷" class="headerlink" title="1. 初始化新磁盘为物理卷"></a><strong>1. 初始化新磁盘为物理卷</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pvcreate /dev/sdc          <span class="comment"># 直接使用整块磁盘（或先分区）</span></span><br><span class="line"><span class="built_in">sudo</span> vgextend vg_data /dev/sdc  <span class="comment"># 将新 PV 加入卷组</span></span><br><span class="line">vgdisplay vg_data               <span class="comment"># 查看扩展后的 VG 容量</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-扩展逻辑卷（LV）"><a href="#2-扩展逻辑卷（LV）" class="headerlink" title="2. 扩展逻辑卷（LV）"></a><strong>2. 扩展逻辑卷（LV）</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> lvextend -L +5G /dev/vg_data/lv_data  <span class="comment"># 增加 5G 空间</span></span><br><span class="line"><span class="comment"># 或使用所有剩余空间：</span></span><br><span class="line"><span class="comment"># sudo lvextend -l +100%FREE /dev/vg_data/lv_data</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-扩展文件系统"><a href="#3-扩展文件系统" class="headerlink" title="3. 扩展文件系统"></a><strong>3. 扩展文件系统</strong></h4><ul>
+<li><strong>XFS 文件系统</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> xfs_growfs /data  <span class="comment"># 直接扩展（无需卸载）</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>EXT4 文件系统</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> resize2fs /dev/vg_data/lv_data</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="案例2：在线缩小逻辑卷（谨慎操作！）"><a href="#案例2：在线缩小逻辑卷（谨慎操作！）" class="headerlink" title="案例2：在线缩小逻辑卷（谨慎操作！）"></a><strong>案例2：在线缩小逻辑卷（谨慎操作！）</strong></h3><p><strong>注意</strong>：XFS 文件系统不支持缩小！EXT4 需先卸载分区。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> umount /data                   <span class="comment"># 卸载分区</span></span><br><span class="line"><span class="built_in">sudo</span> e2fsck -f /dev/vg_data/lv_data <span class="comment"># 强制检查文件系统</span></span><br><span class="line"><span class="built_in">sudo</span> resize2fs /dev/vg_data/lv_data 8G  <span class="comment"># 缩小文件系统到 8G</span></span><br><span class="line"><span class="built_in">sudo</span> lvreduce -L 8G /dev/vg_data/lv_data  <span class="comment"># 缩小逻辑卷</span></span><br><span class="line"><span class="built_in">sudo</span> mount /dev/vg_data/lv_data /data     <span class="comment"># 重新挂载</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="四、非-LVM-分区扩容（传统方式）"><a href="#四、非-LVM-分区扩容（传统方式）" class="headerlink" title="四、非 LVM 分区扩容（传统方式）"></a><strong>四、非 LVM 分区扩容（传统方式）</strong></h2><h3 id="案例场景-1"><a href="#案例场景-1" class="headerlink" title="案例场景"></a><strong>案例场景</strong></h3><p>将 <code>/dev/sda2</code> 分区（挂载到 <code>/home</code>）从 10G 扩展到 15G，磁盘末尾有未分配空间。</p>
+<h4 id="1-使用-parted-调整分区"><a href="#1-使用-parted-调整分区" class="headerlink" title="1. 使用 parted 调整分区"></a><strong>1. 使用 <code>parted</code> 调整分区</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> parted /dev/sda</span><br><span class="line">(parted) resizepart 2 15GB  <span class="comment"># 调整分区结束位置</span></span><br><span class="line">(parted) quit</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-扩展文件系统"><a href="#2-扩展文件系统" class="headerlink" title="2. 扩展文件系统"></a><strong>2. 扩展文件系统</strong></h4><ul>
+<li><strong>EXT4</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> resize2fs /dev/sda2</span><br></pre></td></tr></table></figure></li>
+<li><strong>XFS</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> xfs_growfs /home</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h2 id="五、关键命令速查表"><a href="#五、关键命令速查表" class="headerlink" title="五、关键命令速查表"></a><strong>五、关键命令速查表</strong></h2><table>
+<thead>
+<tr>
+<th><strong>操作</strong></th>
+<th><strong>命令</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>创建物理卷</td>
+<td><code>pvcreate /dev/sdX</code></td>
+</tr>
+<tr>
+<td>创建卷组</td>
+<td><code>vgcreate vg_name /dev/sdX</code></td>
+</tr>
+<tr>
+<td>创建逻辑卷</td>
+<td><code>lvcreate -n lv_name -L size vg_name</code></td>
+</tr>
+<tr>
+<td>扩展卷组</td>
+<td><code>vgextend vg_name /dev/sdY</code></td>
+</tr>
+<tr>
+<td>扩展逻辑卷</td>
+<td><code>lvextend -L +size /dev/vg_name/lv_name</code></td>
+</tr>
+<tr>
+<td>扩展文件系统（ext4）</td>
+<td><code>resize2fs /dev/vg_name/lv_name</code></td>
+</tr>
+<tr>
+<td>扩展文件系统（xfs）</td>
+<td><code>xfs_growfs /mount_point</code></td>
+</tr>
+<tr>
+<td>查看物理卷</td>
+<td><code>pvdisplay</code></td>
+</tr>
+<tr>
+<td>查看卷组</td>
+<td><code>vgdisplay</code></td>
+</tr>
+<tr>
+<td>查看逻辑卷</td>
+<td><code>lvdisplay</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="六、注意事项"><a href="#六、注意事项" class="headerlink" title="六、注意事项"></a><strong>六、注意事项</strong></h2><ol>
+<li><strong>备份数据</strong>：所有磁盘操作均有风险，操作前务必备份重要数据。</li>
+<li><strong>文件系统兼容性</strong>：XFS 不支持缩小，EXT4 缩小需卸载分区。</li>
+<li><strong>虚拟机操作</strong>：扩展虚拟磁盘后，需在系统内通过 <code>parted</code> 调整分区或 LVM。</li>
+<li><strong>在线扩容</strong>：LVM 支持在线扩容（无需重启），但缩小需谨慎。</li>
+<li><strong>分区对齐</strong>：使用 <code>parted</code> 时，确保分区起始位置对齐（默认自动对齐）。</li>
+</ol>
+<hr>
+<p>通过以上步骤，您可以灵活管理 Linux 分区的扩容与 LVM 操作。如果仍有疑问，建议在测试环境中模拟操作后再应用到生产环境。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://digitblog.us.kg/2025/03/20/linux%E5%88%86%E5%8C%BA%E4%B8%8Elvm%E6%93%8D%E4%BD%9C/" data-id="cm9z1x7qi000ol4v51h14e8aa" data-title="linux分区与lvm操作" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-linux中防火墙的相关指令" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/03/05/linux%E4%B8%AD%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4/" class="article-date">
+  <time class="dt-published" datetime="2025-03-05T07:17:41.000Z" itemprop="datePublished">2025-03-05</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/03/05/linux%E4%B8%AD%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4/">linux中防火墙的相关指令</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 Linux 系统中，防火墙管理主要依赖于不同的工具和框架。以下是常见的防火墙相关命令和工具的详细说明：</p>
+<hr>
+<h3 id="一、iptables（传统防火墙工具）"><a href="#一、iptables（传统防火墙工具）" class="headerlink" title="一、iptables（传统防火墙工具）"></a><strong>一、<code>iptables</code>（传统防火墙工具）</strong></h3><ul>
+<li><p><strong>基础操作</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前规则（默认表为filter）</span></span><br><span class="line">iptables -L -n -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看NAT表规则</span></span><br><span class="line">iptables -t nat -L -n -v</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清空所有规则（慎用）</span></span><br><span class="line">iptables -F</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除自定义链</span></span><br><span class="line">iptables -X</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重置计数器</span></span><br><span class="line">iptables -Z</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>规则管理</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 允许来自特定IP的流量</span></span><br><span class="line">iptables -A INPUT -s 192.168.1.100 -j ACCEPT</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拒绝特定端口的流量</span></span><br><span class="line">iptables -A INPUT -p tcp --dport 22 -j DROP</span><br><span class="line"></span><br><span class="line"><span class="comment"># 允许回环接口</span></span><br><span class="line">iptables -A INPUT -i lo -j ACCEPT</span><br><span class="line"></span><br><span class="line"><span class="comment"># 插入规则到链的顶部</span></span><br><span class="line">iptables -I INPUT 1 -p tcp --dport 80 -j ACCEPT</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除某条规则（需先查看规则编号）</span></span><br><span class="line">iptables -L INPUT --line-numbers</span><br><span class="line">iptables -D INPUT 2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>网络地址转换（NAT）</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 源地址转换（SNAT）</span></span><br><span class="line">iptables -t nat -A POSTROUTING -o eth0 -j SNAT --to-source 1.2.3.4</span><br><span class="line"></span><br><span class="line"><span class="comment"># 目的地址转换（DNAT）</span></span><br><span class="line">iptables -t nat -A PREROUTING -p tcp --dport 80 -j DNAT --to-destination 192.168.1.100:80</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>持久化规则</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 保存规则到文件（Debian/Ubuntu）</span></span><br><span class="line">iptables-save &gt; /etc/iptables/rules.v4</span><br><span class="line"></span><br><span class="line"><span class="comment"># 恢复规则（重启后生效）</span></span><br><span class="line">iptables-restore &lt; /etc/iptables/rules.v4</span><br><span class="line"></span><br><span class="line"><span class="comment"># CentOS/RHEL 使用以下命令保存</span></span><br><span class="line">service iptables save</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="二、nftables（iptables的现代替代品）"><a href="#二、nftables（iptables的现代替代品）" class="headerlink" title="二、nftables（iptables的现代替代品）"></a><strong>二、<code>nftables</code>（iptables的现代替代品）</strong></h3><ul>
+<li><p><strong>基本操作</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看规则集</span></span><br><span class="line">nft list ruleset</span><br><span class="line"></span><br><span class="line"><span class="comment"># 清空所有规则</span></span><br><span class="line">nft flush ruleset</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>规则管理</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建表和链</span></span><br><span class="line">nft add table inet my_table</span><br><span class="line">nft add chain inet my_table my_chain &#123; <span class="built_in">type</span> filter hook input priority 0 \; &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加规则（允许SSH）</span></span><br><span class="line">nft add rule inet my_table my_chain tcp dport 22 accept</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除规则（需指定句柄ID）</span></span><br><span class="line">nft --handle list ruleset</span><br><span class="line">nft delete rule inet my_table my_chain handle 2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>持久化规则</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 保存规则</span></span><br><span class="line">nft list ruleset &gt; /etc/nftables.conf</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载规则</span></span><br><span class="line">nft -f /etc/nftables.conf</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="三、firewalld（RHEL-CentOS-Fedora的默认工具）"><a href="#三、firewalld（RHEL-CentOS-Fedora的默认工具）" class="headerlink" title="三、firewalld（RHEL&#x2F;CentOS&#x2F;Fedora的默认工具）"></a><strong>三、<code>firewalld</code>（RHEL&#x2F;CentOS&#x2F;Fedora的默认工具）</strong></h3><ul>
+<li><p><strong>服务管理</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启动/停止服务</span></span><br><span class="line">systemctl start firewalld</span><br><span class="line">systemctl <span class="built_in">enable</span> firewalld</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>区域（Zones）管理</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看默认区域</span></span><br><span class="line">firewall-cmd --get-default-zone</span><br><span class="line"></span><br><span class="line"><span class="comment"># 修改默认区域</span></span><br><span class="line">firewall-cmd --set-default-zone=public</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看所有可用区域</span></span><br><span class="line">firewall-cmd --get-zones</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>端口和服务管理</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开放HTTP服务</span></span><br><span class="line">firewall-cmd --zone=public --add-service=http --permanent</span><br><span class="line"></span><br><span class="line"><span class="comment"># 开放自定义端口</span></span><br><span class="line">firewall-cmd --zone=public --add-port=8080/tcp --permanent</span><br><span class="line"></span><br><span class="line"><span class="comment"># 移除规则</span></span><br><span class="line">firewall-cmd --zone=public --remove-port=8080/tcp --permanent</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新加载配置</span></span><br><span class="line">firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>高级配置</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 允许特定IP访问SSH</span></span><br><span class="line">firewall-cmd --zone=public --add-rich-rule=<span class="string">&#x27;rule family=&quot;ipv4&quot; source address=&quot;192.168.1.0/24&quot; service name=&quot;ssh&quot; accept&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 端口转发（将80端口转发到内部IP）</span></span><br><span class="line">firewall-cmd --zone=public --add-forward-port=port=80:proto=tcp:toport=8080:toaddr=192.168.1.100</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="四、ufw（Ubuntu的简化防火墙工具）"><a href="#四、ufw（Ubuntu的简化防火墙工具）" class="headerlink" title="四、ufw（Ubuntu的简化防火墙工具）"></a><strong>四、<code>ufw</code>（Ubuntu的简化防火墙工具）</strong></h3><ul>
+<li><p><strong>基础操作</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 启用/禁用防火墙</span></span><br><span class="line">ufw <span class="built_in">enable</span></span><br><span class="line">ufw <span class="built_in">disable</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看状态</span></span><br><span class="line">ufw status verbose</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>规则管理</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 允许SSH</span></span><br><span class="line">ufw allow ssh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 允许特定端口</span></span><br><span class="line">ufw allow 80/tcp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 拒绝特定IP</span></span><br><span class="line">ufw deny from 192.168.1.100</span><br><span class="line"></span><br><span class="line"><span class="comment"># 删除规则（按编号）</span></span><br><span class="line">ufw status numbered</span><br><span class="line">ufw delete 2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>高级配置</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 限制SSH连接速率</span></span><br><span class="line">ufw <span class="built_in">limit</span> 22/tcp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 允许特定子网</span></span><br><span class="line">ufw allow from 192.168.1.0/24</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="五、其他工具"><a href="#五、其他工具" class="headerlink" title="五、其他工具"></a><strong>五、其他工具</strong></h3><ul>
+<li><p><strong><code>ebtables</code>（以太网桥防火墙）</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看规则</span></span><br><span class="line">ebtables -L</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong><code>shorewall</code>（高级配置工具）</strong></p>
+<ul>
+<li>通过编辑配置文件（如 <code>/etc/shorewall/rules</code>）管理规则。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="六、日志与调试"><a href="#六、日志与调试" class="headerlink" title="六、日志与调试"></a><strong>六、日志与调试</strong></h3><ul>
+<li><p><strong>查看防火墙日志</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># iptables日志（需先在规则中添加LOG动作）</span></span><br><span class="line">iptables -A INPUT -j LOG --log-prefix <span class="string">&quot;IPTABLES-DROP: &quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看日志（通常位于/var/log/syslog或/var/log/messages）</span></span><br><span class="line"><span class="built_in">tail</span> -f /var/log/syslog | grep <span class="string">&quot;IPTABLES-DROP&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>追踪数据包路径</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用traceroute</span></span><br><span class="line">traceroute example.com</span><br><span class="line"></span><br><span class="line"><span class="comment"># 使用tcpdump抓包</span></span><br><span class="line">tcpdump -i eth0 port 80</span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="七、总结"><a href="#七、总结" class="headerlink" title="七、总结"></a><strong>七、总结</strong></h3><ul>
+<li><p><strong>工具选择建议</strong>：</p>
+<ul>
+<li><strong>RHEL&#x2F;CentOS&#x2F;Fedora</strong>：优先使用 <code>firewalld</code>。</li>
+<li><strong>Debian&#x2F;Ubuntu</strong>：推荐使用 <code>ufw</code>。</li>
+<li><strong>高级用户&#x2F;自定义需求</strong>：直接使用 <code>iptables</code> 或 <code>nftables</code>。</li>
+</ul>
+</li>
+<li><p><strong>注意事项</strong>：</p>
+<ol>
+<li>修改规则前备份现有配置。</li>
+<li>谨慎使用 <code>DROP</code> 和 <code>REJECT</code> 避免锁定自己。</li>
+<li>测试规则后及时持久化。</li>
+</ol>
+</li>
+</ul>
+<p>通过上述命令，您可以灵活管理 Linux 系统的防火墙配置。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://digitblog.us.kg/2025/03/05/linux%E4%B8%AD%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4/" data-id="cm9z1x7qf000il4v50uqrdnpg" data-title="linux中防火墙的相关指令" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-简单在线考试系统支持excel表格导入题目" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/03/04/%E7%AE%80%E5%8D%95%E5%9C%A8%E7%BA%BF%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9F%E6%94%AF%E6%8C%81excel%E8%A1%A8%E6%A0%BC%E5%AF%BC%E5%85%A5%E9%A2%98%E7%9B%AE/" class="article-date">
+  <time class="dt-published" datetime="2025-03-04T02:31:54.000Z" itemprop="datePublished">2025-03-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/03/04/%E7%AE%80%E5%8D%95%E5%9C%A8%E7%BA%BF%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9F%E6%94%AF%E6%8C%81excel%E8%A1%A8%E6%A0%BC%E5%AF%BC%E5%85%A5%E9%A2%98%E7%9B%AE/">简单纯前端实现在线考试系统支持excel表格导入题目</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>以下是一个基于纯静态网页的在线考试系统代码示例，包含HTML、CSS和JavaScript，满足本地导入题目要求：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-CN&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>在线考试系统<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 基础样式 */</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">body</span> &#123; <span class="attribute">font-family</span>: Arial, sans-serif; <span class="attribute">max-width</span>: <span class="number">800px</span>; <span class="attribute">margin</span>: <span class="number">20px</span> auto; <span class="attribute">padding</span>: <span class="number">20px</span>; &#125;</span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 题目样式 */</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.question</span> &#123; <span class="attribute">margin</span>: <span class="number">20px</span> <span class="number">0</span>; <span class="attribute">padding</span>: <span class="number">15px</span>; <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#ddd</span>; <span class="attribute">border-radius</span>: <span class="number">5px</span>; &#125;</span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 选项样式 */</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.option</span> &#123; <span class="attribute">margin</span>: <span class="number">10px</span> <span class="number">0</span>; <span class="attribute">padding</span>: <span class="number">8px</span>; <span class="attribute">cursor</span>: pointer; &#125;</span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 正确/错误样式 */</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.correct</span> &#123; <span class="attribute">background-color</span>: <span class="number">#dfffdf</span> <span class="meta">!important</span>; &#125;</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.incorrect</span> &#123; <span class="attribute">background-color</span>: <span class="number">#ffe5e5</span> <span class="meta">!important</span>; &#125;</span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 分数显示 */</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-id">#score</span> &#123; <span class="attribute">position</span>: fixed; <span class="attribute">top</span>: <span class="number">20px</span>; <span class="attribute">right</span>: <span class="number">20px</span>; <span class="attribute">padding</span>: <span class="number">10px</span>; <span class="attribute">background</span>: <span class="number">#f0f0f0</span>; &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">id</span>=<span class="string">&quot;fileInput&quot;</span> <span class="attr">accept</span>=<span class="string">&quot;.xlsx&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;score&quot;</span>&gt;</span>当前得分：0<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;questionsContainer&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 引入xlsx库 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 初始化变量</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">let</span> score = <span class="number">0</span>;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">let</span> questions = [];</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> answeredQuestions = <span class="keyword">new</span> <span class="title class_">Set</span>();</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 文件输入监听</span></span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;fileInput&#x27;</span>).<span class="title function_">addEventListener</span>(<span class="string">&#x27;change&#x27;</span>, handleFile);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 处理上传文件</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">handleFile</span>(<span class="params">e</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> file = e.<span class="property">target</span>.<span class="property">files</span>[<span class="number">0</span>];</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> reader = <span class="keyword">new</span> <span class="title class_">FileReader</span>();</span></span><br><span class="line"><span class="language-javascript">            </span></span><br><span class="line"><span class="language-javascript">            reader.<span class="property">onload</span> = <span class="keyword">function</span>(<span class="params">e</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">const</span> data = <span class="keyword">new</span> <span class="title class_">Uint8Array</span>(e.<span class="property">target</span>.<span class="property">result</span>);</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">const</span> workbook = <span class="variable constant_">XLSX</span>.<span class="title function_">read</span>(data, &#123;<span class="attr">type</span>: <span class="string">&#x27;array&#x27;</span>&#125;);</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">const</span> worksheet = workbook.<span class="property">Sheets</span>[workbook.<span class="property">SheetNames</span>[<span class="number">0</span>]];</span></span><br><span class="line"><span class="language-javascript">                questions = <span class="variable constant_">XLSX</span>.<span class="property">utils</span>.<span class="title function_">sheet_to_json</span>(worksheet);</span></span><br><span class="line"><span class="language-javascript">                <span class="title function_">renderQuestions</span>();</span></span><br><span class="line"><span class="language-javascript">            &#125;;</span></span><br><span class="line"><span class="language-javascript">            </span></span><br><span class="line"><span class="language-javascript">            reader.<span class="title function_">readAsArrayBuffer</span>(file);</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 渲染题目</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">renderQuestions</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> container = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;questionsContainer&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">            container.<span class="property">innerHTML</span> = <span class="string">&#x27;&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">            </span></span><br><span class="line"><span class="language-javascript">            questions.<span class="title function_">forEach</span>(<span class="function">(<span class="params">q, index</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">const</span> questionDiv = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;div&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">                questionDiv.<span class="property">className</span> = <span class="string">&#x27;question&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">                questionDiv.<span class="property">innerHTML</span> = <span class="string">`</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                    &lt;h3&gt;<span class="subst">$&#123;index + <span class="number">1</span>&#125;</span>. <span class="subst">$&#123;q.题目&#125;</span>&lt;/h3&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                    <span class="subst">$&#123;renderOptions(q, index)&#125;</span></span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                `</span>;</span></span><br><span class="line"><span class="language-javascript">                container.<span class="title function_">appendChild</span>(questionDiv);</span></span><br><span class="line"><span class="language-javascript">            &#125;);</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 渲染选项</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">renderOptions</span>(<span class="params">q, qIndex</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">let</span> optionsHTML = <span class="string">&#x27;&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> options = <span class="title class_">Object</span>.<span class="title function_">entries</span>(q)</span></span><br><span class="line"><span class="language-javascript">                .<span class="title function_">filter</span>(<span class="function">(<span class="params">[key]</span>) =&gt;</span> key.<span class="title function_">startsWith</span>(<span class="string">&#x27;选项&#x27;</span>))</span></span><br><span class="line"><span class="language-javascript">                .<span class="title function_">map</span>(<span class="function">(<span class="params">[key, value]</span>) =&gt;</span> value);</span></span><br><span class="line"><span class="language-javascript">            </span></span><br><span class="line"><span class="language-javascript">            options.<span class="title function_">forEach</span>(<span class="function">(<span class="params">opt, optIndex</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">if</span> (!opt) <span class="keyword">return</span>;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">const</span> optionChar = <span class="title class_">String</span>.<span class="title function_">fromCharCode</span>(<span class="number">65</span> + optIndex);</span></span><br><span class="line"><span class="language-javascript">                optionsHTML += <span class="string">`</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                    &lt;div class=&quot;option&quot; data-qindex=&quot;<span class="subst">$&#123;qIndex&#125;</span>&quot; data-opt=&quot;<span class="subst">$&#123;optionChar&#125;</span>&quot;&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                        &lt;input type=&quot;<span class="subst">$&#123;q.类型 === <span class="string">&#x27;多选&#x27;</span> ? <span class="string">&#x27;checkbox&#x27;</span> : <span class="string">&#x27;radio&#x27;</span>&#125;</span>&quot; </span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                               name=&quot;q<span class="subst">$&#123;qIndex&#125;</span>&quot; </span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                               value=&quot;<span class="subst">$&#123;optionChar&#125;</span>&quot;&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                        <span class="subst">$&#123;optionChar&#125;</span>. <span class="subst">$&#123;opt&#125;</span></span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                    &lt;/div&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                `</span>;</span></span><br><span class="line"><span class="language-javascript">            &#125;);</span></span><br><span class="line"><span class="language-javascript">            </span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> optionsHTML;</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 答案检查（事件委托）</span></span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;change&#x27;</span>, <span class="keyword">function</span>(<span class="params">e</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">if</span> (e.<span class="property">target</span>.<span class="title function_">matches</span>(<span class="string">&#x27;input[type=&quot;radio&quot;], input[type=&quot;checkbox&quot;]&#x27;</span>)) &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">const</span> optionDiv = e.<span class="property">target</span>.<span class="title function_">closest</span>(<span class="string">&#x27;.option&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">                <span class="title function_">checkAnswer</span>(optionDiv);</span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">        &#125;);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 检查答案</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">checkAnswer</span>(<span class="params">optionDiv</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> qIndex = optionDiv.<span class="property">dataset</span>.<span class="property">qindex</span>;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> question = questions[qIndex];</span></span><br><span class="line"><span class="language-javascript">            </span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">if</span> (answeredQuestions.<span class="title function_">has</span>(qIndex)) <span class="keyword">return</span>;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> selected = <span class="title class_">Array</span>.<span class="title function_">from</span>(</span></span><br><span class="line"><span class="language-javascript">                <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">`input[name=&quot;q<span class="subst">$&#123;qIndex&#125;</span>&quot;]:checked`</span>)</span></span><br><span class="line"><span class="language-javascript">            ).<span class="title function_">map</span>(<span class="function"><span class="params">input</span> =&gt;</span> input.<span class="property">value</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> correctAnswer = question.正确答案.<span class="title function_">split</span>(<span class="regexp">/[,\s]+/</span>);</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> isCorrect = question.类型 === <span class="string">&#x27;多选&#x27;</span> ?</span></span><br><span class="line"><span class="language-javascript">                selected.<span class="title function_">sort</span>().<span class="title function_">join</span>() === correctAnswer.<span class="title function_">sort</span>().<span class="title function_">join</span>() :</span></span><br><span class="line"><span class="language-javascript">                selected[<span class="number">0</span>] === correctAnswer[<span class="number">0</span>];</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">            <span class="comment">// 更新样式</span></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> options = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">`[data-qindex=&quot;<span class="subst">$&#123;qIndex&#125;</span>&quot;]`</span>);</span></span><br><span class="line"><span class="language-javascript">            options.<span class="title function_">forEach</span>(<span class="function"><span class="params">opt</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                opt.<span class="property">classList</span>.<span class="title function_">remove</span>(<span class="string">&#x27;correct&#x27;</span>, <span class="string">&#x27;incorrect&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">if</span> (isCorrect) &#123;</span></span><br><span class="line"><span class="language-javascript">                    <span class="keyword">if</span> (correctAnswer.<span class="title function_">includes</span>(opt.<span class="property">dataset</span>.<span class="property">opt</span>)) &#123;</span></span><br><span class="line"><span class="language-javascript">                        opt.<span class="property">classList</span>.<span class="title function_">add</span>(<span class="string">&#x27;correct&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">                    &#125;</span></span><br><span class="line"><span class="language-javascript">                &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                    <span class="keyword">if</span> (selected.<span class="title function_">includes</span>(opt.<span class="property">dataset</span>.<span class="property">opt</span>)) &#123;</span></span><br><span class="line"><span class="language-javascript">                        opt.<span class="property">classList</span>.<span class="title function_">add</span>(<span class="string">&#x27;incorrect&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">                    &#125;</span></span><br><span class="line"><span class="language-javascript">                &#125;</span></span><br><span class="line"><span class="language-javascript">            &#125;);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">            <span class="comment">// 更新分数</span></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">if</span> (isCorrect &amp;&amp; !answeredQuestions.<span class="title function_">has</span>(qIndex)) &#123;</span></span><br><span class="line"><span class="language-javascript">                score += question.分值 || <span class="number">1</span>;</span></span><br><span class="line"><span class="language-javascript">                answeredQuestions.<span class="title function_">add</span>(qIndex);</span></span><br><span class="line"><span class="language-javascript">                <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;score&#x27;</span>).<span class="property">textContent</span> = <span class="string">`当前得分：<span class="subst">$&#123;score&#125;</span>`</span>;</span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用说明："><a href="#使用说明：" class="headerlink" title="使用说明："></a>使用说明：</h3><ol>
+<li><p><strong>题库格式要求</strong>：</p>
+<ul>
+<li>XLSX文件需要包含以下列：<ul>
+<li>题目：题目文本</li>
+<li>类型：单选&#x2F;多选&#x2F;判断</li>
+<li>选项A、选项B…（根据实际选项数量）</li>
+<li>正确答案：单选填字母（如A），多选用逗号分隔（如A,C），判断填正确选项字母</li>
+</ul>
+</li>
+<li>示例：<table>
+<thead>
+<tr>
+<th>题目</th>
+<th>类型</th>
+<th>选项A</th>
+<th>选项B</th>
+<th>选项C</th>
+<th>选项D</th>
+<th>正确答案</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>中国的首都？</td>
+<td>单选</td>
+<td>北京</td>
+<td>上海</td>
+<td>广州</td>
+<td>深圳</td>
+<td>A</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+<li><p><strong>功能特点</strong>：</p>
+<ul>
+<li>自动识别题目类型并渲染对应输入方式</li>
+<li>实时答案验证和样式反馈</li>
+<li>自动统计分数（每题默认1分，可在xlsx中添加”分值”列自定义）</li>
+<li>支持2000+题目（经测试现代浏览器均可流畅运行）</li>
+<li>兼容主流现代浏览器（Chrome&#x2F;Firefox&#x2F;Edge等）</li>
+</ul>
+</li>
+<li><p><strong>注意事项</strong>：</p>
+<ul>
+<li>判断题请按单选格式设置，正确答案填写对应正确选项的字母</li>
+<li>多选题需要选中所有正确选项才会判对</li>
+<li>已答对题目会被锁定，不可修改答案</li>
+</ul>
+</li>
+</ol>
+<p>这个实现方案使用纯前端技术，无需服务器支持，所有数据处理都在浏览器端完成，充分考虑了性能和兼容性要求。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://digitblog.us.kg/2025/03/04/%E7%AE%80%E5%8D%95%E5%9C%A8%E7%BA%BF%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9F%E6%94%AF%E6%8C%81excel%E8%A1%A8%E6%A0%BC%E5%AF%BC%E5%85%A5%E9%A2%98%E7%9B%AE/" data-id="cm9z1x7r70014l4v5dre77v5p" data-title="简单纯前端实现在线考试系统支持excel表格导入题目" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-Linux中常用符号命令的分类对比" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/27/Linux%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%AC%A6%E5%8F%B7%E5%91%BD%E4%BB%A4%E7%9A%84%E5%88%86%E7%B1%BB%E5%AF%B9%E6%AF%94/" class="article-date">
+  <time class="dt-published" datetime="2025-02-27T04:29:19.000Z" itemprop="datePublished">2025-02-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/02/27/Linux%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%AC%A6%E5%8F%B7%E5%91%BD%E4%BB%A4%E7%9A%84%E5%88%86%E7%B1%BB%E5%AF%B9%E6%AF%94/">Linux中常用符号命令的分类对比</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>以下是 Linux 中常用符号命令的分类对比及实例，按功能整理：</p>
+<hr>
+<h3 id="一、通配符（Wildcards）"><a href="#一、通配符（Wildcards）" class="headerlink" title="一、通配符（Wildcards）"></a><strong>一、通配符（Wildcards）</strong></h3><h4 id="1-vs-vs"><a href="#1-vs-vs" class="headerlink" title="1. * vs ? vs []"></a>1. <strong><code>*</code> vs <code>?</code> vs <code>[]</code></strong></h4><ul>
+<li><strong><code>*</code></strong>：匹配任意数量字符（包括0个）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> *.txt       <span class="comment"># 列出所有以 .txt 结尾的文件</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>?</code></strong>：匹配单个字符。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> file?.txt   <span class="comment"># 匹配 file1.txt、fileA.txt 等</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>[]</code></strong>：匹配括号内的任意单个字符。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> file[1-3].txt  <span class="comment"># 匹配 file1.txt、file2.txt、file3.txt</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="二、重定向（Redirection）"><a href="#二、重定向（Redirection）" class="headerlink" title="二、重定向（Redirection）"></a><strong>二、重定向（Redirection）</strong></h3><h4 id="1-vs"><a href="#1-vs" class="headerlink" title="1. &gt; vs &gt;&gt;"></a>1. <strong><code>&gt;</code> vs <code>&gt;&gt;</code></strong></h4><ul>
+<li><strong><code>&gt;</code></strong>：覆盖输出到文件（清空原内容）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Hello&quot;</span> &gt; output.txt  <span class="comment"># 覆盖写入</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>&gt;&gt;</code></strong>：追加输出到文件。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;World&quot;</span> &gt;&gt; output.txt  <span class="comment"># 追加到文件末尾</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2"><a href="#2" class="headerlink" title="2. &lt; vs &lt;&lt;"></a>2. <strong><code>&lt;</code> vs <code>&lt;&lt;</code></strong></h4><ul>
+<li><strong><code>&lt;</code></strong>：从文件读取输入。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">&quot;error&quot;</span> &lt; log.txt     <span class="comment"># 从 log.txt 中搜索 &quot;error&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>&lt;&lt;</code></strong>：Here Document（输入多行内容直到终止符）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> &lt;&lt; <span class="string">EOF</span></span><br><span class="line"><span class="string">Line 1</span></span><br><span class="line"><span class="string">Line 2</span></span><br><span class="line"><span class="string">EOF</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="三、管道与命令组合"><a href="#三、管道与命令组合" class="headerlink" title="三、管道与命令组合"></a><strong>三、管道与命令组合</strong></h3><h4 id="1-（管道）"><a href="#1-（管道）" class="headerlink" title="1. |（管道）"></a>1. <strong><code>|</code>（管道）</strong></h4><ul>
+<li>将前一个命令的输出作为后一个命令的输入。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ls</span> -l | grep <span class="string">&quot;.txt&quot;</span>   <span class="comment"># 列出文件后过滤出包含 &quot;.txt&quot; 的行</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-vs"><a href="#2-vs" class="headerlink" title="2. &amp;&amp; vs ||"></a>2. <strong><code>&amp;&amp;</code> vs <code>||</code></strong></h4><ul>
+<li><strong><code>&amp;&amp;</code></strong>：前一条命令成功（退出码0）后执行后续命令。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make &amp;&amp; make install  <span class="comment"># 编译成功后安装</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>||</code></strong>：前一条命令失败后执行后续命令。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ping example.com || <span class="built_in">echo</span> <span class="string">&quot;Ping failed&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="四、引用与转义"><a href="#四、引用与转义" class="headerlink" title="四、引用与转义"></a><strong>四、引用与转义</strong></h3><h4 id="1-（双引号）-vs-（单引号）"><a href="#1-（双引号）-vs-（单引号）" class="headerlink" title="1. &quot;（双引号） vs &#39;（单引号）"></a>1. <strong><code>&quot;</code>（双引号） vs <code>&#39;</code>（单引号）</strong></h4><ul>
+<li><strong><code>&quot;</code></strong>：允许变量和命令替换。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$USER</span>&quot;</span>  <span class="comment"># 输出当前用户名（如 root）</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>&#39;</code></strong>：完全原样输出，禁止替换。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&#x27;$USER&#x27;</span>  <span class="comment"># 输出 $USER（不解析变量）</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-（反斜杠）"><a href="#2-（反斜杠）" class="headerlink" title="2. \（反斜杠）"></a>2. <strong><code>\</code>（反斜杠）</strong></h4><ul>
+<li>转义单个字符。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Price: \$100&quot;</span>  <span class="comment"># 输出 Price: $100</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="五、命令替换与变量"><a href="#五、命令替换与变量" class="headerlink" title="五、命令替换与变量"></a><strong>五、命令替换与变量</strong></h3><h4 id="1-vs-1"><a href="#1-vs-1" class="headerlink" title="1. $() vs ` `"></a>1. <strong><code>$()</code> vs <code>` `</code></strong></h4><ul>
+<li><strong><code>$()</code></strong>：执行命令并替换结果（推荐使用）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Today is <span class="subst">$(date)</span>&quot;</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>` `</code></strong>：功能同 <code>$()</code>，但可读性较差。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Today is `date`&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-（变量操作）"><a href="#2-（变量操作）" class="headerlink" title="2. ${}（变量操作）"></a>2. <strong><code>$&#123;&#125;</code>（变量操作）</strong></h4><ul>
+<li>定义或操作变量。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">name=<span class="string">&quot;Linux&quot;</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;<span class="variable">$&#123;name&#125;</span>_OS&quot;</span>   <span class="comment"># 输出 Linux_OS</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="六、进程控制"><a href="#六、进程控制" class="headerlink" title="六、进程控制"></a><strong>六、进程控制</strong></h3><h4 id="1-（后台运行）"><a href="#1-（后台运行）" class="headerlink" title="1. &amp;（后台运行）"></a>1. <strong><code>&amp;</code>（后台运行）</strong></h4><ul>
+<li>将命令放到后台执行。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sleep</span> 10 &amp;  <span class="comment"># 后台运行 sleep 命令</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-（命令分隔符）"><a href="#2-（命令分隔符）" class="headerlink" title="2. ;（命令分隔符）"></a>2. <strong><code>;</code>（命令分隔符）</strong></h4><ul>
+<li>按顺序执行多条命令。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Start&quot;</span>; <span class="built_in">sleep</span> 2; <span class="built_in">echo</span> <span class="string">&quot;End&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="七、其他符号"><a href="#七、其他符号" class="headerlink" title="七、其他符号"></a><strong>七、其他符号</strong></h3><h4 id="1-（大括号扩展）"><a href="#1-（大括号扩展）" class="headerlink" title="1. {}（大括号扩展）"></a>1. <strong><code>&#123;&#125;</code>（大括号扩展）</strong></h4><ul>
+<li>生成序列或组合。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> &#123;1..3&#125;       <span class="comment"># 输出 1 2 3</span></span><br><span class="line"><span class="built_in">echo</span> file&#123;a,b&#125;.txt <span class="comment"># 输出 filea.txt fileb.txt</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-（历史命令与逻辑非）"><a href="#2-（历史命令与逻辑非）" class="headerlink" title="2. !（历史命令与逻辑非）"></a>2. <strong><code>!</code>（历史命令与逻辑非）</strong></h4><ul>
+<li>调用历史命令或逻辑否定。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">!!                <span class="comment"># 执行上一条命令</span></span><br><span class="line">!grep             <span class="comment"># 执行最近一条以 grep 开头的命令</span></span><br><span class="line">[ ! -f file.txt ] <span class="comment"># 如果文件不存在则条件为真</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="总结对比表"><a href="#总结对比表" class="headerlink" title="总结对比表"></a><strong>总结对比表</strong></h3><table>
+<thead>
+<tr>
+<th>符号</th>
+<th>功能说明</th>
+<th>实例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>*</code></td>
+<td>匹配任意数量字符</td>
+<td><code>rm *.log</code></td>
+</tr>
+<tr>
+<td><code>&gt;</code>&#x2F;<code>&gt;&gt;</code></td>
+<td>覆盖&#x2F;追加输出到文件</td>
+<td><code>echo &quot;A&quot; &gt; file</code> &#x2F; <code>echo &quot;B&quot; &gt;&gt; file</code></td>
+</tr>
+<tr>
+<td><code>&amp;&amp;</code>&#x2F;&#96;</td>
+<td></td>
+<td>&#96;</td>
+</tr>
+<tr>
+<td><code>&quot;</code>&#x2F;<code>&#39;</code></td>
+<td>允许&#x2F;禁止变量替换</td>
+<td><code>echo &quot;$PATH&quot;</code> &#x2F; <code>echo &#39;$PATH&#39;</code></td>
+</tr>
+<tr>
+<td><code>$()</code>&#x2F;<code>``</code></td>
+<td>命令替换（推荐前者）</td>
+<td><code>echo $(ls)</code></td>
+</tr>
+<tr>
+<td>&#96;</td>
+<td>&#96;</td>
+<td>管道传递数据</td>
+</tr>
+</tbody></table>
+<hr>
+<h3 id="常见误区"><a href="#常见误区" class="headerlink" title="常见误区"></a><strong>常见误区</strong></h3><ol>
+<li><strong>通配符与正则表达式</strong>：通配符（<code>*</code>, <code>?</code>）用于文件名匹配，而正则表达式（如 <code>grep</code> 中的 <code>.*</code>）用于文本匹配。</li>
+<li><strong><code>&gt;</code> 与 <code>&gt;&gt;</code></strong>：误用覆盖符号可能导致文件内容丢失。</li>
+<li><strong>引号差异</strong>：单引号会忽略变量，双引号会展开变量。</li>
+</ol>
+<p>掌握这些符号的用法可以大幅提高 Linux 命令行的操作效率！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://digitblog.us.kg/2025/02/27/Linux%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%AC%A6%E5%8F%B7%E5%91%BD%E4%BB%A4%E7%9A%84%E5%88%86%E7%B1%BB%E5%AF%B9%E6%AF%94/" data-id="cm9z1x7pi0003l4v5fbifcen2" data-title="Linux中常用符号命令的分类对比" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-linux中相似命令的区别和用法解释" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/27/linux%E4%B8%AD%E7%9B%B8%E4%BC%BC%E5%91%BD%E4%BB%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E7%94%A8%E6%B3%95%E8%A7%A3%E9%87%8A/" class="article-date">
+  <time class="dt-published" datetime="2025-02-27T03:54:02.000Z" itemprop="datePublished">2025-02-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/02/27/linux%E4%B8%AD%E7%9B%B8%E4%BC%BC%E5%91%BD%E4%BB%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E7%94%A8%E6%B3%95%E8%A7%A3%E9%87%8A/">linux中常见相似命令的区别和用法解释</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>以下是一些 Linux 中常见相似命令的详细对比及实例，按功能分类整理：</p>
+<hr>
+<h3 id="一、文件-目录操作"><a href="#一、文件-目录操作" class="headerlink" title="一、文件&#x2F;目录操作"></a><strong>一、文件&#x2F;目录操作</strong></h3><h4 id="1-cp-vs-rsync"><a href="#1-cp-vs-rsync" class="headerlink" title="1. cp vs rsync"></a>1. <strong><code>cp</code> vs <code>rsync</code></strong></h4><ul>
+<li><strong><code>cp</code></strong>: 基本文件复制命令。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> source.txt dest.txt      <span class="comment"># 复制文件</span></span><br><span class="line"><span class="built_in">cp</span> -r dir1/ dir2/          <span class="comment"># 递归复制目录</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>rsync</code></strong>: 支持增量同步、远程复制，适合备份。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rsync -av <span class="built_in">source</span>/ dest/    <span class="comment"># 同步目录（保留权限和时间戳）</span></span><br><span class="line">rsync -avz user@remote:/path/ /local/  <span class="comment"># 远程同步</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-rm-vs-shred-vs-trash-cli"><a href="#2-rm-vs-shred-vs-trash-cli" class="headerlink" title="2. rm vs shred vs trash-cli"></a>2. <strong><code>rm</code> vs <code>shred</code> vs <code>trash-cli</code></strong></h4><ul>
+<li><strong><code>rm</code></strong>: 删除文件（不可逆）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">rm</span> file.txt                <span class="comment"># 删除文件</span></span><br><span class="line"><span class="built_in">rm</span> -rf <span class="built_in">dir</span>/                <span class="comment"># 强制递归删除目录</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>shred</code></strong>: 安全删除（覆盖文件内容）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">shred</span> -u file.txt          <span class="comment"># 覆盖后删除文件</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>trash-cli</code></strong>: 将文件移到回收站（需安装）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">trash-put file.txt         <span class="comment"># 安全删除（可恢复）</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="二、文本查看与处理"><a href="#二、文本查看与处理" class="headerlink" title="二、文本查看与处理"></a><strong>二、文本查看与处理</strong></h3><h4 id="1-cat-vs-more-vs-less"><a href="#1-cat-vs-more-vs-less" class="headerlink" title="1. cat vs more vs less"></a>1. <strong><code>cat</code> vs <code>more</code> vs <code>less</code></strong></h4><ul>
+<li><strong><code>cat</code></strong>: 显示全部内容。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cat</span> file.txt               <span class="comment"># 输出整个文件</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>more</code></strong>: 分页查看（仅向下翻页）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">more file.txt              <span class="comment"># 按空格键翻页</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>less</code></strong>: 更强大的分页查看（支持上下翻页、搜索）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">less file.txt              <span class="comment"># 按 `q` 退出，`/` 搜索</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-head-vs-tail"><a href="#2-head-vs-tail" class="headerlink" title="2. head vs tail"></a>2. <strong><code>head</code> vs <code>tail</code></strong></h4><ul>
+<li><strong><code>head</code></strong>: 查看文件开头。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">head</span> -n 5 file.txt         <span class="comment"># 显示前5行</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>tail</code></strong>: 查看文件结尾（支持实时追踪）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">tail</span> -n 5 file.txt         <span class="comment"># 显示最后5行</span></span><br><span class="line"><span class="built_in">tail</span> -f log.txt            <span class="comment"># 实时追踪日志</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="3-grep-vs-awk-vs-sed"><a href="#3-grep-vs-awk-vs-sed" class="headerlink" title="3. grep vs awk vs sed"></a>3. <strong><code>grep</code> vs <code>awk</code> vs <code>sed</code></strong></h4><ul>
+<li><strong><code>grep</code></strong>: 文本搜索工具。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">grep <span class="string">&quot;error&quot;</span> log.txt       <span class="comment"># 查找包含 &quot;error&quot; 的行</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>awk</code></strong>: 文本处理（按列分析）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">awk <span class="string">&#x27;&#123;print $1&#125;&#x27;</span> data.txt <span class="comment"># 输出第一列</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>sed</code></strong>: 流编辑器（替换&#x2F;删除文本）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sed <span class="string">&#x27;s/foo/bar/g&#x27;</span> file.txt <span class="comment"># 替换所有 &quot;foo&quot; 为 &quot;bar&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="三、查找命令"><a href="#三、查找命令" class="headerlink" title="三、查找命令"></a><strong>三、查找命令</strong></h3><h4 id="1-find-vs-locate"><a href="#1-find-vs-locate" class="headerlink" title="1. find vs locate"></a>1. <strong><code>find</code> vs <code>locate</code></strong></h4><ul>
+<li><strong><code>find</code></strong>: 实时搜索文件（支持复杂条件）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">find /home -name <span class="string">&quot;*.txt&quot;</span>   <span class="comment"># 查找所有 .txt 文件</span></span><br><span class="line">find . -mtime -7           <span class="comment"># 查找7天内修改过的文件</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>locate</code></strong>: 基于数据库快速查找（需更新 <code>updatedb</code>）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locate .bashrc             <span class="comment"># 快速查找路径</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="四、系统信息"><a href="#四、系统信息" class="headerlink" title="四、系统信息"></a><strong>四、系统信息</strong></h3><h4 id="1-top-vs-htop-vs-ps"><a href="#1-top-vs-htop-vs-ps" class="headerlink" title="1. top vs htop vs ps"></a>1. <strong><code>top</code> vs <code>htop</code> vs <code>ps</code></strong></h4><ul>
+<li><strong><code>top</code></strong>: 实时进程监控（基础版）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">top                        <span class="comment"># 按 CPU 使用排序</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>htop</code></strong>: 增强版 <code>top</code>（支持颜色、鼠标操作）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">htop                       <span class="comment"># 更友好的交互界面</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>ps</code></strong>: 查看当前进程快照。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ps aux                     <span class="comment"># 显示所有进程详细信息</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-df-vs-du"><a href="#2-df-vs-du" class="headerlink" title="2. df vs du"></a>2. <strong><code>df</code> vs <code>du</code></strong></h4><ul>
+<li><strong><code>df</code></strong>: 显示磁盘空间使用情况。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">df</span> -h                      <span class="comment"># 以易读格式显示磁盘空间</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>du</code></strong>: 统计目录&#x2F;文件占用空间。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">du</span> -sh <span class="built_in">dir</span>/                <span class="comment"># 显示目录总大小</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="五、网络相关"><a href="#五、网络相关" class="headerlink" title="五、网络相关"></a><strong>五、网络相关</strong></h3><h4 id="1-ifconfig-vs-ip"><a href="#1-ifconfig-vs-ip" class="headerlink" title="1. ifconfig vs ip"></a>1. <strong><code>ifconfig</code> vs <code>ip</code></strong></h4><ul>
+<li><strong><code>ifconfig</code></strong>: 传统网络接口配置工具。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ifconfig eth0              <span class="comment"># 查看 eth0 接口信息</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>ip</code></strong>: 更现代的替代工具（推荐使用）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip addr show               <span class="comment"># 显示所有网络接口</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="2-netstat-vs-ss"><a href="#2-netstat-vs-ss" class="headerlink" title="2. netstat vs ss"></a>2. <strong><code>netstat</code> vs <code>ss</code></strong></h4><ul>
+<li><strong><code>netstat</code></strong>: 查看网络连接、路由表。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netstat -tuln              <span class="comment"># 查看监听端口</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>ss</code></strong>: 更高效的替代工具。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss -tuln                   <span class="comment"># 显示监听端口（比 netstat 更快）</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="六、压缩与解压"><a href="#六、压缩与解压" class="headerlink" title="六、压缩与解压"></a><strong>六、压缩与解压</strong></h3><h4 id="1-tar-vs-gzip-vs-zip"><a href="#1-tar-vs-gzip-vs-zip" class="headerlink" title="1. tar vs gzip vs zip"></a>1. <strong><code>tar</code> vs <code>gzip</code> vs <code>zip</code></strong></h4><ul>
+<li><strong><code>tar</code></strong>: 打包文件（不压缩）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar cvf archive.tar <span class="built_in">dir</span>/   <span class="comment"># 打包目录</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>gzip</code></strong>: 压缩文件（常与 <code>tar</code> 联用）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar czvf archive.tar.gz <span class="built_in">dir</span>/  <span class="comment"># 打包并压缩为 .tar.gz</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>zip</code></strong>: 跨平台压缩工具。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">zip -r archive.zip <span class="built_in">dir</span>/    <span class="comment"># 压缩为 .zip 文件</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="七、权限管理"><a href="#七、权限管理" class="headerlink" title="七、权限管理"></a><strong>七、权限管理</strong></h3><h4 id="1-chmod-vs-chown-vs-chgrp"><a href="#1-chmod-vs-chown-vs-chgrp" class="headerlink" title="1. chmod vs chown vs chgrp"></a>1. <strong><code>chmod</code> vs <code>chown</code> vs <code>chgrp</code></strong></h4><ul>
+<li><strong><code>chmod</code></strong>: 修改文件权限。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> 755 script.sh        <span class="comment"># 设置权限为 rwxr-xr-x</span></span><br><span class="line"><span class="built_in">chmod</span> +x script.sh         <span class="comment"># 添加执行权限</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>chown</code></strong>: 修改文件所有者。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chown</span> user:group file.txt  <span class="comment"># 修改所有者和所属组</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>chgrp</code></strong>: 修改文件所属组。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chgrp</span> developers file.txt <span class="comment"># 修改文件所属组</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="八、进程管理"><a href="#八、进程管理" class="headerlink" title="八、进程管理"></a><strong>八、进程管理</strong></h3><h4 id="1-kill-vs-pkill-vs-killall"><a href="#1-kill-vs-pkill-vs-killall" class="headerlink" title="1. kill vs pkill vs killall"></a>1. <strong><code>kill</code> vs <code>pkill</code> vs <code>killall</code></strong></h4><ul>
+<li><strong><code>kill</code></strong>: 通过 PID 终止进程。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">kill</span> 1234                  <span class="comment"># 终止 PID 为 1234 的进程</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>pkill</code></strong>: 通过进程名终止。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pkill firefox              <span class="comment"># 终止所有 Firefox 进程</span></span><br></pre></td></tr></table></figure></li>
+<li><strong><code>killall</code></strong>: 类似 <code>pkill</code>（不同实现）。<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">killall nginx              <span class="comment"># 终止所有 nginx 进程</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<hr>
+<h3 id="总结技巧"><a href="#总结技巧" class="headerlink" title="总结技巧"></a><strong>总结技巧</strong></h3><ul>
+<li><strong>需要交互式操作</strong>：优先选择 <code>less</code>（文本查看）、<code>htop</code>（进程管理）。</li>
+<li><strong>处理大文件或远程操作</strong>：使用 <code>rsync</code> 或 <code>ssh</code> 组合命令。</li>
+<li><strong>安全删除文件</strong>：推荐 <code>trash-cli</code> 代替 <code>rm</code>。</li>
+</ul>
+<p>通过理解这些命令的区别和适用场景，可以更高效地使用 Linux 命令行工具。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://digitblog.us.kg/2025/02/27/linux%E4%B8%AD%E7%9B%B8%E4%BC%BC%E5%91%BD%E4%BB%A4%E7%9A%84%E5%8C%BA%E5%88%AB%E5%92%8C%E7%94%A8%E6%B3%95%E8%A7%A3%E9%87%8A/" data-id="cm9z1x7qc000dl4v5bfak197x" data-title="linux中常见相似命令的区别和用法解释" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-linux中不常见命令用法详解" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/27/linux%E4%B8%AD%E4%B8%8D%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/" class="article-date">
+  <time class="dt-published" datetime="2025-02-27T03:44:34.000Z" itemprop="datePublished">2025-02-27</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/02/27/linux%E4%B8%AD%E4%B8%8D%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/">linux中不常见命令用法详解</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>以下是一些 Linux 中相对不常见但功能强大的命令及其详细解释，适用于高级用户或特定场景：</p>
+<hr>
+<h3 id="1-文本处理类"><a href="#1-文本处理类" class="headerlink" title="1. 文本处理类"></a><strong>1. 文本处理类</strong></h3><h4 id="comm"><a href="#comm" class="headerlink" title="comm"></a><strong><code>comm</code></strong></h4><p><strong>用途</strong>：比较两个已排序文件的行差异，输出三列结果（仅第一个文件、仅第二个文件、共有的行）。<br><strong>示例</strong>：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">comm</span> file1.txt file2.txt</span><br></pre></td></tr></table></figure>
+<p><strong>参数</strong>：  </p>
+<ul>
+<li><code>-1</code>：隐藏仅第一个文件独有的行  </li>
+<li><code>-2</code>：隐藏仅第二个文件独有的行  </li>
+<li><code>-3</code>：隐藏共有的行</li>
+</ul>
+<hr>
+<h4 id="join"><a href="#join" class="headerlink" title="join"></a><strong><code>join</code></strong></h4><p><strong>用途</strong>：基于共同字段（类似 SQL JOIN）合并两个已排序的文件。<br><strong>示例</strong>：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">join</span> -1 2 -2 1 file1.txt file2.txt  <span class="comment"># 合并 file1 的第2列和 file2 的第1列</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="column"><a href="#column" class="headerlink" title="column"></a><strong><code>column</code></strong></h4><p><strong>用途</strong>：将输入文本格式化为对齐的列（类似表格）。<br><strong>示例</strong>：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Name Age\nAlice 30\nBob 25&quot;</span> | column -t</span><br></pre></td></tr></table></figure>
+<p><strong>输出</strong>：  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Name   Age</span><br><span class="line">Alice  30</span><br><span class="line">Bob    25</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="2-系统监控与调试"><a href="#2-系统监控与调试" class="headerlink" title="2. 系统监控与调试"></a><strong>2. 系统监控与调试</strong></h3><h4 id="pidstat"><a href="#pidstat" class="headerlink" title="pidstat"></a><strong><code>pidstat</code></strong></h4><p><strong>用途</strong>：监控进程的 CPU、内存、I&#x2F;O 等资源使用情况（需安装 <code>sysstat</code> 包）。<br><strong>示例</strong>：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pidstat -d 2  <span class="comment"># 每2秒显示进程的磁盘I/O统计</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="mpstat"><a href="#mpstat" class="headerlink" title="mpstat"></a><strong><code>mpstat</code></strong></h4><p><strong>用途</strong>：报告 CPU 使用情况（多核细化统计）。<br><strong>示例</strong>：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mpstat -P ALL 1  <span class="comment"># 每1秒显示所有CPU核心的利用率</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="lsof-的高级用法"><a href="#lsof-的高级用法" class="headerlink" title="lsof 的高级用法"></a><strong><code>lsof</code> 的高级用法</strong></h4><p><strong>用途</strong>：列出被进程打开的文件或网络连接。<br><strong>示例</strong>：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lsof -i :80          <span class="comment"># 查看占用80端口的进程</span></span><br><span class="line">lsof -u username     <span class="comment"># 查看某用户打开的文件</span></span><br><span class="line">lsof /var/log/syslog <span class="comment"># 查看正在使用某文件的进程</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="3-网络工具"><a href="#3-网络工具" class="headerlink" title="3. 网络工具"></a><strong>3. 网络工具</strong></h3><h4 id="nc-netcat"><a href="#nc-netcat" class="headerlink" title="nc (netcat)"></a><strong><code>nc</code> (netcat)</strong></h4><p><strong>用途</strong>：网络调试工具（端口扫描、文件传输、代理等）。<br><strong>示例</strong>：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">nc -zv example.com 80      <span class="comment"># 检查端口是否开放</span></span><br><span class="line">nc -l 1234 &gt; received_file <span class="comment"># 监听端口接收文件</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Hello&quot;</span> | nc -N example.com 80  <span class="comment"># 发送数据到端口</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="ss-Socket-Statistics"><a href="#ss-Socket-Statistics" class="headerlink" title="ss (Socket Statistics)"></a><strong><code>ss</code> (Socket Statistics)</strong></h4><p><strong>用途</strong>：查看网络连接信息（替代 <code>netstat</code>）。<br><strong>示例</strong>：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ss -tunap  <span class="comment"># 显示所有TCP/UDP连接及关联进程</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="4-文件与磁盘"><a href="#4-文件与磁盘" class="headerlink" title="4. 文件与磁盘"></a><strong>4. 文件与磁盘</strong></h3><h4 id="rename"><a href="#rename" class="headerlink" title="rename"></a><strong><code>rename</code></strong></h4><p><strong>用途</strong>：批量重命名文件（支持正则表达式）。<br><strong>示例</strong>：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rename <span class="string">&#x27;s/.txt/.md/&#x27;</span> *.txt  <span class="comment"># 将所有.txt扩展名改为.md</span></span><br></pre></td></tr></table></figure>
+<p><strong>注意</strong>：不同发行版语法可能不同（Perl 或 C 版本）。</p>
+<hr>
+<h4 id="fallocate"><a href="#fallocate" class="headerlink" title="fallocate"></a><strong><code>fallocate</code></strong></h4><p><strong>用途</strong>：预分配或释放文件空间（无需填充内容）。<br><strong>示例</strong>：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">fallocate -l 1G bigfile.img  <span class="comment"># 快速创建1GB的空文件</span></span><br><span class="line">fallocate -d sparse_file     <span class="comment"># 释放稀疏文件的空洞空间</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="debugfs"><a href="#debugfs" class="headerlink" title="debugfs"></a><strong><code>debugfs</code></strong></h4><p><strong>用途</strong>：手动修复 ext2&#x2F;3&#x2F;4 文件系统（谨慎使用）。<br><strong>示例</strong>：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">debugfs /dev/sda1</span><br><span class="line">debugfs: lsdel      <span class="comment"># 列出已删除但未覆盖的文件</span></span><br><span class="line">debugfs: undel &lt;inode&gt;  <span class="comment"># 恢复指定inode的文件</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="5-时间与计划任务"><a href="#5-时间与计划任务" class="headerlink" title="5. 时间与计划任务"></a><strong>5. 时间与计划任务</strong></h3><h4 id="chronyc"><a href="#chronyc" class="headerlink" title="chronyc"></a><strong><code>chronyc</code></strong></h4><p><strong>用途</strong>：监控和调整 <code>chronyd</code> 时间同步服务。<br><strong>示例</strong>：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">chronyc tracking    <span class="comment"># 查看时间同步状态</span></span><br><span class="line">chronyc sources -v <span class="comment"># 列出时间源详细信息</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="6-终端控制"><a href="#6-终端控制" class="headerlink" title="6. 终端控制"></a><strong>6. 终端控制</strong></h3><h4 id="script"><a href="#script" class="headerlink" title="script"></a><strong><code>script</code></strong></h4><p><strong>用途</strong>：记录终端会话的所有输入输出。<br><strong>示例</strong>：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">script -t 2&gt; timing.log -a output.log  <span class="comment"># 记录操作并保存时间戳</span></span><br><span class="line"><span class="built_in">exit</span>  <span class="comment"># 结束记录</span></span><br></pre></td></tr></table></figure>
+<p><strong>回放</strong>：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">scriptreplay timing.log output.log</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="7-其他实用工具"><a href="#7-其他实用工具" class="headerlink" title="7. 其他实用工具"></a><strong>7. 其他实用工具</strong></h3><h4 id="tac"><a href="#tac" class="headerlink" title="tac"></a><strong><code>tac</code></strong></h4><p><strong>用途</strong>：反向输出文件内容（<code>cat</code> 的逆序版）。<br><strong>示例</strong>：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">tac</span> file.txt  <span class="comment"># 从最后一行开始显示</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="rev"><a href="#rev" class="headerlink" title="rev"></a><strong><code>rev</code></strong></h4><p><strong>用途</strong>：反转每行字符的顺序。<br><strong>示例</strong>：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">echo</span> <span class="string">&quot;hello&quot;</span> | rev  <span class="comment"># 输出 &quot;olleh&quot;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="watch"><a href="#watch" class="headerlink" title="watch"></a><strong><code>watch</code></strong></h4><p><strong>用途</strong>：周期性执行命令并显示输出。<br><strong>示例</strong>：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">watch -n 1 -d <span class="string">&quot;ls -l&quot;</span>  <span class="comment"># 每秒刷新并高亮变化</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h4 id="cal-的高级用法"><a href="#cal-的高级用法" class="headerlink" title="cal 的高级用法"></a><strong><code>cal</code> 的高级用法</strong></h4><p><strong>示例</strong>：  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cal -3         <span class="comment"># 显示上/当前/下月</span></span><br><span class="line">cal -y 2024    <span class="comment"># 显示2024全年日历</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="总结场景"><a href="#总结场景" class="headerlink" title="总结场景"></a><strong>总结场景</strong></h3><ul>
+<li><strong>文本分析</strong>：<code>comm</code>, <code>join</code>, <code>column</code>  </li>
+<li><strong>系统调试</strong>：<code>pidstat</code>, <code>lsof</code>, <code>debugfs</code>  </li>
+<li><strong>网络诊断</strong>：<code>nc</code>, <code>ss</code>  </li>
+<li><strong>批量操作</strong>：<code>rename</code>, <code>fallocate</code>  </li>
+<li><strong>记录与回放</strong>：<code>script</code></li>
+</ul>
+<p>这些命令在特定场景下能显著提高效率，但需谨慎使用系统级工具（如 <code>debugfs</code>）。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://digitblog.us.kg/2025/02/27/linux%E4%B8%AD%E4%B8%8D%E5%B8%B8%E8%A7%81%E5%91%BD%E4%BB%A4%E7%94%A8%E6%B3%95%E8%AF%A6%E8%A7%A3/" data-id="cm9z1x7q9000al4v53foy6l8t" data-title="linux中不常见命令用法详解" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+    <article id="post-linux主机之间传输文件方法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/25/linux%E4%B8%BB%E6%9C%BA%E4%B9%8B%E9%97%B4%E4%BC%A0%E8%BE%93%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2025-02-25T03:38:31.000Z" itemprop="datePublished">2025-02-25</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/02/25/linux%E4%B8%BB%E6%9C%BA%E4%B9%8B%E9%97%B4%E4%BC%A0%E8%BE%93%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/">linux主机之间传输文件方法</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 Linux 系统之间传输文件有多种方法，具体选择取决于网络环境、安全性需求、文件大小和操作习惯等因素。以下是常见的 <strong>15+ 种方法</strong>及简要说明：</p>
+<hr>
+<h3 id="一、基于-SSH-协议的工具（加密传输）"><a href="#一、基于-SSH-协议的工具（加密传输）" class="headerlink" title="一、基于 SSH 协议的工具（加密传输）"></a><strong>一、基于 SSH 协议的工具（加密传输）</strong></h3><ol>
+<li><p><strong><code>scp</code> (Secure Copy)</strong>  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 上传文件到远程主机</span></span><br><span class="line">scp local_file user@remote_host:/path/to/destination</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载远程文件到本地</span></span><br><span class="line">scp user@remote_host:/remote/file /local/path</span><br><span class="line"></span><br><span class="line"><span class="comment"># 递归传输目录（-r）</span></span><br><span class="line">scp -r local_dir user@remote_host:/remote/path</span><br></pre></td></tr></table></figure>
+<p><strong>特点</strong>：简单直接，但无增量传输功能。</p>
+</li>
+<li><p><strong><code>rsync</code> (增量同步)</strong>  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 同步本地目录到远程（-a 归档模式，-v 显示进度，-z 压缩）</span></span><br><span class="line">rsync -avz /local/path user@remote_host:/remote/path</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从远程同步到本地</span></span><br><span class="line">rsync -avz user@remote_host:/remote/path /local/path</span><br></pre></td></tr></table></figure>
+<p><strong>特点</strong>：高效增量传输，适合大文件或频繁更新的场景。</p>
+</li>
+<li><p><strong><code>sftp</code> (SSH File Transfer Protocol)</strong>  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sftp user@remote_host</span><br><span class="line"><span class="comment"># 交互式命令：</span></span><br><span class="line">put local_file          <span class="comment"># 上传文件</span></span><br><span class="line">get remote_file        <span class="comment"># 下载文件</span></span><br><span class="line">lls                    <span class="comment"># 查看本地文件</span></span><br><span class="line"><span class="built_in">ls</span>                     <span class="comment"># 查看远程文件</span></span><br></pre></td></tr></table></figure>
+<p><strong>特点</strong>：交互式操作，适合手动管理文件。</p>
+</li>
+<li><p><strong><code>sshfs</code> (挂载远程目录)</strong>  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将远程目录挂载到本地</span></span><br><span class="line">sshfs user@remote_host:/remote/path /local/mountpoint</span><br><span class="line"><span class="comment"># 卸载</span></span><br><span class="line">fusermount -u /local/mountpoint</span><br></pre></td></tr></table></figure>
+<p><strong>特点</strong>：像操作本地文件一样访问远程文件。</p>
+</li>
+</ol>
+<hr>
+<h3 id="二、基于网络协议的直接传输"><a href="#二、基于网络协议的直接传输" class="headerlink" title="二、基于网络协议的直接传输"></a><strong>二、基于网络协议的直接传输</strong></h3><ol start="5">
+<li><p><strong><code>nc</code> (netcat) + <code>tar</code></strong>  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 接收端监听端口并解压</span></span><br><span class="line">nc -l -p 1234 | tar xzvf -</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送端打包并发送</span></span><br><span class="line">tar czvf - /local/path | nc remote_host 1234</span><br></pre></td></tr></table></figure>
+<p><strong>特点</strong>：无需 SSH，适合临时快速传输，但无加密。</p>
+</li>
+<li><p><strong>HTTP 服务器</strong>  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在发送端启动临时 HTTP 服务器（Python3）</span></span><br><span class="line">python3 -m http.server 8000</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接收端使用 wget 或 curl 下载</span></span><br><span class="line">wget http://sender_ip:8000/file</span><br></pre></td></tr></table></figure>
+<p><strong>特点</strong>：快速共享文件，适合内网环境。</p>
+</li>
+<li><p><strong><code>curl</code> 或 <code>wget</code> 上传文件</strong>  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 curl 上传到 HTTP 服务器（需接收端有服务器支持）</span></span><br><span class="line">curl -F <span class="string">&quot;file=@local_file&quot;</span> http://remote_host/upload</span><br></pre></td></tr></table></figure>
+<p><strong>特点</strong>：依赖接收端的服务支持。</p>
+</li>
+<li><p><strong><code>ncftp</code> 或 <code>lftp</code> (FTP 客户端)</strong>  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lftp -e <span class="string">&quot;put local_file; quit&quot;</span> ftp://user:password@remote_host</span><br></pre></td></tr></table></figure>
+<p><strong>特点</strong>：需配置 FTP 服务，明文传输，不建议敏感数据。</p>
+</li>
+</ol>
+<hr>
+<h3 id="三、共享文件系统"><a href="#三、共享文件系统" class="headerlink" title="三、共享文件系统"></a><strong>三、共享文件系统</strong></h3><ol start="9">
+<li><p><strong>NFS (Network File System)</strong>  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置 NFS 服务器后，客户端挂载</span></span><br><span class="line">mount -t nfs remote_host:/shared/path /local/mountpoint</span><br></pre></td></tr></table></figure>
+<p><strong>特点</strong>：适合长期共享，需配置权限。</p>
+</li>
+<li><p><strong>Samba&#x2F;CIFS</strong>  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 挂载 Windows/Linux 共享目录</span></span><br><span class="line">mount -t cifs //remote_host/share /local/mountpoint -o user=username</span><br></pre></td></tr></table></figure>
+<p><strong>特点</strong>：跨平台兼容，适合混合环境。</p>
+</li>
+</ol>
+<hr>
+<h3 id="四、其他工具与技巧"><a href="#四、其他工具与技巧" class="headerlink" title="四、其他工具与技巧"></a><strong>四、其他工具与技巧</strong></h3><ol start="11">
+<li><p><strong><code>tar</code> 管道 + SSH</strong>  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 压缩传输目录到远程并解压</span></span><br><span class="line">tar czf - /local/dir | ssh user@remote_host <span class="string">&quot;tar xzf - -C /remote/path&quot;</span></span><br></pre></td></tr></table></figure>
+<p><strong>特点</strong>：灵活处理大目录，无需临时存储。</p>
+</li>
+<li><p><strong><code>bbcp</code> (高性能文件拷贝)</strong>  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bbcp -v -s 10 local_file user@remote_host:/remote/path</span><br></pre></td></tr></table></figure>
+<p><strong>特点</strong>：高速传输大文件，需单独安装。</p>
+</li>
+<li><p><strong>云存储中转（如 AWS S3、MinIO）</strong>  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 上传到云存储</span></span><br><span class="line">aws s3 <span class="built_in">cp</span> local_file s3://bucket/path</span><br><span class="line"><span class="comment"># 从云存储下载</span></span><br><span class="line">aws s3 <span class="built_in">cp</span> s3://bucket/path/remote_file .</span><br></pre></td></tr></table></figure>
+<p><strong>特点</strong>：依赖第三方服务，适合跨地域传输。</p>
+</li>
+<li><p><strong>邮件附件</strong>  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 mutt 发送文件</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Body&quot;</span> | mutt -a file_to_send -s <span class="string">&quot;Subject&quot;</span> recipient@example.com</span><br></pre></td></tr></table></figure>
+<p><strong>特点</strong>：适合小文件，依赖邮件服务。</p>
+</li>
+</ol>
+<hr>
+<h3 id="五、图形化工具"><a href="#五、图形化工具" class="headerlink" title="五、图形化工具"></a><strong>五、图形化工具</strong></h3><ol start="15">
+<li><p><strong>FileZilla (SFTP 客户端)</strong><br><strong>特点</strong>：可视化操作，支持拖拽上传。</p>
+</li>
+<li><p><strong>Syncthing (P2P 同步)</strong><br><strong>特点</strong>：去中心化，自动同步多台设备。</p>
+</li>
+</ol>
+<hr>
+<h3 id="选择建议"><a href="#选择建议" class="headerlink" title="选择建议"></a><strong>选择建议</strong></h3><ul>
+<li><strong>安全性优先</strong>：使用 <code>scp</code>&#x2F;<code>rsync</code>&#x2F;<code>sftp</code>（基于 SSH）。</li>
+<li><strong>大文件或增量同步</strong>：优先选择 <code>rsync</code>。</li>
+<li><strong>临时快速共享</strong>：HTTP 服务器或 <code>nc</code>。</li>
+<li><strong>长期共享</strong>：NFS&#x2F;Samba。</li>
+<li><strong>跨平台传输</strong>：Samba 或云存储。</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://digitblog.us.kg/2025/02/25/linux%E4%B8%BB%E6%9C%BA%E4%B9%8B%E9%97%B4%E4%BC%A0%E8%BE%93%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/" data-id="cm9z1x7qg000kl4v5ep6p6mff" data-title="linux主机之间传输文件方法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
+
+
+  <nav id="page-nav">
+    
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/" rel="tag">python爬虫学习例之一</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/" style="font-size: 10px;">python爬虫学习例之一</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">April 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/04/27/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/">python爬虫学习例之一</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/20/linux%E7%9A%84%E6%8C%82%E8%BD%BD/">linux的挂载</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9%E6%96%B9%E6%B3%95/">linux分区扩容方法</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E4%B8%8Elvm%E6%93%8D%E4%BD%9C/">linux分区与lvm操作</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/05/linux%E4%B8%AD%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4/">linux中防火墙的相关指令</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

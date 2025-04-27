@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>debian自动备份脚本及恢复测试方案 | evilzeta note</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="以下是一个用于Debian系统的自动备份脚本及恢复测试的详细方案，包含脚本说明和操作指南：  一、自动备份脚本 backup_script.sh12345678910111213141516171819202122232425262728293031#!&#x2F;bin&#x2F;bash# 配置部分BACKUP_DIRS&#x3D;&quot;&#x2F;etc &#x2F;home&quot;    # 需要备份的目录DEST_DIR&#x3D;&amp;q">
+<meta property="og:type" content="article">
+<meta property="og:title" content="debian自动备份脚本及恢复测试方案">
+<meta property="og:url" content="https://digitblog.us.kg/2025/02/19/debian%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC%E5%8F%8A%E6%81%A2%E5%A4%8D%E6%B5%8B%E8%AF%95%E6%96%B9%E6%A1%88/index.html">
+<meta property="og:site_name" content="evilzeta note">
+<meta property="og:description" content="以下是一个用于Debian系统的自动备份脚本及恢复测试的详细方案，包含脚本说明和操作指南：  一、自动备份脚本 backup_script.sh12345678910111213141516171819202122232425262728293031#!&#x2F;bin&#x2F;bash# 配置部分BACKUP_DIRS&#x3D;&quot;&#x2F;etc &#x2F;home&quot;    # 需要备份的目录DEST_DIR&#x3D;&amp;q">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-02-19T09:44:29.000Z">
+<meta property="article:modified_time" content="2025-02-19T09:54:39.586Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="evilzeta note" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">evilzeta note</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://digitblog.us.kg"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-debian自动备份脚本及恢复测试方案" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/02/19/debian%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC%E5%8F%8A%E6%81%A2%E5%A4%8D%E6%B5%8B%E8%AF%95%E6%96%B9%E6%A1%88/" class="article-date">
+  <time class="dt-published" datetime="2025-02-19T09:44:29.000Z" itemprop="datePublished">2025-02-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      debian自动备份脚本及恢复测试方案
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>以下是一个用于Debian系统的自动备份脚本及恢复测试的详细方案，包含脚本说明和操作指南：</p>
+<hr>
+<h3 id="一、自动备份脚本-backup-script-sh"><a href="#一、自动备份脚本-backup-script-sh" class="headerlink" title="一、自动备份脚本 backup_script.sh"></a>一、自动备份脚本 <code>backup_script.sh</code></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置部分</span></span><br><span class="line">BACKUP_DIRS=<span class="string">&quot;/etc /home&quot;</span>    <span class="comment"># 需要备份的目录</span></span><br><span class="line">DEST_DIR=<span class="string">&quot;/backups&quot;</span>         <span class="comment"># 备份文件存储目录</span></span><br><span class="line">RETENTION_DAYS=7            <span class="comment"># 备份保留天数</span></span><br><span class="line">LOG_FILE=<span class="string">&quot;/var/log/backup.log&quot;</span> <span class="comment"># 日志文件路径</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建备份目录和日志文件</span></span><br><span class="line"><span class="built_in">mkdir</span> -p <span class="string">&quot;<span class="variable">$DEST_DIR</span>&quot;</span></span><br><span class="line"><span class="built_in">touch</span> <span class="string">&quot;<span class="variable">$LOG_FILE</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成备份文件名</span></span><br><span class="line">TIMESTAMP=$(<span class="built_in">date</span> +%Y%m%d-%H%M%S)</span><br><span class="line">BACKUP_FILE=<span class="string">&quot;<span class="variable">$DEST_DIR</span>/backup-<span class="variable">$TIMESTAMP</span>.tar.gz&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 执行备份</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;[<span class="subst">$(date +%Y-%m-%d\ %H:%M:%S)</span>] 开始备份...&quot;</span> | <span class="built_in">tee</span> -a <span class="string">&quot;<span class="variable">$LOG_FILE</span>&quot;</span></span><br><span class="line">tar -czf <span class="string">&quot;<span class="variable">$BACKUP_FILE</span>&quot;</span> <span class="variable">$BACKUP_DIRS</span> 2&gt;&gt; <span class="string">&quot;<span class="variable">$LOG_FILE</span>&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 检查备份结果</span></span><br><span class="line"><span class="keyword">if</span> [ $? -eq 0 ]; <span class="keyword">then</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;[<span class="subst">$(date +%Y-%m-%d\ %H:%M:%S)</span>] 备份成功：<span class="variable">$BACKUP_FILE</span>&quot;</span> | <span class="built_in">tee</span> -a <span class="string">&quot;<span class="variable">$LOG_FILE</span>&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;[<span class="subst">$(date +%Y-%m-%d\ %H:%M:%S)</span>] 备份失败！请检查日志！&quot;</span> | <span class="built_in">tee</span> -a <span class="string">&quot;<span class="variable">$LOG_FILE</span>&quot;</span></span><br><span class="line">  <span class="built_in">exit</span> 1</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 清理旧备份</span></span><br><span class="line">find <span class="string">&quot;<span class="variable">$DEST_DIR</span>&quot;</span> -name <span class="string">&quot;backup-*.tar.gz&quot;</span> -<span class="built_in">type</span> f -mtime +<span class="variable">$RETENTION_DAYS</span> -delete</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;[<span class="subst">$(date +%Y-%m-%d\ %H:%M:%S)</span>] 已清理超过<span class="variable">$&#123;RETENTION_DAYS&#125;</span>天的旧备份&quot;</span> | <span class="built_in">tee</span> -a <span class="string">&quot;<span class="variable">$LOG_FILE</span>&quot;</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="二、恢复脚本-restore-script-sh"><a href="#二、恢复脚本-restore-script-sh" class="headerlink" title="二、恢复脚本 restore_script.sh"></a>二、恢复脚本 <code>restore_script.sh</code></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置部分</span></span><br><span class="line">DEST_DIR=<span class="string">&quot;/backups&quot;</span>        <span class="comment"># 备份文件存储目录</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 列出可用备份</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;可用的备份文件：&quot;</span></span><br><span class="line"><span class="built_in">ls</span> -lh <span class="variable">$DEST_DIR</span>/backup-*.tar.gz | awk <span class="string">&#x27;&#123;print NR &quot;) &quot; $NF&#125;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 选择备份文件</span></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">&quot;请输入要恢复的备份编号: &quot;</span> NUM</span><br><span class="line">BACKUP_FILES=(<span class="variable">$DEST_DIR</span>/backup-*.tar.gz)</span><br><span class="line">SELECTED_FILE=<span class="variable">$&#123;BACKUP_FILES[$((NUM-1))]&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 确认恢复</span></span><br><span class="line"><span class="built_in">read</span> -p <span class="string">&quot;即将恢复 <span class="variable">$SELECTED_FILE</span> 到原始位置，确认吗？[y/N] &quot;</span> CONFIRM</span><br><span class="line"><span class="keyword">if</span> [[ <span class="variable">$CONFIRM</span> =~ [yY] ]]; <span class="keyword">then</span></span><br><span class="line">  tar -xzf <span class="string">&quot;<span class="variable">$SELECTED_FILE</span>&quot;</span> -C /</span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;[<span class="subst">$(date +%Y-%m-%d\ %H:%M:%S)</span>] 恢复完成：<span class="variable">$SELECTED_FILE</span>&quot;</span></span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">  <span class="built_in">echo</span> <span class="string">&quot;操作已取消&quot;</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="三、部署与使用说明"><a href="#三、部署与使用说明" class="headerlink" title="三、部署与使用说明"></a>三、部署与使用说明</h3><h4 id="1-安装脚本"><a href="#1-安装脚本" class="headerlink" title="1. 安装脚本"></a>1. 安装脚本</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 创建脚本文件</span></span><br><span class="line"><span class="built_in">sudo</span> nano /usr/local/bin/backup_script.sh</span><br><span class="line"><span class="built_in">sudo</span> nano /usr/local/bin/restore_script.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 赋予执行权限</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x /usr/local/bin/backup_script.sh</span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">chmod</span> +x /usr/local/bin/restore_script.sh</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-配置定时任务（每日凌晨2点执行）"><a href="#2-配置定时任务（每日凌晨2点执行）" class="headerlink" title="2. 配置定时任务（每日凌晨2点执行）"></a>2. 配置定时任务（每日凌晨2点执行）</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> crontab -e</span><br><span class="line"><span class="comment"># 添加以下内容：</span></span><br><span class="line">0 2 * * * /usr/local/bin/backup_script.sh</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-测试备份"><a href="#3-测试备份" class="headerlink" title="3. 测试备份"></a>3. 测试备份</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> /usr/local/bin/backup_script.sh</span><br><span class="line"><span class="comment"># 检查备份文件</span></span><br><span class="line"><span class="built_in">ls</span> -lh /backups/</span><br><span class="line"><span class="comment"># 查看日志</span></span><br><span class="line"><span class="built_in">tail</span> -f /var/log/backup.log</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-恢复测试"><a href="#4-恢复测试" class="headerlink" title="4. 恢复测试"></a>4. 恢复测试</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1. 创建测试文件</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">touch</span> /etc/test-file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 执行备份</span></span><br><span class="line"><span class="built_in">sudo</span> backup_script.sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 删除测试文件</span></span><br><span class="line"><span class="built_in">sudo</span> <span class="built_in">rm</span> /etc/test-file.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 4. 执行恢复</span></span><br><span class="line"><span class="built_in">sudo</span> restore_script.sh</span><br><span class="line"><span class="comment"># 按提示选择备份编号并确认</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 5. 验证恢复结果</span></span><br><span class="line"><span class="built_in">ls</span> -l /etc/test-file.txt</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3 id="四、关键功能说明"><a href="#四、关键功能说明" class="headerlink" title="四、关键功能说明"></a>四、关键功能说明</h3><ol>
+<li><p><strong>备份策略</strong></p>
+<ul>
+<li>使用<code>tar</code>进行压缩打包</li>
+<li>自动清理旧备份（默认保留7天）</li>
+<li>详细日志记录在<code>/var/log/backup.log</code></li>
+</ul>
+</li>
+<li><p><strong>恢复机制</strong></p>
+<ul>
+<li>交互式选择备份文件</li>
+<li>恢复前二次确认</li>
+<li>直接覆盖原始路径设计</li>
+</ul>
+</li>
+<li><p><strong>安全建议</strong></p>
+<ul>
+<li>建议将<code>DEST_DIR</code>设置为独立分区</li>
+<li>如需远程备份，可挂载NFS或使用rsync</li>
+<li>敏感数据建议加密备份（可添加<code>-j</code>选项使用bzip2压缩）</li>
+</ul>
+</li>
+<li><p><strong>错误排查</strong></p>
+<ul>
+<li>检查<code>/var/log/backup.log</code>错误信息</li>
+<li>确认脚本有执行权限</li>
+<li>确保存储目录有足够空间</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="五、扩展建议"><a href="#五、扩展建议" class="headerlink" title="五、扩展建议"></a>五、扩展建议</h3><ol>
+<li><p><strong>邮件通知</strong><br>可在脚本中添加<code>mail</code>命令，在失败时发送报警邮件</p>
+</li>
+<li><p><strong>远程备份</strong><br>添加以下命令到备份脚本末尾：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rsync -avz <span class="variable">$DEST_DIR</span>/backup-*.tar.gz user@remote:/remote/backup/</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>完整性检查</strong><br>在恢复前添加验证步骤：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -tzf <span class="variable">$SELECTED_FILE</span> &gt; /dev/null &amp;&amp; <span class="built_in">echo</span> <span class="string">&quot;备份文件有效&quot;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<p>这个方案提供了从备份到验证的完整闭环，建议首次部署后通过模拟故障恢复进行全流程测试。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://digitblog.us.kg/2025/02/19/debian%E8%87%AA%E5%8A%A8%E5%A4%87%E4%BB%BD%E8%84%9A%E6%9C%AC%E5%8F%8A%E6%81%A2%E5%A4%8D%E6%B5%8B%E8%AF%95%E6%96%B9%E6%A1%88/" data-id="cm9z1x7pk0004l4v54rws2wpg" data-title="debian自动备份脚本及恢复测试方案" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/02/20/Linux-shell%E7%BC%96%E7%A8%8B%E4%BB%8E%E5%85%A5%E9%97%A8%E5%88%B0%E6%8F%90%E9%AB%98/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          Linux-shell编程从入门到提高
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/02/19/Kylin-Linux-Advanced-Server%E5%A4%87%E4%BB%BD%E4%B8%8E%E6%81%A2%E5%A4%8D/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Kylin-Linux-Advanced-Server备份与恢复</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/" rel="tag">python爬虫学习例之一</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/" style="font-size: 10px;">python爬虫学习例之一</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">April 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/04/27/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/">python爬虫学习例之一</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/20/linux%E7%9A%84%E6%8C%82%E8%BD%BD/">linux的挂载</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9%E6%96%B9%E6%B3%95/">linux分区扩容方法</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E4%B8%8Elvm%E6%93%8D%E4%BD%9C/">linux分区与lvm操作</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/05/linux%E4%B8%AD%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4/">linux中防火墙的相关指令</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>简单纯前端实现在线考试系统支持excel表格导入题目 | evilzeta note</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="以下是一个基于纯静态网页的在线考试系统代码示例，包含HTML、CSS和JavaScript，满足本地导入题目要求： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757">
+<meta property="og:type" content="article">
+<meta property="og:title" content="简单纯前端实现在线考试系统支持excel表格导入题目">
+<meta property="og:url" content="https://digitblog.us.kg/2025/03/04/%E7%AE%80%E5%8D%95%E5%9C%A8%E7%BA%BF%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9F%E6%94%AF%E6%8C%81excel%E8%A1%A8%E6%A0%BC%E5%AF%BC%E5%85%A5%E9%A2%98%E7%9B%AE/index.html">
+<meta property="og:site_name" content="evilzeta note">
+<meta property="og:description" content="以下是一个基于纯静态网页的在线考试系统代码示例，包含HTML、CSS和JavaScript，满足本地导入题目要求： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-03-04T02:31:54.000Z">
+<meta property="article:modified_time" content="2025-03-07T07:22:25.783Z">
+<meta property="article:author" content="John Doe">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="evilzeta note" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">evilzeta note</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://digitblog.us.kg"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-简单在线考试系统支持excel表格导入题目" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/03/04/%E7%AE%80%E5%8D%95%E5%9C%A8%E7%BA%BF%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9F%E6%94%AF%E6%8C%81excel%E8%A1%A8%E6%A0%BC%E5%AF%BC%E5%85%A5%E9%A2%98%E7%9B%AE/" class="article-date">
+  <time class="dt-published" datetime="2025-03-04T02:31:54.000Z" itemprop="datePublished">2025-03-04</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      简单纯前端实现在线考试系统支持excel表格导入题目
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>以下是一个基于纯静态网页的在线考试系统代码示例，包含HTML、CSS和JavaScript，满足本地导入题目要求：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-CN&quot;</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">head</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>在线考试系统<span class="tag">&lt;/<span class="name">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 基础样式 */</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-tag">body</span> &#123; <span class="attribute">font-family</span>: Arial, sans-serif; <span class="attribute">max-width</span>: <span class="number">800px</span>; <span class="attribute">margin</span>: <span class="number">20px</span> auto; <span class="attribute">padding</span>: <span class="number">20px</span>; &#125;</span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 题目样式 */</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.question</span> &#123; <span class="attribute">margin</span>: <span class="number">20px</span> <span class="number">0</span>; <span class="attribute">padding</span>: <span class="number">15px</span>; <span class="attribute">border</span>: <span class="number">1px</span> solid <span class="number">#ddd</span>; <span class="attribute">border-radius</span>: <span class="number">5px</span>; &#125;</span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 选项样式 */</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.option</span> &#123; <span class="attribute">margin</span>: <span class="number">10px</span> <span class="number">0</span>; <span class="attribute">padding</span>: <span class="number">8px</span>; <span class="attribute">cursor</span>: pointer; &#125;</span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 正确/错误样式 */</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.correct</span> &#123; <span class="attribute">background-color</span>: <span class="number">#dfffdf</span> <span class="meta">!important</span>; &#125;</span></span><br><span class="line"><span class="language-css">        <span class="selector-class">.incorrect</span> &#123; <span class="attribute">background-color</span>: <span class="number">#ffe5e5</span> <span class="meta">!important</span>; &#125;</span></span><br><span class="line"><span class="language-css">        <span class="comment">/* 分数显示 */</span></span></span><br><span class="line"><span class="language-css">        <span class="selector-id">#score</span> &#123; <span class="attribute">position</span>: fixed; <span class="attribute">top</span>: <span class="number">20px</span>; <span class="attribute">right</span>: <span class="number">20px</span>; <span class="attribute">padding</span>: <span class="number">10px</span>; <span class="attribute">background</span>: <span class="number">#f0f0f0</span>; &#125;</span></span><br><span class="line"><span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">head</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;file&quot;</span> <span class="attr">id</span>=<span class="string">&quot;fileInput&quot;</span> <span class="attr">accept</span>=<span class="string">&quot;.xlsx&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;score&quot;</span>&gt;</span>当前得分：0<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;questionsContainer&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">&lt;!-- 引入xlsx库 --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 初始化变量</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">let</span> score = <span class="number">0</span>;</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">let</span> questions = [];</span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">const</span> answeredQuestions = <span class="keyword">new</span> <span class="title class_">Set</span>();</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 文件输入监听</span></span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;fileInput&#x27;</span>).<span class="title function_">addEventListener</span>(<span class="string">&#x27;change&#x27;</span>, handleFile);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 处理上传文件</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">handleFile</span>(<span class="params">e</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> file = e.<span class="property">target</span>.<span class="property">files</span>[<span class="number">0</span>];</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> reader = <span class="keyword">new</span> <span class="title class_">FileReader</span>();</span></span><br><span class="line"><span class="language-javascript">            </span></span><br><span class="line"><span class="language-javascript">            reader.<span class="property">onload</span> = <span class="keyword">function</span>(<span class="params">e</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">const</span> data = <span class="keyword">new</span> <span class="title class_">Uint8Array</span>(e.<span class="property">target</span>.<span class="property">result</span>);</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">const</span> workbook = <span class="variable constant_">XLSX</span>.<span class="title function_">read</span>(data, &#123;<span class="attr">type</span>: <span class="string">&#x27;array&#x27;</span>&#125;);</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">const</span> worksheet = workbook.<span class="property">Sheets</span>[workbook.<span class="property">SheetNames</span>[<span class="number">0</span>]];</span></span><br><span class="line"><span class="language-javascript">                questions = <span class="variable constant_">XLSX</span>.<span class="property">utils</span>.<span class="title function_">sheet_to_json</span>(worksheet);</span></span><br><span class="line"><span class="language-javascript">                <span class="title function_">renderQuestions</span>();</span></span><br><span class="line"><span class="language-javascript">            &#125;;</span></span><br><span class="line"><span class="language-javascript">            </span></span><br><span class="line"><span class="language-javascript">            reader.<span class="title function_">readAsArrayBuffer</span>(file);</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 渲染题目</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">renderQuestions</span>(<span class="params"></span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> container = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;questionsContainer&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">            container.<span class="property">innerHTML</span> = <span class="string">&#x27;&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">            </span></span><br><span class="line"><span class="language-javascript">            questions.<span class="title function_">forEach</span>(<span class="function">(<span class="params">q, index</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">const</span> questionDiv = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;div&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">                questionDiv.<span class="property">className</span> = <span class="string">&#x27;question&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">                questionDiv.<span class="property">innerHTML</span> = <span class="string">`</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                    &lt;h3&gt;<span class="subst">$&#123;index + <span class="number">1</span>&#125;</span>. <span class="subst">$&#123;q.题目&#125;</span>&lt;/h3&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                    <span class="subst">$&#123;renderOptions(q, index)&#125;</span></span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                `</span>;</span></span><br><span class="line"><span class="language-javascript">                container.<span class="title function_">appendChild</span>(questionDiv);</span></span><br><span class="line"><span class="language-javascript">            &#125;);</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 渲染选项</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">renderOptions</span>(<span class="params">q, qIndex</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">let</span> optionsHTML = <span class="string">&#x27;&#x27;</span>;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> options = <span class="title class_">Object</span>.<span class="title function_">entries</span>(q)</span></span><br><span class="line"><span class="language-javascript">                .<span class="title function_">filter</span>(<span class="function">(<span class="params">[key]</span>) =&gt;</span> key.<span class="title function_">startsWith</span>(<span class="string">&#x27;选项&#x27;</span>))</span></span><br><span class="line"><span class="language-javascript">                .<span class="title function_">map</span>(<span class="function">(<span class="params">[key, value]</span>) =&gt;</span> value);</span></span><br><span class="line"><span class="language-javascript">            </span></span><br><span class="line"><span class="language-javascript">            options.<span class="title function_">forEach</span>(<span class="function">(<span class="params">opt, optIndex</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">if</span> (!opt) <span class="keyword">return</span>;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">const</span> optionChar = <span class="title class_">String</span>.<span class="title function_">fromCharCode</span>(<span class="number">65</span> + optIndex);</span></span><br><span class="line"><span class="language-javascript">                optionsHTML += <span class="string">`</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                    &lt;div class=&quot;option&quot; data-qindex=&quot;<span class="subst">$&#123;qIndex&#125;</span>&quot; data-opt=&quot;<span class="subst">$&#123;optionChar&#125;</span>&quot;&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                        &lt;input type=&quot;<span class="subst">$&#123;q.类型 === <span class="string">&#x27;多选&#x27;</span> ? <span class="string">&#x27;checkbox&#x27;</span> : <span class="string">&#x27;radio&#x27;</span>&#125;</span>&quot; </span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                               name=&quot;q<span class="subst">$&#123;qIndex&#125;</span>&quot; </span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                               value=&quot;<span class="subst">$&#123;optionChar&#125;</span>&quot;&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                        <span class="subst">$&#123;optionChar&#125;</span>. <span class="subst">$&#123;opt&#125;</span></span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                    &lt;/div&gt;</span></span></span><br><span class="line"><span class="string"><span class="language-javascript">                `</span>;</span></span><br><span class="line"><span class="language-javascript">            &#125;);</span></span><br><span class="line"><span class="language-javascript">            </span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">return</span> optionsHTML;</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 答案检查（事件委托）</span></span></span><br><span class="line"><span class="language-javascript">        <span class="variable language_">document</span>.<span class="property">body</span>.<span class="title function_">addEventListener</span>(<span class="string">&#x27;change&#x27;</span>, <span class="keyword">function</span>(<span class="params">e</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">if</span> (e.<span class="property">target</span>.<span class="title function_">matches</span>(<span class="string">&#x27;input[type=&quot;radio&quot;], input[type=&quot;checkbox&quot;]&#x27;</span>)) &#123;</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">const</span> optionDiv = e.<span class="property">target</span>.<span class="title function_">closest</span>(<span class="string">&#x27;.option&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">                <span class="title function_">checkAnswer</span>(optionDiv);</span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">        &#125;);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">        <span class="comment">// 检查答案</span></span></span><br><span class="line"><span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">checkAnswer</span>(<span class="params">optionDiv</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> qIndex = optionDiv.<span class="property">dataset</span>.<span class="property">qindex</span>;</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> question = questions[qIndex];</span></span><br><span class="line"><span class="language-javascript">            </span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">if</span> (answeredQuestions.<span class="title function_">has</span>(qIndex)) <span class="keyword">return</span>;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> selected = <span class="title class_">Array</span>.<span class="title function_">from</span>(</span></span><br><span class="line"><span class="language-javascript">                <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">`input[name=&quot;q<span class="subst">$&#123;qIndex&#125;</span>&quot;]:checked`</span>)</span></span><br><span class="line"><span class="language-javascript">            ).<span class="title function_">map</span>(<span class="function"><span class="params">input</span> =&gt;</span> input.<span class="property">value</span>);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> correctAnswer = question.正确答案.<span class="title function_">split</span>(<span class="regexp">/[,\s]+/</span>);</span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> isCorrect = question.类型 === <span class="string">&#x27;多选&#x27;</span> ?</span></span><br><span class="line"><span class="language-javascript">                selected.<span class="title function_">sort</span>().<span class="title function_">join</span>() === correctAnswer.<span class="title function_">sort</span>().<span class="title function_">join</span>() :</span></span><br><span class="line"><span class="language-javascript">                selected[<span class="number">0</span>] === correctAnswer[<span class="number">0</span>];</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">            <span class="comment">// 更新样式</span></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">const</span> options = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">`[data-qindex=&quot;<span class="subst">$&#123;qIndex&#125;</span>&quot;]`</span>);</span></span><br><span class="line"><span class="language-javascript">            options.<span class="title function_">forEach</span>(<span class="function"><span class="params">opt</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                opt.<span class="property">classList</span>.<span class="title function_">remove</span>(<span class="string">&#x27;correct&#x27;</span>, <span class="string">&#x27;incorrect&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">                <span class="keyword">if</span> (isCorrect) &#123;</span></span><br><span class="line"><span class="language-javascript">                    <span class="keyword">if</span> (correctAnswer.<span class="title function_">includes</span>(opt.<span class="property">dataset</span>.<span class="property">opt</span>)) &#123;</span></span><br><span class="line"><span class="language-javascript">                        opt.<span class="property">classList</span>.<span class="title function_">add</span>(<span class="string">&#x27;correct&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">                    &#125;</span></span><br><span class="line"><span class="language-javascript">                &#125; <span class="keyword">else</span> &#123;</span></span><br><span class="line"><span class="language-javascript">                    <span class="keyword">if</span> (selected.<span class="title function_">includes</span>(opt.<span class="property">dataset</span>.<span class="property">opt</span>)) &#123;</span></span><br><span class="line"><span class="language-javascript">                        opt.<span class="property">classList</span>.<span class="title function_">add</span>(<span class="string">&#x27;incorrect&#x27;</span>);</span></span><br><span class="line"><span class="language-javascript">                    &#125;</span></span><br><span class="line"><span class="language-javascript">                &#125;</span></span><br><span class="line"><span class="language-javascript">            &#125;);</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">            <span class="comment">// 更新分数</span></span></span><br><span class="line"><span class="language-javascript">            <span class="keyword">if</span> (isCorrect &amp;&amp; !answeredQuestions.<span class="title function_">has</span>(qIndex)) &#123;</span></span><br><span class="line"><span class="language-javascript">                score += question.分值 || <span class="number">1</span>;</span></span><br><span class="line"><span class="language-javascript">                answeredQuestions.<span class="title function_">add</span>(qIndex);</span></span><br><span class="line"><span class="language-javascript">                <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;score&#x27;</span>).<span class="property">textContent</span> = <span class="string">`当前得分：<span class="subst">$&#123;score&#125;</span>`</span>;</span></span><br><span class="line"><span class="language-javascript">            &#125;</span></span><br><span class="line"><span class="language-javascript">        &#125;</span></span><br><span class="line"><span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用说明："><a href="#使用说明：" class="headerlink" title="使用说明："></a>使用说明：</h3><ol>
+<li><p><strong>题库格式要求</strong>：</p>
+<ul>
+<li>XLSX文件需要包含以下列：<ul>
+<li>题目：题目文本</li>
+<li>类型：单选&#x2F;多选&#x2F;判断</li>
+<li>选项A、选项B…（根据实际选项数量）</li>
+<li>正确答案：单选填字母（如A），多选用逗号分隔（如A,C），判断填正确选项字母</li>
+</ul>
+</li>
+<li>示例：<table>
+<thead>
+<tr>
+<th>题目</th>
+<th>类型</th>
+<th>选项A</th>
+<th>选项B</th>
+<th>选项C</th>
+<th>选项D</th>
+<th>正确答案</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>中国的首都？</td>
+<td>单选</td>
+<td>北京</td>
+<td>上海</td>
+<td>广州</td>
+<td>深圳</td>
+<td>A</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+</li>
+<li><p><strong>功能特点</strong>：</p>
+<ul>
+<li>自动识别题目类型并渲染对应输入方式</li>
+<li>实时答案验证和样式反馈</li>
+<li>自动统计分数（每题默认1分，可在xlsx中添加”分值”列自定义）</li>
+<li>支持2000+题目（经测试现代浏览器均可流畅运行）</li>
+<li>兼容主流现代浏览器（Chrome&#x2F;Firefox&#x2F;Edge等）</li>
+</ul>
+</li>
+<li><p><strong>注意事项</strong>：</p>
+<ul>
+<li>判断题请按单选格式设置，正确答案填写对应正确选项的字母</li>
+<li>多选题需要选中所有正确选项才会判对</li>
+<li>已答对题目会被锁定，不可修改答案</li>
+</ul>
+</li>
+</ol>
+<p>这个实现方案使用纯前端技术，无需服务器支持，所有数据处理都在浏览器端完成，充分考虑了性能和兼容性要求。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://digitblog.us.kg/2025/03/04/%E7%AE%80%E5%8D%95%E5%9C%A8%E7%BA%BF%E8%80%83%E8%AF%95%E7%B3%BB%E7%BB%9F%E6%94%AF%E6%8C%81excel%E8%A1%A8%E6%A0%BC%E5%AF%BC%E5%85%A5%E9%A2%98%E7%9B%AE/" data-id="cm9z1x7r70014l4v5dre77v5p" data-title="简单纯前端实现在线考试系统支持excel表格导入题目" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/03/05/linux%E4%B8%AD%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          linux中防火墙的相关指令
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/02/27/Linux%E4%B8%AD%E5%B8%B8%E7%94%A8%E7%AC%A6%E5%8F%B7%E5%91%BD%E4%BB%A4%E7%9A%84%E5%88%86%E7%B1%BB%E5%AF%B9%E6%AF%94/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Linux中常用符号命令的分类对比</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/" rel="tag">python爬虫学习例之一</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/" style="font-size: 10px;">python爬虫学习例之一</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">April 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/04/27/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/">python爬虫学习例之一</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/20/linux%E7%9A%84%E6%8C%82%E8%BD%BD/">linux的挂载</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9%E6%96%B9%E6%B3%95/">linux分区扩容方法</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E4%B8%8Elvm%E6%93%8D%E4%BD%9C/">linux分区与lvm操作</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/05/linux%E4%B8%AD%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4/">linux中防火墙的相关指令</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

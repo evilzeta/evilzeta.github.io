@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>linux分区扩容方法 | evilzeta note</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="在 Linux 系统中，分区扩容通常涉及 LVM（逻辑卷管理） 或 非 LVM 分区。以下是两种场景的详细操作指南，包含实际案例。  一、LVM 分区扩容（推荐方式）LVM 支持动态调整分区大小，是最灵活的扩容方式。 案例场景假设你的 &#x2F;dev&#x2F;mapper&#x2F;ubuntu--vg-ubuntu--lv 逻辑卷（挂载到 &#x2F;）空间不足，需要扩容。 1. 检查当前磁盘和分区12345lsblk">
+<meta property="og:type" content="article">
+<meta property="og:title" content="linux分区扩容方法">
+<meta property="og:url" content="https://digitblog.us.kg/2025/03/20/linux%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9%E6%96%B9%E6%B3%95/index.html">
+<meta property="og:site_name" content="evilzeta note">
+<meta property="og:description" content="在 Linux 系统中，分区扩容通常涉及 LVM（逻辑卷管理） 或 非 LVM 分区。以下是两种场景的详细操作指南，包含实际案例。  一、LVM 分区扩容（推荐方式）LVM 支持动态调整分区大小，是最灵活的扩容方式。 案例场景假设你的 &#x2F;dev&#x2F;mapper&#x2F;ubuntu--vg-ubuntu--lv 逻辑卷（挂载到 &#x2F;）空间不足，需要扩容。 1. 检查当前磁盘和分区12345lsblk">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-03-20T09:43:15.000Z">
+<meta property="article:modified_time" content="2025-03-20T09:43:41.636Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="linux">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="evilzeta note" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">evilzeta note</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://digitblog.us.kg"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-linux分区扩容方法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9%E6%96%B9%E6%B3%95/" class="article-date">
+  <time class="dt-published" datetime="2025-03-20T09:43:15.000Z" itemprop="datePublished">2025-03-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      linux分区扩容方法
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>在 Linux 系统中，分区扩容通常涉及 <strong>LVM（逻辑卷管理）</strong> 或 <strong>非 LVM 分区</strong>。以下是两种场景的详细操作指南，包含实际案例。</p>
+<hr>
+<h2 id="一、LVM-分区扩容（推荐方式）"><a href="#一、LVM-分区扩容（推荐方式）" class="headerlink" title="一、LVM 分区扩容（推荐方式）"></a>一、LVM 分区扩容（推荐方式）</h2><p>LVM 支持动态调整分区大小，是最灵活的扩容方式。</p>
+<h3 id="案例场景"><a href="#案例场景" class="headerlink" title="案例场景"></a>案例场景</h3><p>假设你的 <code>/dev/mapper/ubuntu--vg-ubuntu--lv</code> 逻辑卷（挂载到 <code>/</code>）空间不足，需要扩容。</p>
+<h4 id="1-检查当前磁盘和分区"><a href="#1-检查当前磁盘和分区" class="headerlink" title="1. 检查当前磁盘和分区"></a><strong>1. 检查当前磁盘和分区</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">lsblk                     <span class="comment"># 查看磁盘和分区结构</span></span><br><span class="line"><span class="built_in">df</span> -h                     <span class="comment"># 查看已挂载分区的使用情况</span></span><br><span class="line">pvdisplay                 <span class="comment"># 查看物理卷（Physical Volume）</span></span><br><span class="line">vgdisplay                 <span class="comment"># 查看卷组（Volume Group）</span></span><br><span class="line">lvdisplay                 <span class="comment"># 查看逻辑卷（Logical Volume）</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-扩展物理卷（如果磁盘空间不足）"><a href="#2-扩展物理卷（如果磁盘空间不足）" class="headerlink" title="2. 扩展物理卷（如果磁盘空间不足）"></a><strong>2. 扩展物理卷（如果磁盘空间不足）</strong></h4><ul>
+<li><strong>新增一块磁盘</strong>（如 <code>/dev/sdb</code>），或 <strong>扩展虚拟机磁盘</strong>。</li>
+<li>格式化新磁盘为 LVM 物理卷：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> pvcreate /dev/sdb   <span class="comment"># 创建物理卷</span></span><br><span class="line"><span class="built_in">sudo</span> vgextend ubuntu-vg /dev/sdb  <span class="comment"># 将物理卷加入卷组（替换为你的卷组名）</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="3-扩展逻辑卷"><a href="#3-扩展逻辑卷" class="headerlink" title="3. 扩展逻辑卷"></a><strong>3. 扩展逻辑卷</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> lvextend -l +100%FREE /dev/ubuntu-vg/ubuntu-lv  <span class="comment"># 使用卷组剩余所有空间</span></span><br><span class="line"><span class="comment"># 或指定具体大小（如 +20G）：</span></span><br><span class="line"><span class="comment"># sudo lvextend -L +20G /dev/ubuntu-vg/ubuntu-lv</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="4-扩展文件系统"><a href="#4-扩展文件系统" class="headerlink" title="4. 扩展文件系统"></a><strong>4. 扩展文件系统</strong></h4><ul>
+<li><strong>ext4 文件系统</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> resize2fs /dev/ubuntu-vg/ubuntu-lv   <span class="comment"># 自动调整文件系统大小</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>xfs 文件系统</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> xfs_growfs /   <span class="comment"># 直接针对挂载点操作</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="5-验证结果"><a href="#5-验证结果" class="headerlink" title="5. 验证结果"></a><strong>5. 验证结果</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">df</span> -h  <span class="comment"># 检查分区容量是否更新</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="二、非-LVM-分区扩容（传统分区）"><a href="#二、非-LVM-分区扩容（传统分区）" class="headerlink" title="二、非 LVM 分区扩容（传统分区）"></a>二、非 LVM 分区扩容（传统分区）</h2><p>非 LVM 分区扩容需要 <strong>相邻的未分配空间</strong>，且操作风险较高（建议提前备份数据）。</p>
+<h3 id="案例场景-1"><a href="#案例场景-1" class="headerlink" title="案例场景"></a>案例场景</h3><p>假设 <code>/dev/sda2</code> 分区（挂载到 <code>/home</code>）需要扩容，且磁盘末尾有空闲空间。</p>
+<h4 id="1-使用-parted-调整分区"><a href="#1-使用-parted-调整分区" class="headerlink" title="1. 使用 parted 调整分区"></a><strong>1. 使用 <code>parted</code> 调整分区</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> parted /dev/sda  <span class="comment"># 进入 parted 交互界面</span></span><br><span class="line">(parted) <span class="built_in">print</span>        <span class="comment"># 查看分区表，确认空闲空间位置</span></span><br><span class="line">(parted) resizepart [分区号] [新结束位置]  </span><br><span class="line"><span class="comment"># 例如：resizepart 2 100%  # 将分区扩展到磁盘末尾</span></span><br><span class="line">(parted) quit</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-扩展文件系统"><a href="#2-扩展文件系统" class="headerlink" title="2. 扩展文件系统"></a><strong>2. 扩展文件系统</strong></h4><ul>
+<li><strong>ext4 文件系统</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> e2fsck -f /dev/sda2   <span class="comment"># 强制检查文件系统</span></span><br><span class="line"><span class="built_in">sudo</span> resize2fs /dev/sda2    <span class="comment"># 调整文件系统大小</span></span><br></pre></td></tr></table></figure></li>
+<li><strong>xfs 文件系统</strong>：<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> xfs_growfs /home      <span class="comment"># 直接针对挂载点操作</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+<h4 id="3-验证结果"><a href="#3-验证结果" class="headerlink" title="3. 验证结果"></a><strong>3. 验证结果</strong></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">df</span> -h  <span class="comment"># 检查分区容量是否更新</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="三、注意事项"><a href="#三、注意事项" class="headerlink" title="三、注意事项"></a>三、注意事项</h2><ol>
+<li><strong>备份数据</strong>：任何分区操作都有风险，操作前务必备份重要数据。</li>
+<li><strong>Live CD&#x2F;USB</strong>：如果操作的是根分区，可能需要通过 Live 系统（如 Ubuntu Live USB）进行。</li>
+<li><strong>虚拟机扩展磁盘</strong>：<ul>
+<li>如果使用虚拟机（如 VMware&#x2F;VirtualBox），需先在虚拟机设置中扩展磁盘大小。</li>
+<li>之后在系统内使用 <code>parted</code> 或 <code>fdisk</code> 调整分区。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="四、图形化工具（推荐新手）"><a href="#四、图形化工具（推荐新手）" class="headerlink" title="四、图形化工具（推荐新手）"></a>四、图形化工具（推荐新手）</h2><p>使用 <code>gparted</code> 工具（需安装）：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt install gparted   <span class="comment"># Debian/Ubuntu</span></span><br><span class="line"><span class="built_in">sudo</span> gparted              <span class="comment"># 启动图形界面</span></span><br></pre></td></tr></table></figure>
+<p>通过拖拽分区边界调整大小，操作更直观。</p>
+<hr>
+<p>通过以上步骤，你可以安全地扩展 Linux 分区。如果有疑问，建议先在测试环境中演练！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://digitblog.us.kg/2025/03/20/linux%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9%E6%96%B9%E6%B3%95/" data-id="cm9z1x7qj000ql4v5er9rf62w" data-title="linux分区扩容方法" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2025/03/20/linux%E7%9A%84%E6%8C%82%E8%BD%BD/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          linux的挂载
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E4%B8%8Elvm%E6%93%8D%E4%BD%9C/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">linux分区与lvm操作</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/" rel="tag">python爬虫学习例之一</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/" style="font-size: 10px;">python爬虫学习例之一</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">April 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/04/27/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/">python爬虫学习例之一</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/20/linux%E7%9A%84%E6%8C%82%E8%BD%BD/">linux的挂载</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9%E6%96%B9%E6%B3%95/">linux分区扩容方法</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E4%B8%8Elvm%E6%93%8D%E4%BD%9C/">linux分区与lvm操作</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/05/linux%E4%B8%AD%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4/">linux中防火墙的相关指令</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>
