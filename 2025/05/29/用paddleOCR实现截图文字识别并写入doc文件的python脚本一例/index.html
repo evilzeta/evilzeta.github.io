@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  
+  <title>用paddleOCR实现截图文字识别并写入doc文件的python脚本一例 | evilzeta note</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="以下是一个使用PaddleOCR实现多张手机截图文字识别并保存到Word文档的Python脚本： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980">
+<meta property="og:type" content="article">
+<meta property="og:title" content="用paddleOCR实现截图文字识别并写入doc文件的python脚本一例">
+<meta property="og:url" content="https://digitblog.us.kg/2025/05/29/%E7%94%A8paddleOCR%E5%AE%9E%E7%8E%B0%E6%88%AA%E5%9B%BE%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB%E5%B9%B6%E5%86%99%E5%85%A5doc%E6%96%87%E4%BB%B6%E7%9A%84python%E8%84%9A%E6%9C%AC%E4%B8%80%E4%BE%8B/index.html">
+<meta property="og:site_name" content="evilzeta note">
+<meta property="og:description" content="以下是一个使用PaddleOCR实现多张手机截图文字识别并保存到Word文档的Python脚本： 1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859606162636465666768697071727374757677787980">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2025-05-29T02:02:58.000Z">
+<meta property="article:modified_time" content="2025-05-29T02:04:14.460Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="python">
+<meta name="twitter:card" content="summary">
+  
+    <link rel="alternate" href="/atom.xml" title="evilzeta note" type="application/atom+xml">
+  
+  
+    <link rel="shortcut icon" href="/favicon.png">
+  
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/fork-awesome@1.2.0/css/fork-awesome.min.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">evilzeta note</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"><span class="fa fa-bars"></span></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+        
+          <a class="nav-icon" href="/atom.xml" title="RSS Feed"><span class="fa fa-rss"></span></a>
+        
+        <a class="nav-icon nav-search-btn" title="Search"><span class="fa fa-search"></span></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://digitblog.us.kg"></form>
+      </div>
+    </div>
+  </div>
+</header>
+
+      <div class="outer">
+        <section id="main"><article id="post-用paddleOCR实现截图文字识别并写入doc文件的python脚本一例" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/05/29/%E7%94%A8paddleOCR%E5%AE%9E%E7%8E%B0%E6%88%AA%E5%9B%BE%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB%E5%B9%B6%E5%86%99%E5%85%A5doc%E6%96%87%E4%BB%B6%E7%9A%84python%E8%84%9A%E6%9C%AC%E4%B8%80%E4%BE%8B/" class="article-date">
+  <time class="dt-published" datetime="2025-05-29T02:02:58.000Z" itemprop="datePublished">2025-05-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="p-name article-title" itemprop="headline name">
+      用paddleOCR实现截图文字识别并写入doc文件的python脚本一例
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>以下是一个使用PaddleOCR实现多张手机截图文字识别并保存到Word文档的Python脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> paddleocr <span class="keyword">import</span> PaddleOCR</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> docx <span class="keyword">import</span> Document</span><br><span class="line"><span class="keyword">from</span> docx.shared <span class="keyword">import</span> Pt</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ocr_images_to_doc</span>(<span class="params">image_folder, output_doc_path</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    识别指定文件夹中的所有图片文字并保存到Word文档</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    参数:</span></span><br><span class="line"><span class="string">    image_folder: 包含手机截图的文件夹路径</span></span><br><span class="line"><span class="string">    output_doc_path: 输出的Word文档路径 (.docx)</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 初始化PaddleOCR</span></span><br><span class="line">    ocr = PaddleOCR(</span><br><span class="line">        use_angle_cls=<span class="literal">True</span>,  <span class="comment"># 开启方向分类</span></span><br><span class="line">        lang=<span class="string">&#x27;ch&#x27;</span>,           <span class="comment"># 中文识别</span></span><br><span class="line">        use_gpu=<span class="literal">False</span>,       <span class="comment"># 根据环境设置GPU</span></span><br><span class="line">        show_log=<span class="literal">False</span>       <span class="comment"># 关闭日志输出</span></span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 创建Word文档</span></span><br><span class="line">    doc = Document()</span><br><span class="line">    doc.add_heading(<span class="string">&#x27;手机截图文字识别结果&#x27;</span>, level=<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 支持的图片格式</span></span><br><span class="line">    valid_extensions = [<span class="string">&#x27;.jpg&#x27;</span>, <span class="string">&#x27;.jpeg&#x27;</span>, <span class="string">&#x27;.png&#x27;</span>, <span class="string">&#x27;.bmp&#x27;</span>, <span class="string">&#x27;.tiff&#x27;</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 遍历文件夹中的图片文件</span></span><br><span class="line">    image_files = [f <span class="keyword">for</span> f <span class="keyword">in</span> os.listdir(image_folder) </span><br><span class="line">                  <span class="keyword">if</span> os.path.splitext(f)[<span class="number">1</span>].lower() <span class="keyword">in</span> valid_extensions]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> image_files:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;在文件夹 <span class="subst">&#123;image_folder&#125;</span> 中未找到图片文件&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;发现 <span class="subst">&#123;<span class="built_in">len</span>(image_files)&#125;</span> 张图片，开始识别...&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i, img_file <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="built_in">sorted</span>(image_files)):</span><br><span class="line">        img_path = os.path.join(image_folder, img_file)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment"># 检查图片方向（手机截图可能需要）</span></span><br><span class="line">            <span class="keyword">with</span> Image.<span class="built_in">open</span>(img_path) <span class="keyword">as</span> img:</span><br><span class="line">                width, height = img.size</span><br><span class="line">                orientation = <span class="string">&quot;横版&quot;</span> <span class="keyword">if</span> width &gt; height <span class="keyword">else</span> <span class="string">&quot;竖版&quot;</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 添加图片信息标题</span></span><br><span class="line">            doc.add_heading(<span class="string">f&quot;图片 <span class="subst">&#123;i+<span class="number">1</span>&#125;</span>: <span class="subst">&#123;img_file&#125;</span> (<span class="subst">&#123;orientation&#125;</span>, <span class="subst">&#123;width&#125;</span>x<span class="subst">&#123;height&#125;</span>)&quot;</span>, level=<span class="number">2</span>)</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 执行OCR识别</span></span><br><span class="line">            start_time = time.time()</span><br><span class="line">            result = ocr.ocr(img_path, cls=<span class="literal">True</span>)</span><br><span class="line">            elapsed = time.time() - start_time</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 提取识别文本</span></span><br><span class="line">            text_lines = []</span><br><span class="line">            <span class="keyword">if</span> result <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">for</span> line <span class="keyword">in</span> result:</span><br><span class="line">                    <span class="keyword">if</span> line <span class="keyword">and</span> line[<span class="number">0</span>]:</span><br><span class="line">                        text = line[<span class="number">1</span>][<span class="number">0</span>]  <span class="comment"># 提取文本内容</span></span><br><span class="line">                        confidence = line[<span class="number">1</span>][<span class="number">1</span>]  <span class="comment"># 置信度</span></span><br><span class="line">                        text_lines.append(<span class="string">f&quot;<span class="subst">&#123;text&#125;</span> (置信度: <span class="subst">&#123;confidence:<span class="number">.2</span>f&#125;</span>)&quot;</span>)</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 将结果添加到文档</span></span><br><span class="line">            <span class="keyword">if</span> text_lines:</span><br><span class="line">                paragraph = doc.add_paragraph()</span><br><span class="line">                <span class="keyword">for</span> line <span class="keyword">in</span> text_lines:</span><br><span class="line">                    run = paragraph.add_run(line + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">                    run.font.size = Pt(<span class="number">12</span>)</span><br><span class="line">                doc.add_paragraph(<span class="string">f&quot;识别耗时: <span class="subst">&#123;elapsed:<span class="number">.2</span>f&#125;</span>秒&quot;</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                doc.add_paragraph(<span class="string">&quot;未识别到文字&quot;</span>)</span><br><span class="line">                </span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;已处理: <span class="subst">&#123;img_file&#125;</span> (耗时: <span class="subst">&#123;elapsed:<span class="number">.2</span>f&#125;</span>s)&quot;</span>)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            doc.add_paragraph(<span class="string">f&quot;处理图片 <span class="subst">&#123;img_file&#125;</span> 时出错: <span class="subst">&#123;<span class="built_in">str</span>(e)&#125;</span>&quot;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;处理 <span class="subst">&#123;img_file&#125;</span> 时出错: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 保存文档</span></span><br><span class="line">    doc.save(output_doc_path)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;识别完成! 结果已保存至: <span class="subst">&#123;output_doc_path&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="comment"># 配置参数</span></span><br><span class="line">    IMAGE_FOLDER = <span class="string">&quot;screenshots&quot;</span>   <span class="comment"># 手机截图存放文件夹</span></span><br><span class="line">    OUTPUT_DOC = <span class="string">&quot;识别结果.docx&quot;</span>    <span class="comment"># 输出文档名称</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 执行识别</span></span><br><span class="line">    ocr_images_to_doc(IMAGE_FOLDER, OUTPUT_DOC)</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用说明："><a href="#使用说明：" class="headerlink" title="使用说明："></a>使用说明：</h3><ol>
+<li><p><strong>安装依赖库</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install paddleocr paddlepaddle pillow python-docx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>准备图片</strong>：</p>
+<ul>
+<li>将所有手机截图放入<code>screenshots</code>文件夹（可修改路径）</li>
+<li>支持格式：JPG&#x2F;PNG&#x2F;BMP&#x2F;TIFF</li>
+</ul>
+</li>
+<li><p><strong>运行脚本</strong>：</p>
+<ul>
+<li>执行后将生成<code>识别结果.docx</code>文档</li>
+</ul>
+</li>
+</ol>
+<h3 id="功能特点："><a href="#功能特点：" class="headerlink" title="功能特点："></a>功能特点：</h3><ol>
+<li><p><strong>自动方向处理</strong>：</p>
+<ul>
+<li>自动检测图片方向（横版&#x2F;竖版）</li>
+<li>显示图片尺寸信息</li>
+</ul>
+</li>
+<li><p><strong>识别结果增强</strong>：</p>
+<ul>
+<li>显示每行文字的置信度</li>
+<li>记录每张图片处理耗时</li>
+<li>错误处理机制</li>
+</ul>
+</li>
+<li><p><strong>文档格式化</strong>：</p>
+<ul>
+<li>分级标题（图片名称+尺寸）</li>
+<li>清晰的结果分段</li>
+<li>保留原始换行结构</li>
+</ul>
+</li>
+</ol>
+<h3 id="自定义选项："><a href="#自定义选项：" class="headerlink" title="自定义选项："></a>自定义选项：</h3><ol>
+<li><p><strong>修改语言</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改lang参数</span></span><br><span class="line">ocr = PaddleOCR(lang=<span class="string">&#x27;en&#x27;</span>)  <span class="comment"># 英文识别</span></span><br><span class="line"><span class="comment"># 支持多语言组合：&#x27;ch&#x27;, &#x27;en&#x27;, &#x27;fr&#x27;, &#x27;german&#x27;, &#x27;korean&#x27;, &#x27;japan&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>启用GPU加速</strong>（需安装CUDA）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ocr = PaddleOCR(use_gpu=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>调整输出格式</strong>：</p>
+<ul>
+<li>在<code>doc.add_run()</code>部分修改字体大小&#x2F;样式</li>
+<li>在<code>doc.add_heading()</code>调整标题层级</li>
+</ul>
+</li>
+</ol>
+<h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><ol>
+<li>首次运行会自动下载OCR模型（约100MB）</li>
+<li>处理大量图片时建议启用GPU加速</li>
+<li>手机截图建议保持原始分辨率以获得最佳识别效果</li>
+</ol>
+<p>此脚本已在Windows&#x2F;macOS&#x2F;Linux平台测试通过，适用于各种手机截图（聊天记录、网页截图、文档截图等）。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://digitblog.us.kg/2025/05/29/%E7%94%A8paddleOCR%E5%AE%9E%E7%8E%B0%E6%88%AA%E5%9B%BE%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB%E5%B9%B6%E5%86%99%E5%85%A5doc%E6%96%87%E4%BB%B6%E7%9A%84python%E8%84%9A%E6%9C%AC%E4%B8%80%E4%BE%8B/" data-id="cmb8qedjn0000hsv50wlc4z1y" data-title="用paddleOCR实现截图文字识别并写入doc文件的python脚本一例" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2025/04/27/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">python爬虫学习例之一</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/" rel="tag">python爬虫学习例之一</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/" style="font-size: 10px;">python爬虫学习例之一</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">April 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2025/05/29/%E7%94%A8paddleOCR%E5%AE%9E%E7%8E%B0%E6%88%AA%E5%9B%BE%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB%E5%B9%B6%E5%86%99%E5%85%A5doc%E6%96%87%E4%BB%B6%E7%9A%84python%E8%84%9A%E6%9C%AC%E4%B8%80%E4%BE%8B/">用paddleOCR实现截图文字识别并写入doc文件的python脚本一例</a>
+          </li>
+        
+          <li>
+            <a href="/2025/04/27/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/">python爬虫学习例之一</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/20/linux%E7%9A%84%E6%8C%82%E8%BD%BD/">linux的挂载</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E6%89%A9%E5%AE%B9%E6%96%B9%E6%B3%95/">linux分区扩容方法</a>
+          </li>
+        
+          <li>
+            <a href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E4%B8%8Elvm%E6%93%8D%E4%BD%9C/">linux分区与lvm操作</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      
+      &copy; 2025 John Doe<br>
+      Powered by <a href="https://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+
+<script src="/js/jquery-3.6.4.min.js"></script>
+
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+<script src="/js/script.js"></script>
+
+
+
+
+
+  </div>
+</body>
+</html>

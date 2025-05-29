@@ -71,6 +71,107 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-用paddleOCR实现截图文字识别并写入doc文件的python脚本一例" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+  <div class="article-meta">
+    <a href="/2025/05/29/%E7%94%A8paddleOCR%E5%AE%9E%E7%8E%B0%E6%88%AA%E5%9B%BE%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB%E5%B9%B6%E5%86%99%E5%85%A5doc%E6%96%87%E4%BB%B6%E7%9A%84python%E8%84%9A%E6%9C%AC%E4%B8%80%E4%BE%8B/" class="article-date">
+  <time class="dt-published" datetime="2025-05-29T02:02:58.000Z" itemprop="datePublished">2025-05-29</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="p-name article-title" href="/2025/05/29/%E7%94%A8paddleOCR%E5%AE%9E%E7%8E%B0%E6%88%AA%E5%9B%BE%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB%E5%B9%B6%E5%86%99%E5%85%A5doc%E6%96%87%E4%BB%B6%E7%9A%84python%E8%84%9A%E6%9C%AC%E4%B8%80%E4%BE%8B/">用paddleOCR实现截图文字识别并写入doc文件的python脚本一例</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="e-content article-entry" itemprop="articleBody">
+      
+        <p>以下是一个使用PaddleOCR实现多张手机截图文字识别并保存到Word文档的Python脚本：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> paddleocr <span class="keyword">import</span> PaddleOCR</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">from</span> docx <span class="keyword">import</span> Document</span><br><span class="line"><span class="keyword">from</span> docx.shared <span class="keyword">import</span> Pt</span><br><span class="line"><span class="keyword">from</span> PIL <span class="keyword">import</span> Image</span><br><span class="line"><span class="keyword">import</span> time</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">ocr_images_to_doc</span>(<span class="params">image_folder, output_doc_path</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    识别指定文件夹中的所有图片文字并保存到Word文档</span></span><br><span class="line"><span class="string">    </span></span><br><span class="line"><span class="string">    参数:</span></span><br><span class="line"><span class="string">    image_folder: 包含手机截图的文件夹路径</span></span><br><span class="line"><span class="string">    output_doc_path: 输出的Word文档路径 (.docx)</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 初始化PaddleOCR</span></span><br><span class="line">    ocr = PaddleOCR(</span><br><span class="line">        use_angle_cls=<span class="literal">True</span>,  <span class="comment"># 开启方向分类</span></span><br><span class="line">        lang=<span class="string">&#x27;ch&#x27;</span>,           <span class="comment"># 中文识别</span></span><br><span class="line">        use_gpu=<span class="literal">False</span>,       <span class="comment"># 根据环境设置GPU</span></span><br><span class="line">        show_log=<span class="literal">False</span>       <span class="comment"># 关闭日志输出</span></span><br><span class="line">    )</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 创建Word文档</span></span><br><span class="line">    doc = Document()</span><br><span class="line">    doc.add_heading(<span class="string">&#x27;手机截图文字识别结果&#x27;</span>, level=<span class="number">1</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 支持的图片格式</span></span><br><span class="line">    valid_extensions = [<span class="string">&#x27;.jpg&#x27;</span>, <span class="string">&#x27;.jpeg&#x27;</span>, <span class="string">&#x27;.png&#x27;</span>, <span class="string">&#x27;.bmp&#x27;</span>, <span class="string">&#x27;.tiff&#x27;</span>]</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 遍历文件夹中的图片文件</span></span><br><span class="line">    image_files = [f <span class="keyword">for</span> f <span class="keyword">in</span> os.listdir(image_folder) </span><br><span class="line">                  <span class="keyword">if</span> os.path.splitext(f)[<span class="number">1</span>].lower() <span class="keyword">in</span> valid_extensions]</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">if</span> <span class="keyword">not</span> image_files:</span><br><span class="line">        <span class="built_in">print</span>(<span class="string">f&quot;在文件夹 <span class="subst">&#123;image_folder&#125;</span> 中未找到图片文件&quot;</span>)</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    </span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;发现 <span class="subst">&#123;<span class="built_in">len</span>(image_files)&#125;</span> 张图片，开始识别...&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">for</span> i, img_file <span class="keyword">in</span> <span class="built_in">enumerate</span>(<span class="built_in">sorted</span>(image_files)):</span><br><span class="line">        img_path = os.path.join(image_folder, img_file)</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">try</span>:</span><br><span class="line">            <span class="comment"># 检查图片方向（手机截图可能需要）</span></span><br><span class="line">            <span class="keyword">with</span> Image.<span class="built_in">open</span>(img_path) <span class="keyword">as</span> img:</span><br><span class="line">                width, height = img.size</span><br><span class="line">                orientation = <span class="string">&quot;横版&quot;</span> <span class="keyword">if</span> width &gt; height <span class="keyword">else</span> <span class="string">&quot;竖版&quot;</span></span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 添加图片信息标题</span></span><br><span class="line">            doc.add_heading(<span class="string">f&quot;图片 <span class="subst">&#123;i+<span class="number">1</span>&#125;</span>: <span class="subst">&#123;img_file&#125;</span> (<span class="subst">&#123;orientation&#125;</span>, <span class="subst">&#123;width&#125;</span>x<span class="subst">&#123;height&#125;</span>)&quot;</span>, level=<span class="number">2</span>)</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 执行OCR识别</span></span><br><span class="line">            start_time = time.time()</span><br><span class="line">            result = ocr.ocr(img_path, cls=<span class="literal">True</span>)</span><br><span class="line">            elapsed = time.time() - start_time</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 提取识别文本</span></span><br><span class="line">            text_lines = []</span><br><span class="line">            <span class="keyword">if</span> result <span class="keyword">is</span> <span class="keyword">not</span> <span class="literal">None</span>:</span><br><span class="line">                <span class="keyword">for</span> line <span class="keyword">in</span> result:</span><br><span class="line">                    <span class="keyword">if</span> line <span class="keyword">and</span> line[<span class="number">0</span>]:</span><br><span class="line">                        text = line[<span class="number">1</span>][<span class="number">0</span>]  <span class="comment"># 提取文本内容</span></span><br><span class="line">                        confidence = line[<span class="number">1</span>][<span class="number">1</span>]  <span class="comment"># 置信度</span></span><br><span class="line">                        text_lines.append(<span class="string">f&quot;<span class="subst">&#123;text&#125;</span> (置信度: <span class="subst">&#123;confidence:<span class="number">.2</span>f&#125;</span>)&quot;</span>)</span><br><span class="line">            </span><br><span class="line">            <span class="comment"># 将结果添加到文档</span></span><br><span class="line">            <span class="keyword">if</span> text_lines:</span><br><span class="line">                paragraph = doc.add_paragraph()</span><br><span class="line">                <span class="keyword">for</span> line <span class="keyword">in</span> text_lines:</span><br><span class="line">                    run = paragraph.add_run(line + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">                    run.font.size = Pt(<span class="number">12</span>)</span><br><span class="line">                doc.add_paragraph(<span class="string">f&quot;识别耗时: <span class="subst">&#123;elapsed:<span class="number">.2</span>f&#125;</span>秒&quot;</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                doc.add_paragraph(<span class="string">&quot;未识别到文字&quot;</span>)</span><br><span class="line">                </span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;已处理: <span class="subst">&#123;img_file&#125;</span> (耗时: <span class="subst">&#123;elapsed:<span class="number">.2</span>f&#125;</span>s)&quot;</span>)</span><br><span class="line">            </span><br><span class="line">        <span class="keyword">except</span> Exception <span class="keyword">as</span> e:</span><br><span class="line">            doc.add_paragraph(<span class="string">f&quot;处理图片 <span class="subst">&#123;img_file&#125;</span> 时出错: <span class="subst">&#123;<span class="built_in">str</span>(e)&#125;</span>&quot;</span>)</span><br><span class="line">            <span class="built_in">print</span>(<span class="string">f&quot;处理 <span class="subst">&#123;img_file&#125;</span> 时出错: <span class="subst">&#123;e&#125;</span>&quot;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 保存文档</span></span><br><span class="line">    doc.save(output_doc_path)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">f&quot;识别完成! 结果已保存至: <span class="subst">&#123;output_doc_path&#125;</span>&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> __name__ == <span class="string">&quot;__main__&quot;</span>:</span><br><span class="line">    <span class="comment"># 配置参数</span></span><br><span class="line">    IMAGE_FOLDER = <span class="string">&quot;screenshots&quot;</span>   <span class="comment"># 手机截图存放文件夹</span></span><br><span class="line">    OUTPUT_DOC = <span class="string">&quot;识别结果.docx&quot;</span>    <span class="comment"># 输出文档名称</span></span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 执行识别</span></span><br><span class="line">    ocr_images_to_doc(IMAGE_FOLDER, OUTPUT_DOC)</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用说明："><a href="#使用说明：" class="headerlink" title="使用说明："></a>使用说明：</h3><ol>
+<li><p><strong>安装依赖库</strong>：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install paddleocr paddlepaddle pillow python-docx</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>准备图片</strong>：</p>
+<ul>
+<li>将所有手机截图放入<code>screenshots</code>文件夹（可修改路径）</li>
+<li>支持格式：JPG&#x2F;PNG&#x2F;BMP&#x2F;TIFF</li>
+</ul>
+</li>
+<li><p><strong>运行脚本</strong>：</p>
+<ul>
+<li>执行后将生成<code>识别结果.docx</code>文档</li>
+</ul>
+</li>
+</ol>
+<h3 id="功能特点："><a href="#功能特点：" class="headerlink" title="功能特点："></a>功能特点：</h3><ol>
+<li><p><strong>自动方向处理</strong>：</p>
+<ul>
+<li>自动检测图片方向（横版&#x2F;竖版）</li>
+<li>显示图片尺寸信息</li>
+</ul>
+</li>
+<li><p><strong>识别结果增强</strong>：</p>
+<ul>
+<li>显示每行文字的置信度</li>
+<li>记录每张图片处理耗时</li>
+<li>错误处理机制</li>
+</ul>
+</li>
+<li><p><strong>文档格式化</strong>：</p>
+<ul>
+<li>分级标题（图片名称+尺寸）</li>
+<li>清晰的结果分段</li>
+<li>保留原始换行结构</li>
+</ul>
+</li>
+</ol>
+<h3 id="自定义选项："><a href="#自定义选项：" class="headerlink" title="自定义选项："></a>自定义选项：</h3><ol>
+<li><p><strong>修改语言</strong>：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 修改lang参数</span></span><br><span class="line">ocr = PaddleOCR(lang=<span class="string">&#x27;en&#x27;</span>)  <span class="comment"># 英文识别</span></span><br><span class="line"><span class="comment"># 支持多语言组合：&#x27;ch&#x27;, &#x27;en&#x27;, &#x27;fr&#x27;, &#x27;german&#x27;, &#x27;korean&#x27;, &#x27;japan&#x27;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>启用GPU加速</strong>（需安装CUDA）：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ocr = PaddleOCR(use_gpu=<span class="literal">True</span>)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>调整输出格式</strong>：</p>
+<ul>
+<li>在<code>doc.add_run()</code>部分修改字体大小&#x2F;样式</li>
+<li>在<code>doc.add_heading()</code>调整标题层级</li>
+</ul>
+</li>
+</ol>
+<h3 id="注意事项："><a href="#注意事项：" class="headerlink" title="注意事项："></a>注意事项：</h3><ol>
+<li>首次运行会自动下载OCR模型（约100MB）</li>
+<li>处理大量图片时建议启用GPU加速</li>
+<li>手机截图建议保持原始分辨率以获得最佳识别效果</li>
+</ol>
+<p>此脚本已在Windows&#x2F;macOS&#x2F;Linux平台测试通过，适用于各种手机截图（聊天记录、网页截图、文档截图等）。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://digitblog.us.kg/2025/05/29/%E7%94%A8paddleOCR%E5%AE%9E%E7%8E%B0%E6%88%AA%E5%9B%BE%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB%E5%B9%B6%E5%86%99%E5%85%A5doc%E6%96%87%E4%BB%B6%E7%9A%84python%E8%84%9A%E6%9C%AC%E4%B8%80%E4%BE%8B/" data-id="cmb8qedjn0000hsv50wlc4z1y" data-title="用paddleOCR实现截图文字识别并写入doc文件的python脚本一例" class="article-share-link"><span class="fa fa-share">Share</span></a>
+      
+      
+      
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/" rel="tag">python</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+
+  
     <article id="post-python爬虫学习例之一" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
     <a href="/2025/04/27/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/" class="article-date">
@@ -1172,130 +1273,6 @@
 
 
   
-    <article id="post-linux主机之间传输文件方法" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
-  <div class="article-meta">
-    <a href="/2025/02/25/linux%E4%B8%BB%E6%9C%BA%E4%B9%8B%E9%97%B4%E4%BC%A0%E8%BE%93%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/" class="article-date">
-  <time class="dt-published" datetime="2025-02-25T03:38:31.000Z" itemprop="datePublished">2025-02-25</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="p-name article-title" href="/2025/02/25/linux%E4%B8%BB%E6%9C%BA%E4%B9%8B%E9%97%B4%E4%BC%A0%E8%BE%93%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/">linux主机之间传输文件方法</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="e-content article-entry" itemprop="articleBody">
-      
-        <p>在 Linux 系统之间传输文件有多种方法，具体选择取决于网络环境、安全性需求、文件大小和操作习惯等因素。以下是常见的 <strong>15+ 种方法</strong>及简要说明：</p>
-<hr>
-<h3 id="一、基于-SSH-协议的工具（加密传输）"><a href="#一、基于-SSH-协议的工具（加密传输）" class="headerlink" title="一、基于 SSH 协议的工具（加密传输）"></a><strong>一、基于 SSH 协议的工具（加密传输）</strong></h3><ol>
-<li><p><strong><code>scp</code> (Secure Copy)</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 上传文件到远程主机</span></span><br><span class="line">scp local_file user@remote_host:/path/to/destination</span><br><span class="line"></span><br><span class="line"><span class="comment"># 下载远程文件到本地</span></span><br><span class="line">scp user@remote_host:/remote/file /local/path</span><br><span class="line"></span><br><span class="line"><span class="comment"># 递归传输目录（-r）</span></span><br><span class="line">scp -r local_dir user@remote_host:/remote/path</span><br></pre></td></tr></table></figure>
-<p><strong>特点</strong>：简单直接，但无增量传输功能。</p>
-</li>
-<li><p><strong><code>rsync</code> (增量同步)</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 同步本地目录到远程（-a 归档模式，-v 显示进度，-z 压缩）</span></span><br><span class="line">rsync -avz /local/path user@remote_host:/remote/path</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从远程同步到本地</span></span><br><span class="line">rsync -avz user@remote_host:/remote/path /local/path</span><br></pre></td></tr></table></figure>
-<p><strong>特点</strong>：高效增量传输，适合大文件或频繁更新的场景。</p>
-</li>
-<li><p><strong><code>sftp</code> (SSH File Transfer Protocol)</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sftp user@remote_host</span><br><span class="line"><span class="comment"># 交互式命令：</span></span><br><span class="line">put local_file          <span class="comment"># 上传文件</span></span><br><span class="line">get remote_file        <span class="comment"># 下载文件</span></span><br><span class="line">lls                    <span class="comment"># 查看本地文件</span></span><br><span class="line"><span class="built_in">ls</span>                     <span class="comment"># 查看远程文件</span></span><br></pre></td></tr></table></figure>
-<p><strong>特点</strong>：交互式操作，适合手动管理文件。</p>
-</li>
-<li><p><strong><code>sshfs</code> (挂载远程目录)</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 将远程目录挂载到本地</span></span><br><span class="line">sshfs user@remote_host:/remote/path /local/mountpoint</span><br><span class="line"><span class="comment"># 卸载</span></span><br><span class="line">fusermount -u /local/mountpoint</span><br></pre></td></tr></table></figure>
-<p><strong>特点</strong>：像操作本地文件一样访问远程文件。</p>
-</li>
-</ol>
-<hr>
-<h3 id="二、基于网络协议的直接传输"><a href="#二、基于网络协议的直接传输" class="headerlink" title="二、基于网络协议的直接传输"></a><strong>二、基于网络协议的直接传输</strong></h3><ol start="5">
-<li><p><strong><code>nc</code> (netcat) + <code>tar</code></strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 接收端监听端口并解压</span></span><br><span class="line">nc -l -p 1234 | tar xzvf -</span><br><span class="line"></span><br><span class="line"><span class="comment"># 发送端打包并发送</span></span><br><span class="line">tar czvf - /local/path | nc remote_host 1234</span><br></pre></td></tr></table></figure>
-<p><strong>特点</strong>：无需 SSH，适合临时快速传输，但无加密。</p>
-</li>
-<li><p><strong>HTTP 服务器</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在发送端启动临时 HTTP 服务器（Python3）</span></span><br><span class="line">python3 -m http.server 8000</span><br><span class="line"></span><br><span class="line"><span class="comment"># 接收端使用 wget 或 curl 下载</span></span><br><span class="line">wget http://sender_ip:8000/file</span><br></pre></td></tr></table></figure>
-<p><strong>特点</strong>：快速共享文件，适合内网环境。</p>
-</li>
-<li><p><strong><code>curl</code> 或 <code>wget</code> 上传文件</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 curl 上传到 HTTP 服务器（需接收端有服务器支持）</span></span><br><span class="line">curl -F <span class="string">&quot;file=@local_file&quot;</span> http://remote_host/upload</span><br></pre></td></tr></table></figure>
-<p><strong>特点</strong>：依赖接收端的服务支持。</p>
-</li>
-<li><p><strong><code>ncftp</code> 或 <code>lftp</code> (FTP 客户端)</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">lftp -e <span class="string">&quot;put local_file; quit&quot;</span> ftp://user:password@remote_host</span><br></pre></td></tr></table></figure>
-<p><strong>特点</strong>：需配置 FTP 服务，明文传输，不建议敏感数据。</p>
-</li>
-</ol>
-<hr>
-<h3 id="三、共享文件系统"><a href="#三、共享文件系统" class="headerlink" title="三、共享文件系统"></a><strong>三、共享文件系统</strong></h3><ol start="9">
-<li><p><strong>NFS (Network File System)</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 配置 NFS 服务器后，客户端挂载</span></span><br><span class="line">mount -t nfs remote_host:/shared/path /local/mountpoint</span><br></pre></td></tr></table></figure>
-<p><strong>特点</strong>：适合长期共享，需配置权限。</p>
-</li>
-<li><p><strong>Samba&#x2F;CIFS</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 挂载 Windows/Linux 共享目录</span></span><br><span class="line">mount -t cifs //remote_host/share /local/mountpoint -o user=username</span><br></pre></td></tr></table></figure>
-<p><strong>特点</strong>：跨平台兼容，适合混合环境。</p>
-</li>
-</ol>
-<hr>
-<h3 id="四、其他工具与技巧"><a href="#四、其他工具与技巧" class="headerlink" title="四、其他工具与技巧"></a><strong>四、其他工具与技巧</strong></h3><ol start="11">
-<li><p><strong><code>tar</code> 管道 + SSH</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 压缩传输目录到远程并解压</span></span><br><span class="line">tar czf - /local/dir | ssh user@remote_host <span class="string">&quot;tar xzf - -C /remote/path&quot;</span></span><br></pre></td></tr></table></figure>
-<p><strong>特点</strong>：灵活处理大目录，无需临时存储。</p>
-</li>
-<li><p><strong><code>bbcp</code> (高性能文件拷贝)</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">bbcp -v -s 10 local_file user@remote_host:/remote/path</span><br></pre></td></tr></table></figure>
-<p><strong>特点</strong>：高速传输大文件，需单独安装。</p>
-</li>
-<li><p><strong>云存储中转（如 AWS S3、MinIO）</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 上传到云存储</span></span><br><span class="line">aws s3 <span class="built_in">cp</span> local_file s3://bucket/path</span><br><span class="line"><span class="comment"># 从云存储下载</span></span><br><span class="line">aws s3 <span class="built_in">cp</span> s3://bucket/path/remote_file .</span><br></pre></td></tr></table></figure>
-<p><strong>特点</strong>：依赖第三方服务，适合跨地域传输。</p>
-</li>
-<li><p><strong>邮件附件</strong>  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 使用 mutt 发送文件</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;Body&quot;</span> | mutt -a file_to_send -s <span class="string">&quot;Subject&quot;</span> recipient@example.com</span><br></pre></td></tr></table></figure>
-<p><strong>特点</strong>：适合小文件，依赖邮件服务。</p>
-</li>
-</ol>
-<hr>
-<h3 id="五、图形化工具"><a href="#五、图形化工具" class="headerlink" title="五、图形化工具"></a><strong>五、图形化工具</strong></h3><ol start="15">
-<li><p><strong>FileZilla (SFTP 客户端)</strong><br><strong>特点</strong>：可视化操作，支持拖拽上传。</p>
-</li>
-<li><p><strong>Syncthing (P2P 同步)</strong><br><strong>特点</strong>：去中心化，自动同步多台设备。</p>
-</li>
-</ol>
-<hr>
-<h3 id="选择建议"><a href="#选择建议" class="headerlink" title="选择建议"></a><strong>选择建议</strong></h3><ul>
-<li><strong>安全性优先</strong>：使用 <code>scp</code>&#x2F;<code>rsync</code>&#x2F;<code>sftp</code>（基于 SSH）。</li>
-<li><strong>大文件或增量同步</strong>：优先选择 <code>rsync</code>。</li>
-<li><strong>临时快速共享</strong>：HTTP 服务器或 <code>nc</code>。</li>
-<li><strong>长期共享</strong>：NFS&#x2F;Samba。</li>
-<li><strong>跨平台传输</strong>：Samba 或云存储。</li>
-</ul>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://digitblog.us.kg/2025/02/25/linux%E4%B8%BB%E6%9C%BA%E4%B9%8B%E9%97%B4%E4%BC%A0%E8%BE%93%E6%96%87%E4%BB%B6%E6%96%B9%E6%B3%95/" data-id="cm9z1x7qg000kl4v5ep6p6mff" data-title="linux主机之间传输文件方法" class="article-share-link"><span class="fa fa-share">Share</span></a>
-      
-      
-      
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/" rel="tag">linux</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-
-  
 
 
   <nav id="page-nav">
@@ -1314,7 +1291,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/" rel="tag">python爬虫学习例之一</a></li></ul>
+      <ul class="tag-list" itemprop="keywords"><li class="tag-list-item"><a class="tag-list-link" href="/tags/github/" rel="tag">github</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/" rel="tag">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python/" rel="tag">python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/" rel="tag">python爬虫学习例之一</a></li></ul>
     </div>
   </div>
 
@@ -1324,7 +1301,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/" style="font-size: 10px;">python爬虫学习例之一</a>
+      <a href="/tags/github/" style="font-size: 10px;">github</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/python/" style="font-size: 10px;">python</a> <a href="/tags/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/" style="font-size: 10px;">python爬虫学习例之一</a>
     </div>
   </div>
 
@@ -1333,7 +1310,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">April 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">May 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">April 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">March 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">February 2025</a></li></ul>
     </div>
   </div>
 
@@ -1344,6 +1321,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2025/05/29/%E7%94%A8paddleOCR%E5%AE%9E%E7%8E%B0%E6%88%AA%E5%9B%BE%E6%96%87%E5%AD%97%E8%AF%86%E5%88%AB%E5%B9%B6%E5%86%99%E5%85%A5doc%E6%96%87%E4%BB%B6%E7%9A%84python%E8%84%9A%E6%9C%AC%E4%B8%80%E4%BE%8B/">用paddleOCR实现截图文字识别并写入doc文件的python脚本一例</a>
+          </li>
         
           <li>
             <a href="/2025/04/27/python%E7%88%AC%E8%99%AB%E5%AD%A6%E4%B9%A0%E4%BE%8B%E4%B9%8B%E4%B8%80/">python爬虫学习例之一</a>
@@ -1359,10 +1340,6 @@
         
           <li>
             <a href="/2025/03/20/linux%E5%88%86%E5%8C%BA%E4%B8%8Elvm%E6%93%8D%E4%BD%9C/">linux分区与lvm操作</a>
-          </li>
-        
-          <li>
-            <a href="/2025/03/05/linux%E4%B8%AD%E9%98%B2%E7%81%AB%E5%A2%99%E7%9A%84%E7%9B%B8%E5%85%B3%E6%8C%87%E4%BB%A4/">linux中防火墙的相关指令</a>
           </li>
         
       </ul>
